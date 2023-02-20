@@ -19,6 +19,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
 
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -26,6 +27,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.192"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/cooking" />
+        app:lottie_rawRes="@raw/foodcarousel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
