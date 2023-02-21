@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="backround_blue">#1A2025</color>
+    <color name="button_color">#29333A</color>
+    <color name="dark_red">#D5FF2828</color>
+    <color name="red">#EBDA4A4A</color>
+    <color name="red_700">#DA4A4A</color>
+    <color name="pink_red">#F2F17676</color>
+    <color name="wine_red">#FE7575</color>
+    <color name="bronze">#B2560D</color>
+    <color name="squash">#C95B0C</color>
+    <color name="sandstone">#D67229</color>
+    <color name="apricot">#ED820E</color>
+    <color name="cantaloupe">#FDA172</color>
+    <color name="bisque">#ffe4C4</color>
+    <color name="beer_braun">#EE8530</color>
+    <color name="shot_yellow">#FEC471</color>
+    <color name="yellow_orange">#F4B517</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="sandstone_gray">#B29082</color>
+    <color name="gray">#7E7E7E</color>
+    <color name="darkGray">#AAAAAA</color>
+    <color name="argentGray">#C1C1C1</color>
+    <color name="green_1">#76FF03</color>
+    <color name="green_2">#58AE10</color>
+    <color name="juniper">#3A5311</color>
+    <color name="olive">#98BF64</color>
+    <color name="moss">#466D1D</color>
+    <color name="pine">#234F1E</color>
+    <color name="crocodile">#607D3B</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
+    <color name="light_blue">#70BEFE</color>
+    <color name="teal_200_transparent">#0003DAC5</color>
+    <color name="teal_200">#03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="weight"></color>
 </resources>
