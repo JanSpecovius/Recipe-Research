@@ -23,7 +23,7 @@
 
 
     <Switch
-        android:id="@+id/glutenFreeRadio"
+        android:id="@+id/glutenFreeSwitch"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="Gluten Frei"
@@ -34,23 +34,23 @@
 
         />
     <Switch
-        android:id="@+id/vegetarianRadio"
+        android:id="@+id/vegetarianSwitch"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="Vegetarisch"
         android:checked="false"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/glutenFreeRadio" />
+        app:layout_constraintTop_toBottomOf="@id/glutenFreeSwitch" />
     <Switch
-        android:id="@+id/veganRadio"
+        android:id="@+id/veganSwitch"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="Vegan"
         android:checked="false"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vegetarianRadio" />
+        app:layout_constraintTop_toBottomOf="@+id/vegetarianSwitch" />
 
     <Button
         android:id="@+id/settingsButton"
@@ -62,9 +62,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/searchButton"
         android:layout_width="110dp"
         android:layout_height="80dp"
-        android:id="@+id/searchButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

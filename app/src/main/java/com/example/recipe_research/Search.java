@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Switch;
-import android.widget.Toast;
 
 public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener{
     String _recipeCategory;
@@ -17,9 +16,9 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
     Button _menuButton;
     Button _settingsButton;
     Button _databaseButton;
-    Switch _glutenFreeRadio;
-    Switch _vegetarianRadio;
-    Switch _veganRadio;
+    Switch _glutenFreeSwitch;
+    Switch _vegetarianSwitch;
+    Switch _veganSwitch;
     Boolean _glutenFree;
     Boolean _vegetarian;
     Boolean _vegan;
@@ -34,16 +33,16 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
         _settingsButton = findViewById(R.id.settingsButton);
         _databaseButton = findViewById(R.id.databaseButton);
 
-        _glutenFreeRadio = findViewById(R.id.glutenFreeRadio);
-        _vegetarianRadio = findViewById(R.id.vegetarianRadio);
-        _veganRadio = findViewById(R.id.veganRadio);
+        _glutenFreeSwitch = findViewById(R.id.glutenFreeSwitch);
+        _vegetarianSwitch = findViewById(R.id.vegetarianSwitch);
+        _veganSwitch = findViewById(R.id.veganSwitch);
 
 
         _searchButton.setOnClickListener(this);
 
-        _glutenFreeRadio.setOnClickListener(this);
-        _vegetarianRadio.setOnClickListener(this);
-        _veganRadio.setOnClickListener(this);
+        _glutenFreeSwitch.setOnClickListener(this);
+        _vegetarianSwitch.setOnClickListener(this);
+        _veganSwitch.setOnClickListener(this);
         _settingsButton.setOnClickListener(this);
         _databaseButton.setOnClickListener(this);
 
@@ -125,12 +124,12 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
     public void onClick(View v) {
         if (v==_searchButton){
             getApiData(_recipeCategory, _glutenFree, _vegetarian, _vegan);
-        }else if (v==_glutenFreeRadio){
-            _glutenFree = _glutenFreeRadio.isChecked();
-        }else if (v==_vegetarianRadio){
-            _vegetarian = _vegetarianRadio.isChecked();
-        }else if (v==_veganRadio){
-            _vegan = _veganRadio.isChecked();
+        }else if (v== _glutenFreeSwitch){
+            _glutenFree = _glutenFreeSwitch.isChecked();
+        }else if (v== _vegetarianSwitch){
+            _vegetarian = _vegetarianSwitch.isChecked();
+        }else if (v== _veganSwitch){
+            _vegan = _veganSwitch.isChecked();
         } else if (v==_settingsButton) {
             Intent i = new Intent(Search.this, SettingsActivity.class);
             startActivity(i);
