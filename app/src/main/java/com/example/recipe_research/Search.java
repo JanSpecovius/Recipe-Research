@@ -3,12 +3,14 @@ package com.example.recipe_research;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener{
     String _recipeCategory;
@@ -16,12 +18,16 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
     Button _menuButton;
     Button _settingsButton;
     Button _databaseButton;
-    Switch _glutenFreeSwitch;
-    Switch _vegetarianSwitch;
-    Switch _veganSwitch;
+    Button _glutenFreeSwitch;
+    Button _vegetarianSwitch;
+    Button _veganSwitch;
     Boolean _glutenFree;
     Boolean _vegetarian;
     Boolean _vegan;
+
+    Boolean flag1;
+    Boolean flag2;
+    Boolean flag3;
 
 
     @Override
@@ -32,6 +38,9 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
         _menuButton = findViewById(R.id.menuButton);
         _settingsButton = findViewById(R.id.settingsButton);
         _databaseButton = findViewById(R.id.databaseButton);
+        flag1= true;
+        flag2= true;
+        flag3= true;
 
         _glutenFreeSwitch = findViewById(R.id.glutenFreeSwitch);
         _vegetarianSwitch = findViewById(R.id.vegetarianSwitch);
@@ -125,11 +134,39 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
         if (v==_searchButton){
             getApiData(_recipeCategory, _glutenFree, _vegetarian, _vegan);
         }else if (v== _glutenFreeSwitch){
-            _glutenFree = _glutenFreeSwitch.isChecked();
+            _glutenFree = _glutenFreeSwitch.isPressed();
+            if(flag1 == true){
+                _glutenFreeSwitch.setBackgroundColor(Color.BLACK);
+                _glutenFree = true;
+                flag1=false;
+            }else{
+                _glutenFreeSwitch.setBackgroundColor(Color.BLUE);
+                _glutenFree = false;
+                flag1 = true;
+            }
+
         }else if (v== _vegetarianSwitch){
-            _vegetarian = _vegetarianSwitch.isChecked();
+            _vegetarian = _vegetarianSwitch.isPressed();
+            if(flag2 == true){
+                _vegetarianSwitch.setBackgroundColor(Color.BLACK);
+                _vegetarian = true;
+                flag2=false;
+            }else{
+                _vegetarianSwitch.setBackgroundColor(Color.BLUE);
+                _vegetarian = false;
+                flag2 = true;
+            }
         }else if (v== _veganSwitch){
-            _vegan = _veganSwitch.isChecked();
+            _vegan = _veganSwitch.isPressed();
+            if(flag3 == true){
+                _veganSwitch.setBackgroundColor(Color.BLACK);
+                _vegan = true;
+                flag3=false;
+            }else{
+                _veganSwitch.setBackgroundColor(Color.BLUE);
+                _vegan = false;
+                flag3 = true;
+            }
         } else if (v==_settingsButton) {
             Intent i = new Intent(Search.this, SettingsActivity.class);
             startActivity(i);
