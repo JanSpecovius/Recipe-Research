@@ -13,4 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-Secrets.java
+app/src/main/java/com/example/recipe_research/Secrets.java
