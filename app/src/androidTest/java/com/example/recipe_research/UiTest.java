@@ -35,13 +35,9 @@ public class UiTest {
         onView(withId(R.id.startButton)).check(matches(isClickable()));
         onView(withId(R.id.startButton)).check(matches(withText("Start")));
         onView(withId(R.id.startButton)).perform(click());
-        onView(withId(R.id.veganRadio)).check(matches(isCompletelyDisplayed()));
-    }
-
-    @Test
-    public void CradioButtons(){
-        //onView(withId(R.id.veganRadio)).perform(click()).check(matches(isClickable())).check(matches(withText("Vegan"))).check(matches(isCompletelyDisplayed()));
-        onView(withId(R.id.glutenFreeRadio)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.veganSwitch)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.glutenFreeSwitch)).check(matches(isCompletelyDisplayed()));
+        onView(withId(R.id.veganSwitch)).perform(click()).check(matches(isClickable())).check(matches(withText("Vegan"))).check(matches(isCompletelyDisplayed()));
     }
 
 }
