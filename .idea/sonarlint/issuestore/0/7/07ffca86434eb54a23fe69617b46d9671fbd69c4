@@ -1,0 +1,14 @@
+
+o	java:S116"ZRename this field "_recipeCategory" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¨ù
+r	java:S116"XRename this field "_searchButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–÷êàûÿÿÿÿ
+p	java:S116"VRename this field "_menuButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËêÊŠıÿÿÿÿ
+o	java:S116"ZRename this field "_settingsButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã‰‘ì
+o	java:S116"ZRename this field "_databaseButton" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ªÒƒ
+q	java:S116"\Rename this field "_glutenFreeSwitch" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ˆ½õ
+q	java:S116"\Rename this field "_vegetarianSwitch" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸÍã×
+q	java:S116"WRename this field "_veganSwitch" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øîÌùÿÿÿÿ
+p	java:S116"VRename this field "_glutenFree" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–²ªïıÿÿÿÿ
+k	java:S116"VRename this field "_vegetarian" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õó¹å
+f	java:S116"QRename this field "_vegan" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Šû‘”
+N
+java:S1135"2Complete the task associated to this TODO comment.(ÿ¬İ¨üÿÿÿÿ
