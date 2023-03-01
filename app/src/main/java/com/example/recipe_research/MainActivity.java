@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -58,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
     RandomRecipeResponseListener listener;
     SearchView searchView;
 
+    Boolean _glutenFree;
+    Boolean _vegetarian;
+    Boolean _vegan;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +101,24 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
 
         manager = new RequestManager(this);
+    }
+
+    public void showFilter(View v) {
+        PopupMenu popup = new PopupMenu(this, v, Gravity.RIGHT  );
+
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.fliter_menu);
+
+
+
+        if (_vegan){
+            popup.getMenu().findItem(R.id.veganItem).setChecked(true);
+        }if(_vegetarian){
+            popup.getMenu().findItem(R.id.vegetarianItem).setChecked(true);
+        }if(_glutenFree){
+            popup.getMenu().findItem(R.id.glutenFreeItem).setChecked(true);
+        }
+        popup.show();
     }
 
 
@@ -155,5 +179,46 @@ public class MainActivity extends AppCompatActivity {
                     .putExtra("id", id));
         }
     };
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+
+            case R.id.veganItem:
+                if(menuItem.isChecked()){
+                    menuItem.setChecked(false);
+                    _vegan = false;
+                }
+                else {
+                    menuItem.setChecked(true);
+                    _vegan = true;
+                }
+                return true;
+            case R.id.vegetarianItem:
+                if(menuItem.isChecked()){
+                    menuItem.setChecked(false);
+                    _vegetarian = false;
+                }
+                else {
+                    menuItem.setChecked(true);
+                    _vegetarian = true;
+                }
+                return true;
+            case R.id.glutenFreeItem:
+                if(menuItem.isChecked()){
+                    menuItem.setChecked(false);
+                    _glutenFree = false;
+                }
+                else {
+                    menuItem.setChecked(true);
+                    _glutenFree = true;
+
+
+                }
+                return true;
+            default:
+                return false;
+        }
+    }
 }
 
