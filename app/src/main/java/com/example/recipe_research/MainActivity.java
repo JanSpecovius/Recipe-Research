@@ -51,7 +51,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     LoadingDialog loadingDialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
@@ -70,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        _glutenFree = false;
+        _vegetarian = false;
+        _vegan = false;
 
         loadingDialog = new LoadingDialog(MainActivity.this);
 
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         PopupMenu popup = new PopupMenu(this, v, Gravity.RIGHT  );
 
         popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.fliter_menu);
+        popup.inflate(R.menu.filter_menu);
 
 
 
