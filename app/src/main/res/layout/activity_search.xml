@@ -9,77 +9,58 @@
 
     <Button
         android:id="@+id/menuButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@color/sandstone_gray"
-
         android:onClick="showPopup"
+
         android:text="Choose"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/filterButton"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/sandstone_gray"
+        android:onClick="showFilter"
+
+
+        android:text="Filter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vegetarianSwitch" />
-
-    <Button
-        android:id="@+id/glutenFreeSwitch"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:text="Gluten Frei"
-        android:checked="false"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
-
-    <Button
-        android:id="@+id/vegetarianSwitch"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:checked="false"
-        android:text="Vegetarisch"
-
-        app:layout_constraintStart_toEndOf="@+id/glutenFreeSwitch"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/veganSwitch"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:checked="false"
-        android:text="Vegan"
-
-        app:layout_constraintStart_toEndOf="@+id/vegetarianSwitch"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:background="@color/sandstone_gray"
         android:text="Settings"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/searchButton"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="110dp"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Search"
-        />
+
 
     <Button
         android:id="@+id/databaseButton"
-        android:layout_width="130dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:background="@color/sandstone_gray"
         android:text="Datenbank"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/searchButton" />
+        app:layout_constraintStart_toEndOf="@id/guideline2" />
 
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

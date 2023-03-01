@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="all">
+
+        <item
+            android:id="@+id/glutenFreeItem"
+            android:title="Gluten Frei"
+            />
+        <item
+            android:id="@+id/vegetarianItem"
+            android:title="Vegetarisch"
+            />
+        <item
+            android:id="@+id/veganItem"
+            android:title="Vegan"
+            />
+
+    </group>
+
+
+
+</menu>

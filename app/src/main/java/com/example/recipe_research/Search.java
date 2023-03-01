@@ -1,12 +1,24 @@
 package com.example.recipe_research;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.icu.text.ListFormatter;
+import android.icu.text.Transliterator;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Switch;
@@ -14,54 +26,51 @@ import android.widget.Toast;
 
 public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener{
     String _recipeCategory;
-    Button _searchButton;
     Button _menuButton;
     Button _settingsButton;
     Button _databaseButton;
-    Button _glutenFreeSwitch;
-    Button _vegetarianSwitch;
-    Button _veganSwitch;
     Boolean _glutenFree;
     Boolean _vegetarian;
     Boolean _vegan;
 
-    Boolean flag1;
-    Boolean flag2;
-    Boolean flag3;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        _searchButton = findViewById(R.id.searchButton);
         _menuButton = findViewById(R.id.menuButton);
         _settingsButton = findViewById(R.id.settingsButton);
         _databaseButton = findViewById(R.id.databaseButton);
-        flag1= true;
-        flag2= true;
-        flag3= true;
+        _vegan = false;
+        _vegetarian = false;
+        _glutenFree = false;
 
-        _glutenFreeSwitch = findViewById(R.id.glutenFreeSwitch);
-        _vegetarianSwitch = findViewById(R.id.vegetarianSwitch);
-        _veganSwitch = findViewById(R.id.veganSwitch);
-
-
-        _searchButton.setOnClickListener(this);
-
-        _glutenFreeSwitch.setOnClickListener(this);
-        _vegetarianSwitch.setOnClickListener(this);
-        _veganSwitch.setOnClickListener(this);
         _settingsButton.setOnClickListener(this);
         _databaseButton.setOnClickListener(this);
-
-
-
     }
     public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
+        PopupMenu popup = new PopupMenu(this, v, Gravity.LEFT);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.popup_menu);
+        popup.show();
+    }
+    public void showFilter(View v) {
+        PopupMenu popup = new PopupMenu(this, v, Gravity.RIGHT  );
+
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.fliter_menu);
+
+
+
+        if (_vegan){
+            popup.getMenu().findItem(R.id.veganItem).setChecked(true);
+        }if(_vegetarian){
+            popup.getMenu().findItem(R.id.vegetarianItem).setChecked(true);
+        }if(_glutenFree){
+            popup.getMenu().findItem(R.id.glutenFreeItem).setChecked(true);
+        }
         popup.show();
     }
 
@@ -124,6 +133,38 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
                 _recipeCategory = "Drink";
                 _menuButton.setText("Drink");
                 return true;
+            case R.id.veganItem:
+                if(menuItem.isChecked()){
+                    menuItem.setChecked(false);
+                    _vegan = false;
+                }
+                else {
+                    menuItem.setChecked(true);
+                    _vegan = true;
+                }
+                return true;
+            case R.id.vegetarianItem:
+                if(menuItem.isChecked()){
+                    menuItem.setChecked(false);
+                    _vegetarian = false;
+                }
+                else {
+                    menuItem.setChecked(true);
+                    _vegetarian = true;
+                }
+                return true;
+            case R.id.glutenFreeItem:
+                if(menuItem.isChecked()){
+                    menuItem.setChecked(false);
+                    _glutenFree = false;
+                }
+                else {
+                    menuItem.setChecked(true);
+                    _glutenFree = true;
+
+
+                }
+                return true;
             default:
                 return false;
         }
@@ -131,43 +172,7 @@ public class Search extends AppCompatActivity implements PopupMenu.OnMenuItemCli
 
     @Override
     public void onClick(View v) {
-        if (v==_searchButton){
-            getApiData(_recipeCategory, _glutenFree, _vegetarian, _vegan);
-        }else if (v== _glutenFreeSwitch){
-            _glutenFree = _glutenFreeSwitch.isPressed();
-            if(flag1 == true){
-                _glutenFreeSwitch.setBackgroundColor(Color.BLACK);
-                _glutenFree = true;
-                flag1=false;
-            }else{
-                _glutenFreeSwitch.setBackgroundColor(Color.BLUE);
-                _glutenFree = false;
-                flag1 = true;
-            }
-
-        }else if (v== _vegetarianSwitch){
-            _vegetarian = _vegetarianSwitch.isPressed();
-            if(flag2 == true){
-                _vegetarianSwitch.setBackgroundColor(Color.BLACK);
-                _vegetarian = true;
-                flag2=false;
-            }else{
-                _vegetarianSwitch.setBackgroundColor(Color.BLUE);
-                _vegetarian = false;
-                flag2 = true;
-            }
-        }else if (v== _veganSwitch){
-            _vegan = _veganSwitch.isPressed();
-            if(flag3 == true){
-                _veganSwitch.setBackgroundColor(Color.BLACK);
-                _vegan = true;
-                flag3=false;
-            }else{
-                _veganSwitch.setBackgroundColor(Color.BLUE);
-                _vegan = false;
-                flag3 = true;
-            }
-        } else if (v==_settingsButton) {
+       if (v==_settingsButton) {
             Intent i = new Intent(Search.this, SettingsActivity.class);
             startActivity(i);
         } else if (v==_databaseButton) {
