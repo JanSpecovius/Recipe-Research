@@ -3,6 +3,7 @@ package com.example.recipe_research;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import org.json.JSONArray;
@@ -33,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_research.Adapters.RandomRecipeAdapter;
 import com.example.recipe_research.Listeners.RandomRecipeResponseListener;
+import com.example.recipe_research.Listeners.RecipeClickListener;
 import com.example.recipe_research.Models.RandomRecipeApiResponse;
 
 import java.io.BufferedReader;
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 tags.add(query);
                 manager.getRandomRecipes(randomRecipeResponseListener, tags);
                 loadingDialog.showLoading();
-                dismissDialogDelayed(3000, loadingDialog);
+                /*dismissDialogDelayed(3000, loadingDialog);*/
                 return false;
             }
 
@@ -93,9 +95,6 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
 
         manager = new RequestManager(this);
-        // manager.getRandomRecipes(randomRecipeResponseListener);
-        // loadingDialog.showLoading();
-        dismissDialogDelayed(3000, loadingDialog);
     }
 
 
@@ -118,10 +117,11 @@ public class MainActivity extends AppCompatActivity {
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
+            loadingDialog.disMiss();
             recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes);
+            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
         }
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             tags.add(adapterView.getSelectedItem().toString());
             manager.getRandomRecipes(randomRecipeResponseListener, tags);
             loadingDialog.showLoading();
-            dismissDialogDelayed(3000, loadingDialog);
+            /*dismissDialogDelayed(3000, loadingDialog);*/
         }
 
         @Override
@@ -147,5 +147,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
+        @Override
+        public void onRecipeClicked(String id) {
+            startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
+                    .putExtra("id", id));
+        }
+    };
 }
 
