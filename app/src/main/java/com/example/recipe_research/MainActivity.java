@@ -245,32 +245,46 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         tags.clear();
 
+        String temp="";
 
         if(_vegetarian){
-            tags.add("vegetarian");
+
+            temp = "vegetarian";
+
         }
         if(_vegan){
-            tags.add("vegan");
+
+            if(temp.equals("")){
+                temp = "vegan";
+            }else {
+                temp = temp +",vegan";
+            }
+
         }
         if(_glutenFree){
-            tags.add("gluten free");
+
+            if(temp.equals("")){
+                temp = "gluten free";
+            }else {
+                temp = temp +",gluten free";
+            }
+
         }
         if(!tagString.equals("")){
-            tags.add(tagString);
+            if(temp.equals("")){
+                temp = tagString;
+            }else {
+                temp = temp +","+tagString;
+            }
         }
         if(!_query.equals("")){
-            tags.add(_query);
+            if(temp.equals("")){
+                temp = _query;
+            }else {
+                temp = temp +","+_query;
+            }
         }
-        int i=0;
-
-        while(tags.size()>i){
-
-            Toast.makeText(MainActivity.this, tags.get(i).toString(),Toast.LENGTH_SHORT).show();
-        i++;
-        }
-
-
-
+        tags.add(temp);
 
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
         loadingDialog.showLoading();

@@ -1,6 +1,7 @@
 package com.example.recipe_research;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.example.recipe_research.Listeners.RandomRecipeResponseListener;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
@@ -10,6 +11,8 @@ import com.example.recipe_research.Models.RecipeDetailsResponse;
 import java.util.List;
 import java.util.Random;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,17 +25,36 @@ import retrofit2.http.Query;
 
 public class RequestManager {
     Context context;
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.spoonacular.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
+
+    Retrofit retrofit;
 
     public RequestManager(Context context) {
         this.context = context;
+
+
+        //Logging Interceprtor
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+
+        //written in constructor because of logging Interceptor
+         this.retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.spoonacular.com/")
+                .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient)
+                .build();
+
+
     }
 
     public void getRandomRecipes(RandomRecipeResponseListener listener, List<String> tags) {
+
+
+
+
+
+
+
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
         Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_Key), "10", tags);
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
