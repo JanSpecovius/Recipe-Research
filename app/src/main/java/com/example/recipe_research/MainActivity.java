@@ -1,5 +1,6 @@
 package com.example.recipe_research;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,6 +13,10 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,7 +28,7 @@ import com.example.recipe_research.Models.RandomRecipeApiResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
     LoadingDialog loadingDialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
@@ -39,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     String tagString;
     String _query;
 
-
+    Button _settingsButton;
+    Button _databaseButton;
 
 
     @Override
@@ -52,9 +58,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _vegan = false;
         _query = "";
 
+        _settingsButton = findViewById(R.id.settings);
+        _databaseButton = findViewById(R.id.database);
 
-
-
+        _settingsButton.setOnClickListener(this);
+        _databaseButton.setOnClickListener(this);
+        
 
         loadingDialog = new LoadingDialog(MainActivity.this);
 
@@ -270,5 +279,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v==_settingsButton) {
+            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
+        } else if (v==_databaseButton) {
+            Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
+            startActivity(i);
+        }
+    }
 }
 
