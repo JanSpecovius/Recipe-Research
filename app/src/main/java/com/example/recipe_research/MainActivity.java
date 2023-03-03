@@ -51,7 +51,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
     LoadingDialog loadingDialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     String tagString;
     String _query;
 
+    Button _settingsButton;
+    Button _databaseButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _vegetarian = false;
         _vegan = false;
         _query = "";
+
+        
+        _databaseButton.findViewById(R.id.database);
+        _settingsButton.findViewById(R.id.settings);
+/*
+        _databaseButton.setOnClickListener(this);
+        _settingsButton.setOnClickListener(this);
+*/
 
         loadingDialog = new LoadingDialog(MainActivity.this);
 
@@ -289,6 +300,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
         loadingDialog.showLoading();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v==_settingsButton) {
+            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
+        } else if (v==_databaseButton) {
+            Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
+            startActivity(i);
+        }
     }
 }
 
