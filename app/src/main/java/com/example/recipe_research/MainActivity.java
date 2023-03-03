@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     String tagString;
     String _query;
 
-   Button _settingsButton;
+
 
 
     @Override
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _vegan = false;
         _query = "";
 
-        _settingsButton.findViewById(R.id.settings);
+
 
 
 
