@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     Boolean _glutenFree;
     Boolean _vegetarian;
     Boolean _vegan;
+    String tagString;
+    String _query;
 
 
     @Override
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _glutenFree = false;
         _vegetarian = false;
         _vegan = false;
+        _query = "";
 
         loadingDialog = new LoadingDialog(MainActivity.this);
 
@@ -81,11 +84,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                tags.clear();
-                tags.add(query);
-                manager.getRandomRecipes(randomRecipeResponseListener, tags);
-                loadingDialog.showLoading();
-                /*dismissDialogDelayed(3000, loadingDialog);*/
+                _query = query;
+                runRequest();
+
+
                 return false;
             }
 
@@ -164,10 +166,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            tags.clear();
+
+
+            tagString = adapterView.getSelectedItem().toString();
+            runRequest();
+
+            /*
             tags.add(adapterView.getSelectedItem().toString());
             manager.getRandomRecipes(randomRecipeResponseListener, tags);
             loadingDialog.showLoading();
+            */
+
             /*dismissDialogDelayed(3000, loadingDialog);*/
         }
 
@@ -194,37 +203,78 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 if(menuItem.isChecked()){
                     menuItem.setChecked(false);
                     _vegan = false;
+                    runRequest();
                 }
                 else {
                     menuItem.setChecked(true);
                     _vegan = true;
+                    runRequest();
                 }
                 return true;
             case R.id.vegetarianItem:
                 if(menuItem.isChecked()){
                     menuItem.setChecked(false);
                     _vegetarian = false;
+                    runRequest();
+
                 }
                 else {
                     menuItem.setChecked(true);
                     _vegetarian = true;
+                    runRequest();
                 }
                 return true;
             case R.id.glutenFreeItem:
                 if(menuItem.isChecked()){
                     menuItem.setChecked(false);
                     _glutenFree = false;
+                    runRequest();
                 }
                 else {
                     menuItem.setChecked(true);
                     _glutenFree = true;
-
-
+                    runRequest();
                 }
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void runRequest(){
+
+        tags.clear();
+
+
+        if(_vegetarian){
+            tags.add("vegetarian");
+        }
+        if(_vegan){
+            tags.add("vegan");
+        }
+        if(_glutenFree){
+            tags.add("gluten free");
+        }
+        if(!tagString.equals("")){
+            tags.add(tagString);
+        }
+        if(!_query.equals("")){
+            tags.add(_query);
+        }
+        int i=0;
+
+        while(tags.size()>i){
+
+            Toast.makeText(MainActivity.this, tags.get(i).toString(),Toast.LENGTH_SHORT).show();
+        i++;
+        }
+
+
+
+
+        manager.getRandomRecipes(randomRecipeResponseListener, tags);
+        loadingDialog.showLoading();
+
     }
 }
 
