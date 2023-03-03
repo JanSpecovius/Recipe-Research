@@ -1,57 +1,29 @@
 package com.example.recipe_research;
-
-
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.recipe_research.Adapters.RandomRecipeAdapter;
 import com.example.recipe_research.Listeners.RandomRecipeResponseListener;
 import com.example.recipe_research.Listeners.RecipeClickListener;
 import com.example.recipe_research.Models.RandomRecipeApiResponse;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     LoadingDialog loadingDialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
@@ -67,8 +39,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     String tagString;
     String _query;
 
-    Button _settingsButton;
-    Button _databaseButton;
+   Button _settingsButton;
 
 
     @Override
@@ -81,13 +52,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _vegan = false;
         _query = "";
 
-        
-        _databaseButton.findViewById(R.id.database);
         _settingsButton.findViewById(R.id.settings);
-/*
-        _databaseButton.setOnClickListener(this);
-        _settingsButton.setOnClickListener(this);
-*/
+
+
 
         loadingDialog = new LoadingDialog(MainActivity.this);
 
@@ -302,15 +269,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v==_settingsButton) {
-            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(i);
-        } else if (v==_databaseButton) {
-            Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
-            startActivity(i);
-        }
-    }
+
 }
 
