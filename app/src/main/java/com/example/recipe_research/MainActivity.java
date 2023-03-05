@@ -1,6 +1,5 @@
 package com.example.recipe_research;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,9 +13,6 @@ import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -41,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     Boolean _glutenFree;
     Boolean _vegetarian;
     Boolean _vegan;
+    Boolean _lactoseFree;
     String tagString;
     String _query;
 
@@ -56,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _glutenFree = false;
         _vegetarian = false;
         _vegan = false;
+        _lactoseFree = false;
         _query = "";
 
         _settingsButton = findViewById(R.id.settings);
@@ -108,10 +106,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         if (_vegan){
             popup.getMenu().findItem(R.id.veganItem).setChecked(true);
+
         }if(_vegetarian){
             popup.getMenu().findItem(R.id.vegetarianItem).setChecked(true);
+
         }if(_glutenFree){
             popup.getMenu().findItem(R.id.glutenFreeItem).setChecked(true);
+        }if(_lactoseFree){
+            popup.getMenu().findItem(R.id.lactoseFreeItem).setChecked(true);
         }
         popup.show();
     }
@@ -187,39 +189,53 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (menuItem.getItemId()) {
 
             case R.id.veganItem:
-                if(menuItem.isChecked()){
-                    menuItem.setChecked(false);
+                if(_vegan){
+                    //menuItem.setChecked(false);
                     _vegan = false;
                     runRequest();
                 }
                 else {
-                    menuItem.setChecked(true);
+                    //menuItem.setChecked(true);
                     _vegan = true;
+                    _vegetarian = false;
                     runRequest();
                 }
                 return true;
             case R.id.vegetarianItem:
-                if(menuItem.isChecked()){
-                    menuItem.setChecked(false);
+                if(_vegetarian){
+                    //menuItem.setChecked(false);
                     _vegetarian = false;
                     runRequest();
 
                 }
                 else {
-                    menuItem.setChecked(true);
+                    //menuItem.setChecked(true);
                     _vegetarian = true;
+                    _vegan = false;
                     runRequest();
                 }
                 return true;
             case R.id.glutenFreeItem:
                 if(menuItem.isChecked()){
-                    menuItem.setChecked(false);
+                    //menuItem.setChecked(false);
                     _glutenFree = false;
                     runRequest();
                 }
                 else {
-                    menuItem.setChecked(true);
+                    //menuItem.setChecked(true);
                     _glutenFree = true;
+                    runRequest();
+                }
+                return true;
+            case R.id.lactoseFreeItem:
+                if(menuItem.isChecked()){
+                    //menuItem.setChecked(false);
+                    _lactoseFree = false;
+                    runRequest();
+                }
+                else {
+                    //menuItem.setChecked(true);
+                    _lactoseFree = true;
                     runRequest();
                 }
                 return true;
@@ -254,6 +270,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 temp = "gluten free";
             }else {
                 temp = temp +",gluten free";
+            }
+
+        }
+        if(_lactoseFree){
+
+            if(temp.equals("")){
+                temp = "lactose free";
+            }else {
+                temp = temp +",lactose free";
             }
 
         }

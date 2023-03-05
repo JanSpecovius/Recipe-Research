@@ -8,6 +8,13 @@
             android:title="Gluten Frei"
             />
         <item
+            android:id="@+id/lactoseFreeItem"
+            android:title="Lactose Frei"
+            />
+
+    </group>
+    <group android:checkableBehavior="single">
+        <item
             android:id="@+id/vegetarianItem"
             android:title="Vegetarisch"
             />
@@ -15,8 +22,9 @@
             android:id="@+id/veganItem"
             android:title="Vegan"
             />
-
     </group>
+
+
 
 
 
