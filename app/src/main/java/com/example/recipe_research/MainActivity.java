@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     Button _settingsButton;
     Button _databaseButton;
+    Boolean flag;
 
 
     @Override
@@ -56,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         else {
             setContentView(R.layout.activity_main);
         }
+        flag = false;
 
-
+        loadingDialog = new LoadingDialog(MainActivity.this);
 
         _glutenFree = false;
         _vegetarian = false;
@@ -72,17 +74,29 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _databaseButton.setOnClickListener(this);
         
 
-        loadingDialog = new LoadingDialog(MainActivity.this);
+
 
         searchView = findViewById(R.id.searchVieW_home);
+
+        // temp fix with int as flag, bacause method is otherway run two times
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                _query = query;
-                runRequest();
+                Toast.makeText(MainActivity.this,"aaaaaaaaaaaah",Toast.LENGTH_LONG).show();
+                if(flag){
+                    flag = false;
+                }else{
 
+                    _query = query;
+                    runRequest();
+                   flag = true;
+
+                    return false;
+
+                }
 
                 return false;
+
             }
 
             @Override
@@ -145,14 +159,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             loadingDialog.disMiss();
+
+
             recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
             randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
+
+
         }
 
         @Override
@@ -167,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
             tagString = adapterView.getSelectedItem().toString();
+
             runRequest();
 
             /*
@@ -254,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     public void runRequest(){
-
+        loadingDialog.showLoading();
         tags.clear();
 
         String temp="";
@@ -308,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         tags.add(temp);
 
         manager.getRandomRecipes(randomRecipeResponseListener, tags);
-        loadingDialog.showLoading();
+
 
     }
 

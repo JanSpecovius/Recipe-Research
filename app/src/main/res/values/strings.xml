@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Recipe-Research</string>
-    <string name="api_Key">7b67fbe620a34e3caed32b77c06a88c8</string>
+    <string name="api_Key">85ba104b20f44a6aa4a9b49bab19f2e1</string>
 
     <string-array name="tags">
         <item>main course</item>
