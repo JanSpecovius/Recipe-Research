@@ -25,8 +25,6 @@ import retrofit2.http.Query;
 
 public class RequestManager {
     Context context;
-
-
     Retrofit retrofit;
 
     public RequestManager(Context context) {
@@ -39,22 +37,13 @@ public class RequestManager {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
 
         //written in constructor because of logging Interceptor
-         this.retrofit = new Retrofit.Builder()
+        this.retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
                 .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient)
                 .build();
-
-
     }
 
     public void getRandomRecipes(RandomRecipeResponseListener listener, List<String> tags) {
-
-
-
-
-
-
-
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
         Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_Key), "10", tags);
         call.enqueue(new Callback<RandomRecipeApiResponse>() {

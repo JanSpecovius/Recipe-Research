@@ -55,6 +55,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             textView_meal_summary.setText(response.summary);
             Picasso.get().load(response.image).into(imageView_meal_name);
 
+
             recycler_meal_ingredients.setHasFixedSize(true);
             recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
             ingredientsAdapter = new IngredientsAdapter(RecipeDetailsActivity.this, response.extendedIngredients);
