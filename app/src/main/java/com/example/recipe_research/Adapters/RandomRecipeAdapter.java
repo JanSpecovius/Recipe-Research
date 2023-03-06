@@ -55,18 +55,18 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
             }
         }
             else{
-                holder.textView_alergys.setText("");
+                holder.textView_alergys.setText("Vegetarian ❌");
             }
 
         if(list.get(position).glutenFree){
-            holder.textView_gluten.setText("Glutenfree ✅");
+            holder.textView_gluten.setText("Gluten free ✅");
         }else{
-            holder.textView_gluten.setText("");
+            holder.textView_gluten.setText("Gluten free ❌");
         }
         if(list.get(position).dairyFree){
-            holder.textView_lactose.setText("Dairy Free  ✅");
+            holder.textView_lactose.setText("Dairy free   ✅");
         }else{
-            holder.textView_lactose.setText("");
+            holder.textView_lactose.setText("Dairy free   ❌");
         }
 
 
