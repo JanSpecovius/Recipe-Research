@@ -67,10 +67,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _lactoseFree = false;
         _query = "";
 
-        _settingsButton = findViewById(R.id.settings);
         _databaseButton = findViewById(R.id.database);
 
-        _settingsButton.setOnClickListener(this);
+
         _databaseButton.setOnClickListener(this);
         
 
@@ -78,12 +77,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         searchView = findViewById(R.id.searchVieW_home);
 
-        //TODO: temp fix with int as flag, bacause method is otherway run two times
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this,"aaaaaaaaaaaah",Toast.LENGTH_LONG).show();
-                if(Boolean.TRUE.equals(flag)){
+                //Old fix because otherwise run twice when pressing enter on pc
+               /* if(Boolean.TRUE.equals(flag)){
                     flag = false;
                 }else{
 
@@ -94,7 +93,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     return false;
 
                 }
+            */
 
+                runRequest();
                 return false;
 
             }
@@ -335,10 +336,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public void onClick(View v) {
-        if (v==_settingsButton) {
-            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(i);
-        } else if (v==_databaseButton) {
+       if (v==_databaseButton) {
             Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
             startActivity(i);
         }

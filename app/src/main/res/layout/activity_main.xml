@@ -82,21 +82,12 @@
         android:orientation="horizontal"
         >
 
-        <Button
-            android:id="@+id/settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Settings"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            />
+
 
         <Button
             android:id="@+id/database"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:text="Database"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"

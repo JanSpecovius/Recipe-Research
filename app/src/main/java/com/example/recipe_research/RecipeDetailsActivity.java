@@ -93,7 +93,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         }
-        if(v == _bookmark){
+        else if(v == _bookmark){
             Toast.makeText(RecipeDetailsActivity.this, "Daniel mach die Datenbank",Toast.LENGTH_SHORT).show();
             //write code here to add a new Database entry @Daniel
         }
