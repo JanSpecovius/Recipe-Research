@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _databaseButton.setOnClickListener(this);
 
 
-
         searchView = findViewById(R.id.searchVieW_home);
 
 
@@ -146,15 +145,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             loadingDialog.disMiss();
-
-
             recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
             randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
-
-
         }
 
         @Override
@@ -243,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-    public void runRequest(){
+    public void runRequest() {
         loadingDialog.showLoading();
         tags.clear();
 
@@ -301,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public void onClick(View v) {
-       if (v==_databaseButton) {
+        if (v == _databaseButton) {
             Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
             startActivity(i);
         }

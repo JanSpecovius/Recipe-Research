@@ -8,6 +8,8 @@ import com.example.recipe_research.Listeners.RecipeDetailsListener;
 import com.example.recipe_research.Models.RandomRecipeApiResponse;
 import com.example.recipe_research.Models.RecipeDetailsResponse;
 
+import org.jsoup.Jsoup;
+
 import java.util.List;
 import java.util.Random;
 
@@ -63,6 +65,25 @@ public class RequestManager {
         });
     }
 
+    /* public void getRecipeDetails(RecipeDetailsListener listener, int id) {
+         CallRecipeDetails callRecipeDetails = retrofit.create(CallRecipeDetails.class);
+         Call<RecipeDetailsResponse> call = callRecipeDetails.callRecipeDetails(id, context.getString(R.string.api_Key));
+         call.enqueue(new Callback<RecipeDetailsResponse>() {
+             @Override
+             public void onResponse(Call<RecipeDetailsResponse> call, Response<RecipeDetailsResponse> response) {
+                 if (!response.isSuccessful()) {
+                     listener.didError(response.message());
+                     return;
+                 }
+                 listener.didFetch(response.body(), response.message());
+             }
+
+             @Override
+             public void onFailure(Call<RecipeDetailsResponse> call, Throwable t) {
+                 listener.didError(t.getMessage());
+             }
+         });
+     }*/
     public void getRecipeDetails(RecipeDetailsListener listener, int id) {
         CallRecipeDetails callRecipeDetails = retrofit.create(CallRecipeDetails.class);
         Call<RecipeDetailsResponse> call = callRecipeDetails.callRecipeDetails(id, context.getString(R.string.api_Key));
@@ -73,7 +94,12 @@ public class RequestManager {
                     listener.didError(response.message());
                     return;
                 }
-                listener.didFetch(response.body(), response.message());
+                RecipeDetailsResponse responseBody = response.body();
+                if (responseBody != null && responseBody.getSummary() != null) {
+                    String summary = Jsoup.parse(responseBody.getSummary()).text();
+                    responseBody.setSummary(summary);
+                }
+                listener.didFetch(responseBody, response.message());
             }
 
             @Override
@@ -82,6 +108,7 @@ public class RequestManager {
             }
         });
     }
+
 
     private interface CallRandomRecipes {
         @GET("recipes/random")
