@@ -113,6 +113,7 @@ public class RequestManager {
         call.enqueue(new Callback<NutritionByIdResponse>() {
             @Override
             public void onResponse(Call<NutritionByIdResponse> call, Response<NutritionByIdResponse> response) {
+
                 if (response.isSuccessful() && response.body() != null) {
                     listener.onNutritionByIdReceived(response.body(), response.message());
                 } else {

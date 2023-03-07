@@ -239,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     public void runRequest() {
-        loadingDialog.showLoading();
         tags.clear();
 
         loadingDialog.showLoading();
