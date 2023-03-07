@@ -105,7 +105,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(RecipeDetailsActivity.this, "Daniel mach die Datenbank",Toast.LENGTH_SHORT).show();
             //TODO write code here to add a new Database entry @Daniel
 
-            insertRow(response);
+            //insertRow();
 
 
         }
