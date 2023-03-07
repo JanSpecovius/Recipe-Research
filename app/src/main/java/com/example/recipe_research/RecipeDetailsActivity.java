@@ -7,19 +7,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recipe_research.Adapters.IngredientsAdapter;
+import com.example.recipe_research.Listeners.NutritionByIdListener;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
+import com.example.recipe_research.Models.NutritionByIdResponse;
 import com.example.recipe_research.Models.RecipeDetailsResponse;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
-    TextView textView_meal_name, textView_meal_source, textView_meal_summary;
+    TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition;
     ImageView imageView_meal_name;
     RecyclerView recycler_meal_ingredients;
     RequestManager manager;
@@ -40,6 +43,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         id = Integer.parseInt(getIntent().getStringExtra("id"));
         manager = new RequestManager(this);
         manager.getRecipeDetails(recipeDetailsListener, id);
+        manager.getNutritionById(nutritionByIdListener, id);
         loadingDialog = new LoadingDialog(this);
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
@@ -51,6 +55,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         textView_meal_name = findViewById(R.id.textView_meal_name);
         textView_meal_source = findViewById(R.id.textView_meal_source);
         textView_meal_summary = findViewById(R.id.textView_meal_summary);
+        textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
         _share = findViewById(R.id.share);
@@ -72,11 +77,38 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
             ingredientsAdapter = new IngredientsAdapter(RecipeDetailsActivity.this, response.extendedIngredients);
             recycler_meal_ingredients.setAdapter(ingredientsAdapter);
+
         }
+
 
         @Override
         public void didError(String message) {
             Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private final NutritionByIdListener nutritionByIdListener = new NutritionByIdListener() {
+        @Override
+        public void onNutritionByIdReceived(NutritionByIdResponse nutrition, String message) {
+            loadingDialog.disMiss();
+
+            StringBuilder sb = new StringBuilder();
+
+            List<NutritionByIdResponse.NutritionValue> nutrients = nutrition.getNutrients();
+            for (NutritionByIdResponse.NutritionValue nutrient : nutrients) {
+                sb.append(nutrient.getName())
+                        .append(": ")
+                        .append(nutrient.getAmount())
+                        .append(nutrient.getUnit())
+                        .append("\n");
+            }
+
+            textView_meal_nutrition.setText(sb.toString());
+        }
+
+        @Override
+        public void onNutritionByIdError(String message) {
+
         }
     };
 
