@@ -26,6 +26,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     LoadingDialog loadingDialog;
     IngredientsAdapter ingredientsAdapter;
     ImageView _share;
+    ImageView _bookmark;
+
     String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         manager.getRecipeDetails(recipeDetailsListener, id);
         loadingDialog = new LoadingDialog(this);
         _share.setOnClickListener(this);
+        _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
     }
 
@@ -56,6 +59,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
         _share = findViewById(R.id.share);
+        _bookmark = findViewById(R.id.bookmark);
     }
 
     private final RecipeDetailsListener recipeDetailsListener = new RecipeDetailsListener() {
@@ -82,12 +86,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if(v== _share){
+        if(v == _share){
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! "+url);
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
 
-}
+        }
+        if(v == _bookmark){
+            Toast.makeText(RecipeDetailsActivity.this, "Daniel mach die Datenbank",Toast.LENGTH_SHORT).show();
+            //write code here to add a new Database entry @Daniel
+        }
     }
 }
