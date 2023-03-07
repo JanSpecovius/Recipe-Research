@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.example.recipe_research.Adapters.IngredientsAdapter;
 import com.example.recipe_research.Listeners.NutritionByIdListener;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
+import com.example.recipe_research.Models.Bad;
 import com.example.recipe_research.Models.NutritionByIdResponse;
 import com.example.recipe_research.Models.RecipeDetailsResponse;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -90,7 +92,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private final NutritionByIdListener nutritionByIdListener = new NutritionByIdListener() {
         @Override
         public void onNutritionByIdReceived(NutritionByIdResponse nutrition, String message) {
-            loadingDialog.disMiss();
 
             StringBuilder sb = new StringBuilder();
 
@@ -99,17 +100,21 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             String carbs = nutrition.getCarbs();
             String fat = nutrition.getFat();
             String protein = nutrition.getProtein();
+            String badName = nutrition.getBad().get(4).title;
+            String badAmount = nutrition.getBad().get(4).amount;
+
 
             // Append the nutrition values to the string builder
             sb.append("Calories: ").append(calories).append("\n");
             sb.append("Carbs: ").append(carbs).append("\n");
             sb.append("Fat: ").append(fat).append("\n");
             sb.append("Protein: ").append(protein).append("\n");
+            sb.append(badName+": ").append(badAmount).append("\n");
+
 
             // Set the string builder text to the text view
             textView_meal_nutrition.setText(sb.toString());
         }
-
 
         @Override
         public void onNutritionByIdError(String message) {
