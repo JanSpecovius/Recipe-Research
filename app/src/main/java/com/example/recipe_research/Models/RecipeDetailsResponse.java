@@ -3,6 +3,7 @@ package com.example.recipe_research.Models;
 import java.util.ArrayList;
 
 public class RecipeDetailsResponse {
+
     public int id;
     public String title;
     public String image;
@@ -40,4 +41,12 @@ public class RecipeDetailsResponse {
     public ArrayList<ExtendedIngredient> extendedIngredients;
     public String summary;
     public WinePairing winePairing;
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 }

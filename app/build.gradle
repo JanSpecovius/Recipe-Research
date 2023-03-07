@@ -50,5 +50,6 @@ dependencies {
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation 'org.jsoup:jsoup:1.14.3'
 
 }
