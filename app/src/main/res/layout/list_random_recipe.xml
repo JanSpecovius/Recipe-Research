@@ -69,19 +69,32 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:src="@drawable/ic_likes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
                 <TextView
-                    android:id="@+id/textView_likes"
+                    android:id="@+id/textView_alergys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 Personen"
+                    android:text="Vegan❌"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:padding="8dp" />
+                    android:padding="0dp" />
+
+                <TextView
+                    android:id="@+id/textView_lactoseCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lactosefree❌"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:padding="0dp" />
+
+                <TextView
+                    android:id="@+id/textView_glutenCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Glutenfree❌"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:padding="0dp" />
 
             </LinearLayout>
 
@@ -108,6 +121,7 @@
 
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

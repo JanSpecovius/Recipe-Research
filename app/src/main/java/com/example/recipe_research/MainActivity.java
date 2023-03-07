@@ -1,57 +1,31 @@
 package com.example.recipe_research;
-
-
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.recipe_research.Adapters.RandomRecipeAdapter;
 import com.example.recipe_research.Listeners.RandomRecipeResponseListener;
 import com.example.recipe_research.Listeners.RecipeClickListener;
 import com.example.recipe_research.Models.RandomRecipeApiResponse;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
     LoadingDialog loadingDialog;
     RequestManager manager;
     RandomRecipeAdapter randomRecipeAdapter;
@@ -64,29 +38,65 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     Boolean _glutenFree;
     Boolean _vegetarian;
     Boolean _vegan;
+    Boolean _lactoseFree;
+    String tagString;
+    String _query;
+
+    Button _settingsButton;
+    Button _databaseButton;
+    Boolean flag;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            setContentView(R.layout.activity_main_landscape);
+        }
+        else {
+            setContentView(R.layout.activity_main);
+        }
+        flag = false;
+
+        loadingDialog = new LoadingDialog(MainActivity.this);
 
         _glutenFree = false;
         _vegetarian = false;
         _vegan = false;
+        _lactoseFree = false;
+        _query = "";
 
-        loadingDialog = new LoadingDialog(MainActivity.this);
+        _settingsButton = findViewById(R.id.settings);
+        _databaseButton = findViewById(R.id.database);
+
+        _settingsButton.setOnClickListener(this);
+        _databaseButton.setOnClickListener(this);
+        
+
+
 
         searchView = findViewById(R.id.searchVieW_home);
+
+        //TODO: temp fix with int as flag, bacause method is otherway run two times
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                tags.clear();
-                tags.add(query);
-                manager.getRandomRecipes(randomRecipeResponseListener, tags);
-                loadingDialog.showLoading();
-                /*dismissDialogDelayed(3000, loadingDialog);*/
+                Toast.makeText(MainActivity.this,"aaaaaaaaaaaah",Toast.LENGTH_LONG).show();
+                if(Boolean.TRUE.equals(flag)){
+                    flag = false;
+                }else{
+
+                    _query = query;
+                    runRequest();
+                   flag = true;
+
+                    return false;
+
+                }
+
                 return false;
+
             }
 
             @Override
@@ -119,10 +129,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         if (_vegan){
             popup.getMenu().findItem(R.id.veganItem).setChecked(true);
+
         }if(_vegetarian){
             popup.getMenu().findItem(R.id.vegetarianItem).setChecked(true);
+
         }if(_glutenFree){
             popup.getMenu().findItem(R.id.glutenFreeItem).setChecked(true);
+        }if(_lactoseFree){
+            popup.getMenu().findItem(R.id.lactoseFreeItem).setChecked(true);
         }
         popup.show();
     }
@@ -145,14 +159,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             loadingDialog.disMiss();
+
+
             recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
             randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
+
+
         }
 
         @Override
@@ -164,10 +183,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            tags.clear();
+
+
+            tagString = adapterView.getSelectedItem().toString();
+
+            runRequest();
+
+            /*
             tags.add(adapterView.getSelectedItem().toString());
             manager.getRandomRecipes(randomRecipeResponseListener, tags);
             loadingDialog.showLoading();
+            */
+
             /*dismissDialogDelayed(3000, loadingDialog);*/
         }
 
@@ -191,39 +218,129 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (menuItem.getItemId()) {
 
             case R.id.veganItem:
-                if(menuItem.isChecked()){
-                    menuItem.setChecked(false);
+                if(_vegan){
+                    //menuItem.setChecked(false);
                     _vegan = false;
+                    runRequest();
                 }
                 else {
-                    menuItem.setChecked(true);
+                    //menuItem.setChecked(true);
                     _vegan = true;
+                    _vegetarian = false;
+                    runRequest();
                 }
                 return true;
             case R.id.vegetarianItem:
-                if(menuItem.isChecked()){
-                    menuItem.setChecked(false);
+                if(_vegetarian){
+                    //menuItem.setChecked(false);
                     _vegetarian = false;
+                    runRequest();
+
                 }
                 else {
-                    menuItem.setChecked(true);
+                    //menuItem.setChecked(true);
                     _vegetarian = true;
+                    _vegan = false;
+                    runRequest();
                 }
                 return true;
             case R.id.glutenFreeItem:
                 if(menuItem.isChecked()){
-                    menuItem.setChecked(false);
+                    //menuItem.setChecked(false);
                     _glutenFree = false;
+                    runRequest();
                 }
                 else {
-                    menuItem.setChecked(true);
+                    //menuItem.setChecked(true);
                     _glutenFree = true;
-
-
+                    runRequest();
+                }
+                return true;
+            case R.id.lactoseFreeItem:
+                if(menuItem.isChecked()){
+                    //menuItem.setChecked(false);
+                    _lactoseFree = false;
+                    runRequest();
+                }
+                else {
+                    //menuItem.setChecked(true);
+                    _lactoseFree = true;
+                    runRequest();
                 }
                 return true;
             default:
                 return false;
+        }
+    }
+
+    public void runRequest(){
+        loadingDialog.showLoading();
+        tags.clear();
+
+        String temp="";
+
+        if(_vegetarian){
+
+            temp = "vegetarian";
+
+        }
+        if(_vegan){
+
+            if(temp.equals("")){
+                temp = "vegan";
+            }else {
+                temp = temp +",vegan";
+            }
+
+        }
+        if(_glutenFree){
+
+            if(temp.equals("")){
+                temp = "gluten free";
+            }else {
+                temp = temp +",gluten free";
+            }
+
+        }
+        if(_lactoseFree){
+
+            if(temp.equals("")){
+                temp = "dairy free";
+            }else {
+                temp = temp +",dairy free";
+            }
+
+        }
+        if(!tagString.equals("")){
+            if(temp.equals("")){
+                temp = tagString;
+            }else {
+                temp = temp +","+tagString;
+            }
+        }
+        if(!_query.equals("")){
+            if(temp.equals("")){
+                temp = _query;
+            }else {
+                temp = temp +","+_query;
+            }
+        }
+        tags.add(temp);
+
+        manager.getRandomRecipes(randomRecipeResponseListener, tags);
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (v==_settingsButton) {
+            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
+        } else if (v==_databaseButton) {
+            Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
+            startActivity(i);
         }
     }
 }

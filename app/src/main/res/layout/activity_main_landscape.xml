@@ -8,15 +8,18 @@
     tools:context="com.example.recipe_research.MainActivity">
 
 
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="0.5"
         >
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="40dp">
 
 
 
@@ -51,9 +54,9 @@
         <androidx.cardview.widget.CardView
             app:cardElevation="8dp"
             app:cardBackgroundColor="@color/orange"
-            android:layout_margin="8dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="35dp">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchVieW_home"
@@ -71,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="0dp"
             />
 
     </LinearLayout>
@@ -85,7 +88,7 @@
         <Button
             android:id="@+id/settings"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="0.5"
             android:text="Settings"
             android:layout_marginLeft="5dp"
@@ -95,7 +98,7 @@
         <Button
             android:id="@+id/database"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="0.5"
             android:text="Database"
             android:layout_marginLeft="5dp"
