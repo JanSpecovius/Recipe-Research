@@ -13,7 +13,7 @@ public interface RecipeDao {
 
     @Query("SELECT * FROM RecipeEntity WHERE id =:id")
     RecipeEntity getRecipe(int id);
-    
+
     @Insert
     void insert(RecipeEntity recipeEntity);
 

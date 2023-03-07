@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.example.recipe_research.Adapters.IngredientsAdapter;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
 import com.example.recipe_research.Models.RecipeDetailsResponse;
+import com.example.recipe_research.db.RecipeDao;
+import com.example.recipe_research.db.RecipeDatabase;
+import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,13 +32,18 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     ImageView _bookmark;
 
     String url;
+
+    private RecipeDatabase database;
+
+    private RecipeDao recipeDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
-
-
+        RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
+        recipeDao = db.recipeDao();
 
 
         findViewById();
@@ -95,7 +103,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         }
         else if(v == _bookmark){
             Toast.makeText(RecipeDetailsActivity.this, "Daniel mach die Datenbank",Toast.LENGTH_SHORT).show();
-            //write code here to add a new Database entry @Daniel
+            //TODO write code here to add a new Database entry @Daniel
+
+            insertRow(response);
+
+
         }
+    }
+
+    public void insertRow(RecipeDetailsResponse response){
+        RecipeEntity entity = new RecipeEntity();
+        entity.id = response.id;
+        entity.title = response.title;
+
+        recipeDao.insert(entity);
     }
 }

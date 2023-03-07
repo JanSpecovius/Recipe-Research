@@ -85,6 +85,7 @@ public class RequestManager {
                     return;
                 }
                 listener.didFetch(response.body(), response.message());
+
             }
 
             @Override

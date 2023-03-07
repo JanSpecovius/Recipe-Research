@@ -21,23 +21,23 @@ public class RecipeEntity {
     public String title;
 
     @ColumnInfo(name = "apiID")
-    @NonNull
+    //@NonNull
     public int apiID;
 
     @ColumnInfo(name = "vegetarian")
-    @NonNull
+    //@NonNull
     public boolean vegetarian;
 
     @ColumnInfo(name = "vegan")
-    @NonNull
+    //@NonNull
     public boolean vegan;
 
     @ColumnInfo(name = "gluten free")
-    @NonNull
+    //@NonNull
     public boolean glutenFree;
 
     @ColumnInfo(name = "dairy free")
-    @NonNull
+    //@NonNull
     public boolean dairyFree;
 
     @ColumnInfo(name = "readyInMinutes")
