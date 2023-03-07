@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +17,7 @@ import com.example.recipe_research.Listeners.RecipeDetailsListener;
 import com.example.recipe_research.Models.RecipeDetailsResponse;
 import com.squareup.picasso.Picasso;
 
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary;
     ImageView imageView_meal_name;
@@ -22,11 +25,16 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     RequestManager manager;
     LoadingDialog loadingDialog;
     IngredientsAdapter ingredientsAdapter;
-
+    ImageView _share;
+    String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+
+
+
+
 
         findViewById();
 
@@ -34,8 +42,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         manager = new RequestManager(this);
         manager.getRecipeDetails(recipeDetailsListener, id);
         loadingDialog = new LoadingDialog(this);
+        _share.setOnClickListener(this);
         loadingDialog.showLoading();
     }
+
+
 
 
     private void findViewById() {
@@ -44,6 +55,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         textView_meal_summary = findViewById(R.id.textView_meal_summary);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
+        _share = findViewById(R.id.share);
     }
 
     private final RecipeDetailsListener recipeDetailsListener = new RecipeDetailsListener() {
@@ -54,6 +66,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             textView_meal_source.setText(response.sourceName);
             textView_meal_summary.setText(response.summary);
             Picasso.get().load(response.image).into(imageView_meal_name);
+            url = response.spoonacularSourceUrl;
 
             recycler_meal_ingredients.setHasFixedSize(true);
             recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
@@ -66,4 +79,15 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        if(v== _share){
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! "+url);
+                startActivity(Intent.createChooser(shareIntent, "Share via"));
+
+}
+    }
 }
