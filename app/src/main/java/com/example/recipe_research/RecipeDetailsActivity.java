@@ -94,20 +94,26 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
             StringBuilder sb = new StringBuilder();
 
-            List<NutritionByIdResponse.NutritionValue> nutrients = nutrition.getNutrients();
-            for (NutritionByIdResponse.NutritionValue nutrient : nutrients) {
-                sb.append(nutrient.getName())
-                        .append(": ")
-                        .append(nutrient.getAmount())
-                        .append(nutrient.getUnit())
-                        .append("\n");
-            }
+            // Get the nutrition values from the response object
+            String calories = nutrition.getCalories();
+            String carbs = nutrition.getCarbs();
+            String fat = nutrition.getFat();
+            String protein = nutrition.getProtein();
 
+            // Append the nutrition values to the string builder
+            sb.append("Calories: ").append(calories).append("\n");
+            sb.append("Carbs: ").append(carbs).append("\n");
+            sb.append("Fat: ").append(fat).append("\n");
+            sb.append("Protein: ").append(protein).append("\n");
+
+            // Set the string builder text to the text view
             textView_meal_nutrition.setText(sb.toString());
         }
 
+
         @Override
         public void onNutritionByIdError(String message) {
+            Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
 
         }
     };

@@ -1,45 +1,79 @@
 package com.example.recipe_research.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NutritionByIdResponse {
-    private List<NutritionValue> nutrients;
+    public String calories;
+    public String carbs;
+    public String fat;
+    public String protein;
+    public ArrayList<Bad> bad;
+    public ArrayList<Good> good;
+    public long expires;
+    public boolean isStale;
 
-    public List<NutritionValue> getNutrients() {
-        return nutrients;
+    public String getCalories() {
+        return calories;
     }
 
-    public void setNutrients(List<NutritionValue> nutrients) {
-        this.nutrients = nutrients;
+    public void setCalories(String calories) {
+        this.calories = calories;
     }
 
-    public static class NutritionValue {
-        private String name;
-        private String amount;
-        private String unit;
+    public String getCarbs() {
+        return carbs;
+    }
 
-        public String getName() {
-            return name;
-        }
+    public void setCarbs(String carbs) {
+        this.carbs = carbs;
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public String getFat() {
+        return fat;
+    }
 
-        public String getAmount() {
-            return amount;
-        }
+    public void setFat(String fat) {
+        this.fat = fat;
+    }
 
-        public void setAmount(String amount) {
-            this.amount = amount;
-        }
+    public String getProtein() {
+        return protein;
+    }
 
-        public String getUnit() {
-            return unit;
-        }
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
 
-        public void setUnit(String unit) {
-            this.unit = unit;
-        }
+    public ArrayList<Bad> getBad() {
+        return bad;
+    }
+
+    public void setBad(ArrayList<Bad> bad) {
+        this.bad = bad;
+    }
+
+    public ArrayList<Good> getGood() {
+        return good;
+    }
+
+    public void setGood(ArrayList<Good> good) {
+        this.good = good;
+    }
+
+    public long getExpires() {
+        return expires;
+    }
+
+    public void setExpires(long expires) {
+        this.expires = expires;
+    }
+
+    public boolean isStale() {
+        return isStale;
+    }
+
+    public void setStale(boolean stale) {
+        isStale = stale;
     }
 }

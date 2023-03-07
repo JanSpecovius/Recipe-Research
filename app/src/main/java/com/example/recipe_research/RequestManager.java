@@ -147,7 +147,7 @@ public class RequestManager {
     }
 
     public interface NutritionService {
-        @GET("food/{id}/nutritionWidget.json")
+        @GET("recipes/{id}/nutritionWidget.json")
         Call<NutritionByIdResponse> getNutritionById(
                 @Path("id") int id,
                 @Query("apiKey") String apiKey
