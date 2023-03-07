@@ -13,7 +13,33 @@
         app:title="Recipe Details"
         app:titleTextColor="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/share"
+            android:src="@drawable/ic_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+
+            />
+        <ImageView
+            android:id="@+id/bookmark"
+            android:src="@drawable/ic_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+
+            />
+
+
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <ScrollView
         android:layout_width="match_parent"
