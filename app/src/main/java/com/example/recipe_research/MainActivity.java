@@ -78,12 +78,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         searchView = findViewById(R.id.searchVieW_home);
 
-        // temp fix with int as flag, bacause method is otherway run two times
+        //TODO: temp fix with int as flag, bacause method is otherway run two times
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(MainActivity.this,"aaaaaaaaaaaah",Toast.LENGTH_LONG).show();
-                if(flag){
+                if(Boolean.TRUE.equals(flag)){
                     flag = false;
                 }else{
 
