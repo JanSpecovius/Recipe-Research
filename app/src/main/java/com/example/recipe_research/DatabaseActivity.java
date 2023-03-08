@@ -114,5 +114,11 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             _builder.show();
         }
     }
-    public void delete(){}
+    public void delete(){
+        db = RecipeDatabase.getSingletonInstance(this);
+        recipeDao = db.recipeDao();
+        recipeDao.deleteAll();
+        Toast.makeText(this, "All bookmarks deleted", Toast.LENGTH_SHORT).show();
+        assign();
+    }
 }
