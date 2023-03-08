@@ -33,11 +33,15 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
 
     int _id;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
     int _amount,_readyInTime,_servings;
 
     boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
     String [] _ingrArray;
+
+
+
+
 
     private RecipeDatabase database;
 
@@ -121,7 +125,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + _url);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if (v==_bookmark) {
