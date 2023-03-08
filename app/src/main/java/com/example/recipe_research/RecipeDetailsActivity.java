@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -185,8 +186,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         } else if(v == _bookmark){
 
-            //TODO write code here to add a new Database entry @Daniel
-
 
             if(_flag){
                 _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
@@ -285,6 +284,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     public void deleteRow(int id){
 
         //TODO Delete entry by id
+        recipeDao.deleteById(id);
+        Log.d("delete", "deleteFromDatabase: " + id);
 
     }
     public boolean isInDatabase(int id){

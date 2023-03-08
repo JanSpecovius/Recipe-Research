@@ -23,8 +23,8 @@ public interface RecipeDao {
     @Insert
     void insert(RecipeEntity recipeEntity);
 
-    @Delete
-    void delete(RecipeEntity recipeEntity);
+    @Query("DELETE FROM RecipeEntity WHERE id =:id")
+    void deleteById(int id);
 
     @Query("DELETE FROM RecipeEntity")
     void deleteAll();
