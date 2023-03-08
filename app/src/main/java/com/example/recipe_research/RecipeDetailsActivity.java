@@ -36,10 +36,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     int _id;
     String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
-    int _amount,_readyInTime,_servings;
+    int _amount, _readyInTime, _servings;
 
-    boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
-    String [] _ingrArray;
+    boolean _glutenfree, _vegetarian, _vegan, _dairyFree;
+    String[] _ingrArray;
 
     private RecipeDatabase db;
 
@@ -56,7 +56,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         findViewById();
 
-        id = Integer.parseInt(getIntent().getStringExtra("id"));
+        id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
         manager = new RequestManager(this);
         manager.getRecipeDetails(recipeDetailsListener, id);
         manager.getNutritionById(nutritionByIdListener, id);
@@ -76,7 +76,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
-
 
 
         _share = findViewById(R.id.share);
@@ -119,12 +118,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             }
 
              */
-             _amount = response.getExtendedIngredients().size();
-            int counter=0;
+            _amount = response.getExtendedIngredients().size();
+            int counter = 0;
 
             _ingrArray = new String[_amount];
 
-            while (_amount >counter){
+            while (_amount > counter) {
 
                 _ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
@@ -146,7 +145,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         public void onNutritionByIdReceived(NutritionByIdResponse nutrition, String message) {
 
 
-
             //Get the nutrition values from the response object
             _calories = nutrition.getCalories();
             _carbs = nutrition.getCarbs();
@@ -154,7 +152,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _protein = nutrition.getProtein();
             _badName = nutrition.getBad().get(4).title;
             _badAmount = nutrition.getBad().get(4).amount;
-
 
 
             assignNutritonDetail();
@@ -173,17 +170,15 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + _url);
-            startActivity(Intent.createChooser(shareIntent, "Share via"));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.meal_found_mail) + _url);
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 
-        } else if(v == _bookmark){
+        } else if (v == _bookmark) {
 
             //TODO write code here to add a new Database entry @Daniel
             insertRow();
         }
     }
-
-
 
 
     public void assignRecipeDetail() {
@@ -196,7 +191,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         int counter = 0;
 
-        while (_amount>counter){
+        while (_amount > counter) {
 
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
@@ -206,29 +201,29 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         textView_meal_ingredients.setText(sb.toString());
 
     }
-    public void assignNutritonDetail(){
+
+    public void assignNutritonDetail() {
 
 
         StringBuilder sb = new StringBuilder();
 
         // Append the nutrition values to the string builder
-        sb.append("Calories: ").append(_calories).append("\n");
-        sb.append("Carbs: ").append(_carbs).append("\n");
-        sb.append("Fat: ").append(_fat).append("\n");
-        sb.append("Protein: ").append(_protein).append("\n");
-        sb.append(_badName+": ").append(_badAmount).append("\n");
+        sb.append(getString(R.string.calories)).append(_calories).append("\n");
+        sb.append(getString(R.string.carbs)).append(_carbs).append("\n");
+        sb.append(getString(R.string.fat)).append(_fat).append("\n");
+        sb.append(getString(R.string.protein)).append(_protein).append("\n");
+        sb.append(_badName + ": ").append(_badAmount).append("\n");
 
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
-
 
 
         sb = new StringBuilder();
 
         int counter = 0;
 
-        while (_amount >counter){
-            
+        while (_amount > counter) {
+
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
         }
@@ -238,9 +233,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     }
-    
 
-    public void insertRow(){
+
+    public void insertRow() {
         RecipeEntity entity = new RecipeEntity();
         entity.apiID = _id;
         entity.title = _title;
@@ -263,7 +258,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
         StringBuilder temp = new StringBuilder();
-        for(int i = 0 ; i < _amount;i++){
+        for (int i = 0; i < _amount; i++) {
             temp.append(_ingrArray[i]).append(" | ");
         }
         entity.ingredients = temp.toString();

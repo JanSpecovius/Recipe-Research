@@ -10,9 +10,9 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/light_cream_brown</item>
         <!-- Customize your theme here. -->
         <item name="editTextColor">@color/white</item>
-        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHint">@color/dark_cream_brown</item>
     </style>
 </resources>
