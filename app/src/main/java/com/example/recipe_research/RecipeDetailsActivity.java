@@ -35,8 +35,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     IngredientsAdapter ingredientsAdapter;
     ImageView _share;
     ImageView _bookmark;
-
     String url;
+
+    String _title, _sourceName, _summary, _image, _url;
 
     private RecipeDatabase database;
 
@@ -79,12 +80,18 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
             loadingDialog.disMiss();
-            textView_meal_name.setText(response.title);
-            textView_meal_source.setText(response.sourceName);
-            textView_meal_summary.setText(response.summary);
-            Picasso.get().load(response.image).into(imageView_meal_name);
-            url = response.spoonacularSourceUrl;
 
+            _title = response.title;
+            _sourceName = response.sourceName;
+            _summary = response.summary;
+            _image = response.image;
+            _url = response.spoonacularSourceUrl;
+
+
+            textView_meal_name.setText(_title);
+            textView_meal_source.setText(_sourceName);
+            textView_meal_summary.setText(_summary);
+            Picasso.get().load(_image).into(imageView_meal_name);
 
             recycler_meal_ingredients.setHasFixedSize(true);
             recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
