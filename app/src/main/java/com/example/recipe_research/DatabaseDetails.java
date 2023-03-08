@@ -32,6 +32,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     private AlertDialog.Builder _builder;
 
 
+
     int _id;
     String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
     int _amount,_readyInTime,_servings;
@@ -52,6 +53,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
+
         RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
@@ -65,7 +67,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         assignRecipeDetail();
         assignNutritonDetail();
 
-
+        _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
 
@@ -133,13 +135,11 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
             _builder.setTitle("Warning!!!");
             _builder.setMessage("Do you really want to delete this bookmark?");
             _builder.setCancelable(true);
-            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
+            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase(_id));
             _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             _builder.show();
 
 
-
-            deleteFromDatabase();
         }
     }
 
@@ -185,7 +185,12 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         textView_meal_nutrition.setText(sb.toString());
 
     }
-    public void deleteFromDatabase(){
+    public void deleteFromDatabase(int _id){
         //TODO: Write code to delete insert in database
+
+        finish();
     }
+
+
+
 }
