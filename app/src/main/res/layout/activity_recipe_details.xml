@@ -33,7 +33,7 @@
             android:layout_marginEnd="10dp"
             android:clickable="true"
             android:contentDescription="@string/bookmark"
-            android:src="@drawable/ic_baseline_bookmark" />
+            android:src="@drawable/ic_bookmark_border" />
 
 
     </androidx.appcompat.widget.Toolbar>
