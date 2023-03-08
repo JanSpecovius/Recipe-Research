@@ -126,7 +126,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             }
 
 
-
+            assignRecipeDetail();
         }
 
 
@@ -142,13 +142,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
 
-            // Get the nutrition values from the response object
+            //Get the nutrition values from the response object
             _calories = nutrition.getCalories();
             _carbs = nutrition.getCarbs();
             _fat = nutrition.getFat();
             _protein = nutrition.getProtein();
             _badName = nutrition.getBad().get(4).title;
             _badAmount = nutrition.getBad().get(4).amount;
+            assignNutritonDetail();
 
         }
 
@@ -164,22 +165,41 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + linkToOriginal);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if(v == _bookmark){
-            visualize();
+
             //TODO write code here to add a new Database entry @Daniel
             insertRow();
         }
     }
-    
-    public void visualize(){
 
+
+
+
+    public void assignRecipeDetail() {
         textView_meal_name.setText(_title);
         textView_meal_source.setText(_sourceName);
         textView_meal_summary.setText(_summary);
         Picasso.get().load(_image).into(imageView_meal_name);
+
+        StringBuilder sb = new StringBuilder();
+
+        int counter = 0;
+
+        while (_ammount>counter){
+
+            sb.append(_ingrArray[counter]).append("\n");
+            counter++;
+        }
+
+        // Set the string builder text to the text view
+        textView_meal_ingredients.setText(sb.toString());
+
+    }
+    public void assignNutritonDetail(){
+
 
         StringBuilder sb = new StringBuilder();
 
@@ -205,7 +225,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             counter++;
         }
 
-        // Set the string builder text to the text view
+        //Set the string builder text to the text view
         textView_meal_ingredients.setText(sb.toString());
 
 
