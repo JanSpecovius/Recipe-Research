@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     int _id;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, linkToOriginal;
     int _ammount;
     String [] _ingrArray;
 
@@ -92,22 +91,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _url = response.spoonacularSourceUrl;
             _id = response.id;
 
-
-           
-
-            /*
-            int i = response.getExtendedIngredients().size();
-            int j = 0;
-            while (i>j){
-                String ingrName = response.getExtendedIngredients().get(j).name;
-                String ingrAmt = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.amount);
-                String ingrUnit = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.unitLong);
-
-                sb.append(ingrName+": ").append(ingrAmt+" ").append(ingrUnit).append("\n");
-                j++;
-            }
-
-             */
              _ammount = response.getExtendedIngredients().size();
             int counter=0;
 
@@ -120,7 +103,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             }
 
 
-
+            assignRecipeDetail();
         }
 
 
@@ -143,6 +126,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _protein = nutrition.getProtein();
             _badName = nutrition.getBad().get(4).title;
             _badAmount = nutrition.getBad().get(4).amount;
+            assignNutritonDetail();
 
         }
 
@@ -158,22 +142,41 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + linkToOriginal);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if(v == _bookmark){
-            visualize();
+
             //TODO write code here to add a new Database entry @Daniel
             insertRow();
         }
     }
-    
-    public void visualize(){
 
+
+
+
+    public void assignRecipeDetail() {
         textView_meal_name.setText(_title);
         textView_meal_source.setText(_sourceName);
         textView_meal_summary.setText(_summary);
         Picasso.get().load(_image).into(imageView_meal_name);
+
+        StringBuilder sb = new StringBuilder();
+
+        int counter = 0;
+
+        while (_ammount>counter){
+
+            sb.append(_ingrArray[counter]).append("\n");
+            counter++;
+        }
+
+        // Set the string builder text to the text view
+        textView_meal_ingredients.setText(sb.toString());
+
+    }
+    public void assignNutritonDetail(){
+
 
         StringBuilder sb = new StringBuilder();
 
@@ -186,22 +189,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
-
-
-
-        sb = new StringBuilder();
-
-        int counter = 0;
-
-        while (_ammount>counter){
-            
-            sb.append(_ingrArray[counter]).append("\n");
-            counter++;
-        }
-
-        // Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
-
 
     }
     
