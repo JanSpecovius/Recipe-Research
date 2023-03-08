@@ -56,7 +56,10 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {
-            Toast.makeText(DatabaseActivity.this,"Do shit",Toast.LENGTH_SHORT).show();
+
+                startActivity(new Intent(DatabaseActivity.this, DatabaseDetails.class)
+                        .putExtra("id", id));
+
         }
     };
 
