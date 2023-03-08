@@ -41,7 +41,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
     String [] _ingrArray;
 
-    private RecipeDatabase database;
+    private RecipeDatabase db;
 
     private RecipeDao recipeDao;
 
@@ -50,7 +50,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
-        RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
+        db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
 

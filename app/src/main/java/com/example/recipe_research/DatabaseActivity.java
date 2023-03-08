@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,6 +18,9 @@ import com.example.recipe_research.Models.MealsFromDatabase;
 import com.example.recipe_research.Listeners.RecipeClickListener;
 import com.example.recipe_research.Models.MealsFromDatabase;
 import com.example.recipe_research.Models.Recipe;
+import com.example.recipe_research.db.RecipeDao;
+import com.example.recipe_research.db.RecipeDatabase;
+import com.example.recipe_research.db.RecipeEntity;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -30,6 +34,11 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     RandomRecipeAdapter recipeAdapter;
     Button _delete;
     private AlertDialog.Builder _builder;
+
+    private RecipeDatabase db;
+    private RecipeDao recipeDao;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,31 +76,29 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
         List<Recipe> recipe = new ArrayList<>();
         // Create an object of MealsFromDatabase class
-        Recipe meal = new Recipe();
-        meal.title = "Spaghetti Carbonara";
-        meal.image = "https://example.com/spaghetti.jpg";
-        meal.servings = 4;
-        meal.readyInMinutes = 30;
-        meal.vegan = false;
-        meal.vegetarian = false;
-        meal.glutenFree = false;
-        meal.dairyFree = false;
+        Recipe meal;
+        db = RecipeDatabase.getSingletonInstance(this);
+        recipeDao = db.recipeDao();
 
-        recipe.add(meal);
+        for(int i = 0; i < recipeDao.getCount(); i++){
+            RecipeEntity[] recipeEntity = recipeDao.getAllRecipes();
+            meal = toRecipe(recipeEntity[i]);
+            recipe.add(meal);
+        }
 
-        meal = new Recipe();
+        return recipe;
+    }
 
-        meal.title = "4353453";
-        meal.image = "https://example.com/spaghetti.jpg";
-        meal.servings = 4;
-        meal.readyInMinutes = 300;
-        meal.vegan = false;
-        meal.vegetarian = false;
-        meal.glutenFree = false;
-        meal.dairyFree = false;
-
-        recipe.add(meal);
-
+    public Recipe toRecipe(RecipeEntity re){
+        Recipe recipe = new Recipe();
+        recipe.title = re.title;
+        recipe.image = re.image;
+        recipe.servings = re.servings;
+        recipe.readyInMinutes = re.readyInMinutes;
+        recipe.vegan = re.vegan;
+        recipe.vegetarian = re.vegetarian;
+        recipe.glutenFree = re.glutenFree;
+        recipe.dairyFree = re.dairyFree;
         return recipe;
     }
 
