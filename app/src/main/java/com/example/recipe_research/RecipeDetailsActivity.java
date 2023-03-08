@@ -20,6 +20,8 @@ import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
@@ -32,10 +34,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     ImageView _bookmark;
 
 
-    int _id,_readyInTime,_servings;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
+    int _id;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
+    int _amount;
 
-    int _ammount;
+    boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
     String [] _ingrArray;
 
     private RecipeDatabase database;
@@ -95,12 +98,33 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _servings = response.servings;
 
 
-             _ammount = response.getExtendedIngredients().size();
+            _glutenfree = response.glutenFree;
+            _vegetarian = response.vegetarian;
+            _vegan = response.vegan;
+            _dairyFree = response.dairyFree;
+
+
+           
+
+            /*
+            int i = response.getExtendedIngredients().size();
+            int j = 0;
+            while (i>j){
+                String ingrName = response.getExtendedIngredients().get(j).name;
+                String ingrAmt = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.amount);
+                String ingrUnit = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.unitLong);
+
+                sb.append(ingrName+": ").append(ingrAmt+" ").append(ingrUnit).append("\n");
+                j++;
+            }
+
+             */
+             _amount = response.getExtendedIngredients().size();
             int counter=0;
 
-            _ingrArray = new String[_ammount];
+            _ingrArray = new String[_amount];
 
-            while (_ammount>counter){
+            while (_amount >counter){
 
                 _ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
@@ -123,7 +147,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
 
-            // Get the nutrition values from the response object
+            //Get the nutrition values from the response object
             _calories = nutrition.getCalories();
             _carbs = nutrition.getCarbs();
             _fat = nutrition.getFat();
@@ -149,7 +173,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + _url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + url);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if(v == _bookmark){
@@ -172,7 +196,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         int counter = 0;
 
-        while (_ammount>counter){
+        while (_amount>counter){
 
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
@@ -197,13 +221,52 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
 
+
+
+        sb = new StringBuilder();
+
+        int counter = 0;
+
+        while (_amount >counter){
+            
+            sb.append(_ingrArray[counter]).append("\n");
+            counter++;
+        }
+
+        //Set the string builder text to the text view
+        textView_meal_ingredients.setText(sb.toString());
+
+
     }
     
 
     public void insertRow(){
         RecipeEntity entity = new RecipeEntity();
-        entity.id = _id;
+        entity.apiID = _id;
         entity.title = _title;
+        entity.dairyFree = _dairyFree;
+        entity.glutenFree = _glutenfree;
+        entity.vegan = _vegan;
+        entity.vegetarian = _vegetarian;
+        entity.image = _image;
+        entity.sourceName = _sourceName;
+        entity.summary = _summary;
+        entity.url = _url;
+        entity.calories = _calories;
+        entity.carbs = _carbs;
+        entity.fat = _fat;
+        entity.protein = _protein;
+        entity.badName = _badName;
+        entity.badAmount = _badAmount;
+
+
+        StringBuilder temp = new StringBuilder();
+        for(int i = 0 ; i < _amount;i++){
+            temp.append(_ingrArray[i]).append(" | ");
+        }
+        entity.ingredients = temp.toString();
+
+        entity.date = new Date();
 
         recipeDao.insert(entity);
     }
