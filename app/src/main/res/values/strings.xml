@@ -7,7 +7,7 @@
     <string name="carbs">Carbs: </string>
     <string name="fat">Fat: </string>
     <string name="protein">Protein: </string>
-    <string name="meal_found_mail">Check out this cool meal I found! </string>
+    <string name="meal_found_mail">Check out this cool meal I found! \n </string>
     <string name="share_via">Share via</string>
     <string name="id">id</string>
     <string name="database">Database</string>

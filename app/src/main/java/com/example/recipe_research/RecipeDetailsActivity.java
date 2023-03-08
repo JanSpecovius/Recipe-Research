@@ -3,6 +3,7 @@ package com.example.recipe_research;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     IngredientsAdapter ingredientsAdapter;
     ImageView _share;
     ImageView _bookmark;
+    private AlertDialog.Builder _builder;
 
 
     int _id;
@@ -44,6 +46,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     String [] _ingrArray;
 
     private RecipeDatabase db;
+    String _ingredients;
 
     private RecipeDao recipeDao;
 
@@ -169,9 +172,21 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
             if(_flag){
-                _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
-                deleteRow(_id);
-                _flag = false;
+
+
+                _builder = new AlertDialog.Builder(this);
+
+                _builder.setTitle("Warning!!!");
+                _builder.setMessage("Do you really want to delete this bookmark?");
+                _builder.setCancelable(true);
+                _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(_id));
+                _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
+                _builder.show();
+
+
+
+
+
 
             }else {
                 _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
@@ -205,8 +220,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             counter++;
         }
 
+        _ingredients = sb.toString();
         // Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
+        textView_meal_ingredients.setText(_ingredients);
 
     }
 
@@ -221,6 +237,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         sb.append(getString(R.string.fat)).append(_fat).append("\n");
         sb.append(getString(R.string.protein)).append(_protein).append("\n");
         sb.append(_badName + ": ").append(_badAmount).append("\n");
+
+
+
 
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
@@ -250,11 +269,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.servings = _servings;
 
 
-        StringBuilder temp = new StringBuilder();
-        for(int i = 0 ; i < _amount;i++){
-            temp.append(_ingrArray[i]).append("§");
-        }
-        entity.ingredients = temp.toString();
+
+        entity.ingredients = _ingredients;
 
         entity.date = new Date();
 
@@ -262,6 +278,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     }
     public void deleteRow(int id){
         recipeDao.deleteByApiId(id);
+        _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
+        _flag = false;
 
     }
     public boolean isInDatabase(int id){

@@ -31,6 +31,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     ImageView _bookmark;
     private AlertDialog.Builder _builder;
 
+    String _ingredients;
 
 
     int _id;
@@ -112,11 +113,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         _vegan = recipeEntity.vegan;
         _dairyFree = recipeEntity.dairyFree;
 
-        recipeEntity.ingredients.split("|");
-        String[] testNew = recipeEntity.ingredients.split("§");
 
-        _ingrArray = recipeEntity.ingredients.split("§");
-        Log.d("arrayTest", Arrays.toString(_ingrArray));
+        _ingredients = recipeEntity.ingredients;
 
     }
 
@@ -149,18 +147,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         textView_meal_summary.setText(_summary);
         Picasso.get().load(_image).into(imageView_meal_name);
 
-        StringBuilder sb = new StringBuilder();
 
-        int counter = 0;
-
-        while (_ingrArray.length>counter){
-
-            sb.append(_ingrArray[counter]).append("\n");
-            counter++;
-        }
-
-        // Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
+        textView_meal_ingredients.setText(_ingredients);
 
     }
     public void assignNutritonDetail(){
