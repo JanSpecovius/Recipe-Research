@@ -6,22 +6,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.recipe_research.Adapters.IngredientsAdapter;
-import com.example.recipe_research.Listeners.NutritionByIdListener;
-import com.example.recipe_research.Listeners.RecipeDetailsListener;
-import com.example.recipe_research.Models.NutritionByIdResponse;
-import com.example.recipe_research.Models.RecipeDetailsResponse;
 import com.example.recipe_research.db.RecipeDao;
 import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
+import java.util.Arrays;
 
 public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
     int id;
@@ -61,8 +57,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         id = Integer.parseInt(getIntent().getStringExtra("id"));
 
-
-        setDataFromDatabase(_id);
+        setDataFromDatabase(id);
         assignRecipeDetail();
         assignNutritonDetail();
 
@@ -91,6 +86,32 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
     public void setDataFromDatabase(int id){
         //TODO: Write code to get data from the database and parse it into the declared variables
+        RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
+        _title = recipeEntity.title;
+        _sourceName = recipeEntity.sourceName;
+        _summary = recipeEntity.summary;
+        _image = recipeEntity.image;
+        _url = recipeEntity.url;
+        _calories = recipeEntity.calories;
+        _carbs = recipeEntity.carbs;
+        _fat = recipeEntity.fat;
+        _protein = recipeEntity.protein;
+        _badName = recipeEntity.badName;
+        _badAmount = recipeEntity.badAmount;
+
+        _readyInTime = recipeEntity.readyInMinutes;
+        _servings = recipeEntity.servings;
+
+        _glutenfree = recipeEntity.glutenFree;
+        _vegetarian = recipeEntity.vegetarian;
+        _vegan = recipeEntity.vegan;
+        _dairyFree = recipeEntity.dairyFree;
+
+        recipeEntity.ingredients.split("|");
+        String[] testNew = recipeEntity.ingredients.split("§");
+
+        _ingrArray = recipeEntity.ingredients.split("§");
+        Log.d("arrayTest", Arrays.toString(_ingrArray));
 
     }
 
@@ -134,7 +155,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         int counter = 0;
 
-        while (_amount>counter){
+        while (_ingrArray.length>counter){
 
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
@@ -158,22 +179,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
-
-
-
-        sb = new StringBuilder();
-
-        int counter = 0;
-
-        while (_amount >counter){
-
-            sb.append(_ingrArray[counter]).append("\n");
-            counter++;
-        }
-
-        //Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
-
 
     }
     public void deleteFromDatabase(){

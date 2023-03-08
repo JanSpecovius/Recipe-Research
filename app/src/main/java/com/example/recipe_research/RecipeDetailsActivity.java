@@ -264,7 +264,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         StringBuilder temp = new StringBuilder();
         for(int i = 0 ; i < _amount;i++){
-            temp.append(_ingrArray[i]).append(" | ");
+            temp.append(_ingrArray[i]).append("§");
         }
         entity.ingredients = temp.toString();
 
