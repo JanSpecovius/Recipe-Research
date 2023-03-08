@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
     int _amount,_readyInTime,_servings;
 
-    boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
+    boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
     String [] _ingrArray;
 
     private RecipeDatabase db;
@@ -64,6 +65,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
+
+        if(isInDatabase(_id)){
+            _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+            _flag=true;
+        }
+
 
 
     }
@@ -179,7 +186,22 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         } else if(v == _bookmark){
 
             //TODO write code here to add a new Database entry @Daniel
-            insertRow();
+
+
+            if(_flag){
+                _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
+                deleteRow(_id);
+
+            }else {
+                _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+                insertRow();
+            }
+
+
+
+
+
+
         }
     }
 
@@ -271,5 +293,15 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.date = new Date();
 
         recipeDao.insert(entity);
+    }
+    public void deleteRow(int id){
+
+        //TODO Delete entry by id
+
+    }
+    public boolean isInDatabase(int id){
+        //TODO Check if meal is in database by id and return boolean
+
+        return true;
     }
 }

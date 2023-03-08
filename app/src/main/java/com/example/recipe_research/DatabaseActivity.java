@@ -99,6 +99,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         recipe.vegetarian = re.vegetarian;
         recipe.glutenFree = re.glutenFree;
         recipe.dairyFree = re.dairyFree;
+
         return recipe;
     }
 
