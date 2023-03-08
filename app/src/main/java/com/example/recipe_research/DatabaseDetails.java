@@ -6,22 +6,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.recipe_research.Adapters.IngredientsAdapter;
-import com.example.recipe_research.Listeners.NutritionByIdListener;
-import com.example.recipe_research.Listeners.RecipeDetailsListener;
-import com.example.recipe_research.Models.NutritionByIdResponse;
-import com.example.recipe_research.Models.RecipeDetailsResponse;
 import com.example.recipe_research.db.RecipeDao;
 import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
+import java.util.Arrays;
 
 public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
     int id;
@@ -36,12 +32,17 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     private AlertDialog.Builder _builder;
 
 
+
     int _id;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
     int _amount,_readyInTime,_servings;
 
     boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
     String [] _ingrArray;
+
+
+
+
 
     private RecipeDatabase database;
 
@@ -52,6 +53,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
+
         RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
@@ -61,12 +63,11 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         id = Integer.parseInt(getIntent().getStringExtra("id"));
 
-
-        setDataFromDatabase(_id);
+        setDataFromDatabase(id);
         assignRecipeDetail();
         assignNutritonDetail();
 
-
+        _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
 
@@ -90,7 +91,32 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
 
     public void setDataFromDatabase(int id){
-        //TODO: Write code to get data from the database and parse it into the declared variables
+        RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
+        _title = recipeEntity.title;
+        _sourceName = recipeEntity.sourceName;
+        _summary = recipeEntity.summary;
+        _image = recipeEntity.image;
+        _url = recipeEntity.url;
+        _calories = recipeEntity.calories;
+        _carbs = recipeEntity.carbs;
+        _fat = recipeEntity.fat;
+        _protein = recipeEntity.protein;
+        _badName = recipeEntity.badName;
+        _badAmount = recipeEntity.badAmount;
+
+        _readyInTime = recipeEntity.readyInMinutes;
+        _servings = recipeEntity.servings;
+
+        _glutenfree = recipeEntity.glutenFree;
+        _vegetarian = recipeEntity.vegetarian;
+        _vegan = recipeEntity.vegan;
+        _dairyFree = recipeEntity.dairyFree;
+
+        recipeEntity.ingredients.split("|");
+        String[] testNew = recipeEntity.ingredients.split("§");
+
+        _ingrArray = recipeEntity.ingredients.split("§");
+        Log.d("arrayTest", Arrays.toString(_ingrArray));
 
     }
 
@@ -100,7 +126,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + _url);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if (v==_bookmark) {
@@ -108,20 +134,13 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
             _builder.setTitle("Warning!!!");
             _builder.setMessage("Do you really want to delete this bookmark?");
             _builder.setCancelable(true);
-            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
+            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase(_id));
             _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             _builder.show();
 
 
-
-            deleteFromDatabase();
         }
     }
-
-
-
-
-
 
 
     public void assignRecipeDetail() {
@@ -134,7 +153,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         int counter = 0;
 
-        while (_amount>counter){
+        while (_ingrArray.length>counter){
 
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
@@ -159,24 +178,14 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
 
-
-
-        sb = new StringBuilder();
-
-        int counter = 0;
-
-        while (_amount >counter){
-
-            sb.append(_ingrArray[counter]).append("\n");
-            counter++;
-        }
-
-        //Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
-
-
     }
-    public void deleteFromDatabase(){
+    public void deleteFromDatabase(int _id){
         //TODO: Write code to delete insert in database
+        recipeDao.deleteById(id);
+        Log.d("delete", "deleteFromDatabase: " + id);
+        finish();
     }
+
+
+
 }

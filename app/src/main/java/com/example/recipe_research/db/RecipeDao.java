@@ -12,7 +12,10 @@ public interface RecipeDao {
     int getCount();
 
     @Query("SELECT * FROM RecipeEntity WHERE id =:id")
-    RecipeEntity getRecipe(int id);
+    RecipeEntity getRecipeById(int id);
+
+    @Query("SELECT * FROM RecipeEntity WHERE apiID =:apiID")
+    RecipeEntity getRecipeByApiId(int apiID);
 
     @Query("SELECT * FROM RecipeEntity")
     RecipeEntity[] getAllRecipes();
@@ -20,8 +23,8 @@ public interface RecipeDao {
     @Insert
     void insert(RecipeEntity recipeEntity);
 
-    @Delete
-    void delete(RecipeEntity recipeEntity);
+    @Query("DELETE FROM RecipeEntity WHERE id =:id")
+    void deleteById(int id);
 
     @Query("DELETE FROM RecipeEntity")
     void deleteAll();

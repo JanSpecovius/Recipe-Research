@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,8 +40,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
     int _amount, _readyInTime, _servings;
 
-    boolean _glutenfree, _vegetarian, _vegan, _dairyFree;
-    String[] _ingrArray;
+    boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
+    String [] _ingrArray;
 
     private RecipeDatabase db;
 
@@ -53,7 +55,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
-
+        _flag = false;
         findViewById();
 
         id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
@@ -64,6 +66,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
+
+        if(isInDatabase(_id)){
+            _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+            _flag=true;
+        }
+
 
 
     }
@@ -175,8 +183,25 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         } else if (v == _bookmark) {
 
-            //TODO write code here to add a new Database entry @Daniel
-            insertRow();
+
+            if(_flag){
+                _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
+                Log.d("Jans super log","Here is pain");
+                deleteRow(_id);
+                _flag = false;
+
+            }else {
+                _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+
+                insertRow();
+                _flag = true;
+            }
+
+
+
+
+
+
         }
     }
 
@@ -217,21 +242,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
 
-
-        sb = new StringBuilder();
-
-        int counter = 0;
-
-        while (_amount > counter) {
-
-            sb.append(_ingrArray[counter]).append("\n");
-            counter++;
-        }
-
-        //Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
-
-
     }
 
 
@@ -258,13 +268,25 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
         StringBuilder temp = new StringBuilder();
-        for (int i = 0; i < _amount; i++) {
-            temp.append(_ingrArray[i]).append(" | ");
+        for(int i = 0 ; i < _amount;i++){
+            temp.append(_ingrArray[i]).append("§");
         }
         entity.ingredients = temp.toString();
 
         entity.date = new Date();
 
         recipeDao.insert(entity);
+    }
+    public void deleteRow(int id){
+
+        //TODO Delete entry by id
+        recipeDao.deleteById(id);
+        Log.d("delete", "deleteFromDatabase: " + id);
+
+    }
+    public boolean isInDatabase(int id){
+        //TODO Check if meal is in database by id and return boolean
+
+        return false;
     }
 }

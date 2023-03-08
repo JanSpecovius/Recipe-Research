@@ -52,7 +52,6 @@ public class RecipeEntity {
     @ColumnInfo(name = "sourceName")
     public String sourceName;
 
-
     @ColumnInfo(name = "summary")
     public String summary;
 
@@ -82,4 +81,6 @@ public class RecipeEntity {
 
     @ColumnInfo(name = "ingredients")
     public String ingredients;
+
+
 }
