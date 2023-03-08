@@ -31,14 +31,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     IngredientsAdapter ingredientsAdapter;
     ImageView _share;
     ImageView _bookmark;
-    String [] _ingrArray;
+
+
+    int _id;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
     int _ammount;
-
-
-    String url;
-
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
-
+    String [] _ingrArray;
 
     private RecipeDatabase database;
 
@@ -64,7 +62,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
 
-        visualize();
+
     }
 
 
@@ -92,6 +90,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _summary = response.summary;
             _image = response.image;
             _url = response.spoonacularSourceUrl;
+            _id = response.id;
 
 
            
@@ -163,9 +162,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if(v == _bookmark){
-    
+            visualize();
             //TODO write code here to add a new Database entry @Daniel
-            //insertRow(add response here);
+            insertRow();
         }
     }
     
@@ -207,17 +206,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     }
     
 
-    public void insertRow(RecipeDetailsResponse response){
+    public void insertRow(){
         RecipeEntity entity = new RecipeEntity();
-        entity.id = response.id;
-        entity.title = response.title;
+        entity.id = _id;
+        entity.title = _title;
 
         recipeDao.insert(entity);
-    }
-
-    public RecipeDetailsResponse tempSave(RecipeDetailsResponse response){
-        RecipeDetailsResponse tempSaveFile = response;
-        Log.d("AndroidRuntime", "tempSave: " + tempSaveFile.title);
-        return tempSaveFile;
     }
 }
