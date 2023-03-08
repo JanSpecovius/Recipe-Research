@@ -32,8 +32,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     ImageView _bookmark;
 
 
-    int _id;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, linkToOriginal;
+    int _id,_readyInTime,_servings;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
+
     int _ammount;
     String [] _ingrArray;
 
@@ -90,6 +91,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _image = response.image;
             _url = response.spoonacularSourceUrl;
             _id = response.id;
+            _readyInTime = response.readyInMinutes;
+            _servings = response.servings;
+
 
              _ammount = response.getExtendedIngredients().size();
             int counter=0;
@@ -126,6 +130,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _protein = nutrition.getProtein();
             _badName = nutrition.getBad().get(4).title;
             _badAmount = nutrition.getBad().get(4).amount;
+
+
+
             assignNutritonDetail();
 
         }
@@ -142,7 +149,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + linkToOriginal);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + _url);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if(v == _bookmark){
