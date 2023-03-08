@@ -36,7 +36,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     int _id;
     String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
-    int _amount;
+    int _amount,_readyInTime,_servings;
 
     boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
     String [] _ingrArray;
