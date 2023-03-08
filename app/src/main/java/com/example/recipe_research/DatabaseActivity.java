@@ -31,6 +31,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     private RecipeDatabase db;
     private RecipeDao recipeDao;
+    private boolean flag;
 
 
 
@@ -116,5 +117,19 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         recipeDao.deleteAll();
         Toast.makeText(this, "All bookmarks deleted", Toast.LENGTH_SHORT).show();
         assign();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (flag) {
+            flag = false;
+            this.recreate();
+
+        } else {
+            flag = true;
+        }
+
     }
 }
