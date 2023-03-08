@@ -52,8 +52,6 @@ public class RecipeEntity {
     @ColumnInfo(name = "sourceName")
     public String sourceName;
 
-    @ColumnInfo(name = "spoonacularSourceUrl")
-    public String spoonacularSourceUrl;
 
     @ColumnInfo(name = "summary")
     public String summary;
@@ -61,4 +59,27 @@ public class RecipeEntity {
     @ColumnInfo(name = "date")
     public Date date;
 
+    @ColumnInfo(name = "url")
+    public String url;
+
+    @ColumnInfo(name = "calories")
+    public String calories;
+
+    @ColumnInfo(name = "carbs")
+    public String carbs;
+
+    @ColumnInfo(name = "fat")
+    public String fat;
+
+    @ColumnInfo(name = "protein")
+    public String protein;
+
+    @ColumnInfo(name = "badName")
+    public String badName;
+
+    @ColumnInfo(name = "badAmount")
+    public String badAmount;
+
+    @ColumnInfo(name = "ingredients")
+    public String ingredients;
 }

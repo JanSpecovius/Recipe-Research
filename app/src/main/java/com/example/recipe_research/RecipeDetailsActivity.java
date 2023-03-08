@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +34,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     int _id;
     String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, url;
-    int _ammount;
+    int _amount;
+
+    boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
     String [] _ingrArray;
 
     private RecipeDatabase database;
@@ -92,6 +93,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _url = response.spoonacularSourceUrl;
             _id = response.id;
 
+            _glutenfree = response.glutenFree;
+            _vegetarian = response.vegetarian;
+            _vegan = response.vegan;
+            _dairyFree = response.dairyFree;
+
 
            
 
@@ -108,12 +114,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             }
 
              */
-             _ammount = response.getExtendedIngredients().size();
+             _amount = response.getExtendedIngredients().size();
             int counter=0;
 
-            _ingrArray = new String[_ammount];
+            _ingrArray = new String[_amount];
 
-            while (_ammount>counter){
+            while (_amount >counter){
 
                 _ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
@@ -193,7 +199,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         int counter = 0;
 
-        while (_ammount>counter){
+        while (_amount >counter){
             
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
@@ -208,8 +214,28 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     public void insertRow(){
         RecipeEntity entity = new RecipeEntity();
-        entity.id = _id;
+        entity.apiID = _id;
         entity.title = _title;
+        entity.dairyFree = _dairyFree;
+        entity.glutenFree = _glutenfree;
+        entity.vegan = _vegan;
+        entity.vegetarian = _vegetarian;
+        entity.image = _image;
+        entity.sourceName = _sourceName;
+        entity.summary = _summary;
+        entity.url = _url;
+        entity.calories = _calories;
+        entity.carbs = _carbs;
+        entity.fat = _fat;
+        entity.protein = _protein;
+        entity.badName = _badName;
+        entity.badAmount = _badAmount;
+
+        StringBuilder temp = new StringBuilder();
+        for(int i = 0 ; i < _amount;i++){
+            temp.append(_ingrArray[i]).append(" | ");
+        }
+        entity.ingredients = temp.toString();
 
         recipeDao.insert(entity);
     }
