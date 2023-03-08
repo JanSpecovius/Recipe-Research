@@ -91,7 +91,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
 
     public void setDataFromDatabase(int id){
-        //TODO: Write code to get data from the database and parse it into the declared variables
         RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
         _title = recipeEntity.title;
         _sourceName = recipeEntity.sourceName;
@@ -144,11 +143,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
-
-
-
-
     public void assignRecipeDetail() {
         textView_meal_name.setText(_title);
         textView_meal_source.setText(_sourceName);
@@ -187,7 +181,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     }
     public void deleteFromDatabase(int _id){
         //TODO: Write code to delete insert in database
-
+        recipeDao.deleteById(id);
+        Log.d("delete", "deleteFromDatabase: " + id);
         finish();
     }
 
