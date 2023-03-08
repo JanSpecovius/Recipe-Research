@@ -94,6 +94,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _image = response.image;
             _url = response.spoonacularSourceUrl;
             _id = response.id;
+            _readyInTime = response.readyInMinutes;
+            _servings = response.servings;
+
 
             _glutenfree = response.glutenFree;
             _vegetarian = response.vegetarian;
@@ -151,6 +154,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _protein = nutrition.getProtein();
             _badName = nutrition.getBad().get(4).title;
             _badAmount = nutrition.getBad().get(4).amount;
+
+
+
             assignNutritonDetail();
 
         }
