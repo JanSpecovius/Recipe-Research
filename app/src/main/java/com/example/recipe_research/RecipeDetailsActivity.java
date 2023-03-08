@@ -54,7 +54,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
-
+        _flag = false;
         findViewById();
 
         id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -190,11 +190,15 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
             if(_flag){
                 _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
+
                 deleteRow(_id);
+                _flag = false;
 
             }else {
                 _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+
                 insertRow();
+                _flag = true;
             }
 
 
@@ -243,22 +247,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
 
-
-
-        sb = new StringBuilder();
-
-        int counter = 0;
-
-        while (_amount >counter){
-            
-            sb.append(_ingrArray[counter]).append("\n");
-            counter++;
-        }
-
-        //Set the string builder text to the text view
-        textView_meal_ingredients.setText(sb.toString());
-
-
     }
     
 
@@ -302,6 +290,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     public boolean isInDatabase(int id){
         //TODO Check if meal is in database by id and return boolean
 
-        return true;
+        return false;
     }
 }
