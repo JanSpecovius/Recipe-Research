@@ -20,6 +20,8 @@ import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
@@ -165,7 +167,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + linkToOriginal);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + url);
             startActivity(Intent.createChooser(shareIntent, "Share via"));
 
         } else if(v == _bookmark){
@@ -188,7 +190,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         int counter = 0;
 
-        while (_ammount>counter){
+        while (_amount>counter){
 
             sb.append(_ingrArray[counter]).append("\n");
             counter++;
@@ -251,11 +253,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.badName = _badName;
         entity.badAmount = _badAmount;
 
+
         StringBuilder temp = new StringBuilder();
         for(int i = 0 ; i < _amount;i++){
             temp.append(_ingrArray[i]).append(" | ");
         }
         entity.ingredients = temp.toString();
+
+        entity.date = new Date();
 
         recipeDao.insert(entity);
     }
