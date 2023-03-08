@@ -1,7 +1,6 @@
 package com.example.recipe_research;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -15,16 +14,12 @@ import android.widget.Toast;
 import com.example.recipe_research.Adapters.IngredientsAdapter;
 import com.example.recipe_research.Listeners.NutritionByIdListener;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
-import com.example.recipe_research.Models.Bad;
 import com.example.recipe_research.Models.NutritionByIdResponse;
 import com.example.recipe_research.Models.RecipeDetailsResponse;
 import com.example.recipe_research.db.RecipeDao;
 import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
@@ -36,11 +31,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     IngredientsAdapter ingredientsAdapter;
     ImageView _share;
     ImageView _bookmark;
+    String [] _ingrArray;
+    int _ammount;
 
 
     String url;
 
-    String _title, _sourceName, _summary, _image, _url;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
+
 
     private RecipeDatabase database;
 
@@ -65,6 +63,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
+
+        visualize();
     }
 
 
@@ -94,18 +94,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _url = response.spoonacularSourceUrl;
 
 
-            textView_meal_name.setText(_title);
-            textView_meal_source.setText(_sourceName);
-            textView_meal_summary.setText(_summary);
-            Picasso.get().load(_image).into(imageView_meal_name);
+           
 
-
-
-
-
-
-            StringBuilder sb = new StringBuilder();
-
+            /*
             int i = response.getExtendedIngredients().size();
             int j = 0;
             while (i>j){
@@ -117,26 +108,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 j++;
             }
 
-            j=0;
-            sb.append("\n");
-            while (i>j){
+             */
+             _ammount = response.getExtendedIngredients().size();
+            int counter=0;
 
-                String ingrAmt = String.valueOf(response.getExtendedIngredients().get(j).original);
-                sb.append(ingrAmt).append("\n");
-                j++;
+            _ingrArray = new String[_ammount];
+
+            while (_ammount>counter){
+
+                _ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
+                counter++;
             }
 
 
-
-
-
-
-
-
-
-
-            // Set the string builder text to the text view
-            textView_meal_ingredients.setText(sb.toString());
 
         }
 
@@ -151,27 +135,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         @Override
         public void onNutritionByIdReceived(NutritionByIdResponse nutrition, String message) {
 
-            StringBuilder sb = new StringBuilder();
+
 
             // Get the nutrition values from the response object
-            String calories = nutrition.getCalories();
-            String carbs = nutrition.getCarbs();
-            String fat = nutrition.getFat();
-            String protein = nutrition.getProtein();
-            String badName = nutrition.getBad().get(4).title;
-            String badAmount = nutrition.getBad().get(4).amount;
+            _calories = nutrition.getCalories();
+            _carbs = nutrition.getCarbs();
+            _fat = nutrition.getFat();
+            _protein = nutrition.getProtein();
+            _badName = nutrition.getBad().get(4).title;
+            _badAmount = nutrition.getBad().get(4).amount;
 
-
-            // Append the nutrition values to the string builder
-            sb.append("Calories: ").append(calories).append("\n");
-            sb.append("Carbs: ").append(carbs).append("\n");
-            sb.append("Fat: ").append(fat).append("\n");
-            sb.append("Protein: ").append(protein).append("\n");
-            sb.append(badName+": ").append(badAmount).append("\n");
-
-
-            // Set the string builder text to the text view
-            textView_meal_nutrition.setText(sb.toString());
         }
 
         @Override
@@ -195,6 +168,44 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             //insertRow(add response here);
         }
     }
+    
+    public void visualize(){
+
+        textView_meal_name.setText(_title);
+        textView_meal_source.setText(_sourceName);
+        textView_meal_summary.setText(_summary);
+        Picasso.get().load(_image).into(imageView_meal_name);
+
+        StringBuilder sb = new StringBuilder();
+
+        // Append the nutrition values to the string builder
+        sb.append("Calories: ").append(_calories).append("\n");
+        sb.append("Carbs: ").append(_carbs).append("\n");
+        sb.append("Fat: ").append(_fat).append("\n");
+        sb.append("Protein: ").append(_protein).append("\n");
+        sb.append(_badName+": ").append(_badAmount).append("\n");
+
+        // Set the string builder text to the text view
+        textView_meal_nutrition.setText(sb.toString());
+
+
+
+        sb = new StringBuilder();
+
+        int counter = 0;
+
+        while (_ammount>counter){
+            
+            sb.append(_ingrArray[counter]).append("\n");
+            counter++;
+        }
+
+        // Set the string builder text to the text view
+        textView_meal_ingredients.setText(sb.toString());
+
+
+    }
+    
 
     public void insertRow(RecipeDetailsResponse response){
         RecipeEntity entity = new RecipeEntity();
