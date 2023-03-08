@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,6 +87,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             url = response.spoonacularSourceUrl;
 
 
+
             recycler_meal_ingredients.setHasFixedSize(true);
             recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
             ingredientsAdapter = new IngredientsAdapter(RecipeDetailsActivity.this, response.extendedIngredients);
@@ -145,8 +147,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         } else if(v == _bookmark){
     
             //TODO write code here to add a new Database entry @Daniel
-
-            //insertRow();
+            //insertRow(add response here);
         }
     }
 
@@ -156,5 +157,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.title = response.title;
 
         recipeDao.insert(entity);
+    }
+
+    public RecipeDetailsResponse tempSave(RecipeDetailsResponse response){
+        RecipeDetailsResponse tempSaveFile = response;
+        Log.d("AndroidRuntime", "tempSave: " + tempSaveFile.title);
+        return tempSaveFile;
     }
 }
