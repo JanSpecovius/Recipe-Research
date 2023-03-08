@@ -189,7 +189,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
             if(_flag){
                 _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
-
+                Log.d("Jans super log","Here is pain");
                 deleteRow(_id);
                 _flag = false;
 
