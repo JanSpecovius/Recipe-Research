@@ -1,8 +1,31 @@
 <resources>
     <string name="app_name">Recipe-Research</string>
-    <string name="api_Key">b2b35c96874646959d02dbb919291686 </string>
-    <string name="yesButton">"Yes"</string>
-    <string name="noButton">"No"</string>
+    <string name="api_Key">7607f71329b3478f88e264e8b78448df</string>
+    <string name="yesButton">Yes</string>
+    <string name="noButton">No</string>
+    <string name="calories">Calories: </string>
+    <string name="carbs">Carbs: </string>
+    <string name="fat">Fat: </string>
+    <string name="protein">Protein: </string>
+    <string name="meal_found_mail">Check out this cool meal I found! </string>
+    <string name="share_via">Share via</string>
+    <string name="id">id</string>
+    <string name="database">Database</string>
+    <string name="recipe_filter">Recipe-Filter</string>
+    <string name="two_persons">2 Personen</string>
+    <string name="vegan_check">Vegan❌</string>
+    <string name="lactose_check">Lactosefree❌</string>
+    <string name="gluten_check">Glutenfree❌</string>
+    <string name="loading..">Loading... </string>
+    <string name="search_food">Search your food...</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="recipe_details">Recipe Details</string>
+    <string name="recipe_source">Source</string>
+    <string name="recipe_ingredients">Ingredients</string>
+    <string name="recipe_nutritions">Nutritions</string>
+    <string name="recipe_summary">Summary</string>
+    <string name="bookmark">Add to Database</string>
+    <string name="meal_view">View of Sorted Meals</string>
 
     <string-array name="tags">
         <item>main course</item>

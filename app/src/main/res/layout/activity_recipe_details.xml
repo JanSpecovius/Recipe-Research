@@ -5,37 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/orange"
+    android:background="@color/light_cream_brown"
     tools:context=".RecipeDetailsActivity">
 
 
     <androidx.appcompat.widget.Toolbar
-        app:title="Recipe Details"
-        app:titleTextColor="@color/white"
+        app:title="@string/recipe_details"
+        app:titleTextColor="@color/dark_cream_brown"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
         <ImageView
             android:id="@+id/share"
-            android:src="@drawable/ic_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
             android:clickable="true"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-
-            />
+            android:contentDescription="@string/share_via"
+            android:src="@drawable/ic_share" />
 
         <ImageView
             android:id="@+id/bookmark"
-            android:src="@drawable/ic_bookmark_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
             android:clickable="true"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-
-            />
+            android:contentDescription="@string/bookmark"
+            android:src="@drawable/ic_bookmark" />
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -53,10 +51,14 @@
 
             <TextView
                 android:id="@+id/textView_meal_name"
-                android:text="Recipe name"
+                android:text="@string/recipe_name"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_cream_brown"
+                android:shadowColor="@color/text_shadow_white"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="1"
                 android:padding="8dp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
@@ -64,38 +66,49 @@
 
             <TextView
                 android:id="@+id/textView_meal_source"
-                android:text="Source"
+                android:text="@string/recipe_source"
                 android:gravity="center"
                 android:textStyle="italic"
-                android:textColor="@color/white"
+                android:textColor="@color/grey_font"
                 android:textSize="14sp"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="1"
                 android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/imageView_meal_name"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="250dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/shadow_layer"
+                android:contentDescription="@string/meal_view"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/textView_meal_summary"
-                android:text="Summary"
+                android:text="@string/recipe_summary"
                 android:textSize="14sp"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_cream_brown"
                 android:textStyle="normal"
+                android:background="@drawable/shadow_layer"
                 android:padding="8dp"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Nutritions"
+                android:text="@string/recipe_nutritions"
                 android:textStyle="bold"
-                android:textColor="@color/white"
                 android:textSize="18sp"
+                android:textColor="@color/dark_cream_brown"
+                android:shadowColor="@color/text_shadow_white"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="1"
                 android:padding="8dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -103,20 +116,25 @@
 
             <TextView
                 android:id="@+id/textView_meal_nutrition"
-                android:text="Nutrition"
+                android:text="@string/recipe_nutritions"
                 android:textSize="14sp"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_cream_brown"
                 android:textStyle="normal"
+                android:background="@drawable/shadow_layer"
                 android:padding="8dp"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Ingredients"
+                android:text="@string/recipe_ingredients"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_cream_brown"
                 android:textSize="18sp"
+                android:shadowColor="@color/text_shadow_white"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="1"
                 android:padding="8dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -124,10 +142,11 @@
 
             <TextView
                 android:id="@+id/textView_meal_ingredients"
-                android:text="Ingredients"
+                android:text="@string/recipe_ingredients"
                 android:textSize="14sp"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_cream_brown"
                 android:textStyle="normal"
+                android:background="@drawable/shadow_layer"
                 android:padding="8dp"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"

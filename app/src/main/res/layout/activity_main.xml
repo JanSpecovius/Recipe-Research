@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/orange"
+    android:background="@color/light_cream_brown"
     tools:context="com.example.recipe_research.MainActivity">
 
 
@@ -12,12 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="0.5"
-        >
+        android:layout_weight="0.5">
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
-
 
 
             <RelativeLayout
@@ -26,21 +25,21 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:text="Recipe-Filter"
-                    android:background="@color/black"
+                    android:text="@string/recipe_filter"
+                    android:backgroundTint="@color/dark_cream_brown"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:gravity="center"
-
                     android:layout_marginStart="8dp"
-                    android:onClick="showFilter"
-                    />
+                    android:onClick="showFilter" />
 
                 <Spinner
                     android:id="@+id/spinner_tags"
                     android:gravity="center"
                     android:layout_alignParentEnd="true"
+                    android:textColor="@color/dark_cream_brown"
+                    android:popupBackground="@color/light_cream_brown"
                     android:entries="@array/tags"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
@@ -50,14 +49,14 @@
 
         <androidx.cardview.widget.CardView
             app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/orange"
+            app:cardBackgroundColor="@color/light_cream_brown"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchVieW_home"
-                app:queryHint="Search your food..."
+                app:queryHint="@string/search_food"
                 app:iconifiedByDefault="false"
                 app:searchIcon="@drawable/ic_search"
                 android:layout_width="match_parent"
@@ -65,38 +64,30 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_random"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:layout_marginBottom="20dp"
-            />
+            android:layout_marginBottom="20dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
+        android:orientation="horizontal">
 
 
         <Button
             android:id="@+id/database"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Database"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            />
+            android:text="@string/database"
+            android:backgroundTint="@color/dark_cream_brown"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>
