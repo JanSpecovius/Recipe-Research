@@ -134,7 +134,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
             _builder.setTitle("Warning!!!");
             _builder.setMessage("Do you really want to delete this bookmark?");
             _builder.setCancelable(true);
-            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase(_id));
+            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
             _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             _builder.show();
 
@@ -179,10 +179,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         textView_meal_nutrition.setText(sb.toString());
 
     }
-    public void deleteFromDatabase(int _id){
-        //TODO: Write code to delete insert in database
+    public void deleteFromDatabase(){
         recipeDao.deleteById(id);
-        Log.d("delete", "deleteFromDatabase: " + id);
         finish();
     }
 

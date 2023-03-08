@@ -67,11 +67,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
 
-        if(isInDatabase(_id)){
-            _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
-            _flag=true;
-        }
-
 
 
     }
@@ -111,22 +106,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _vegan = response.vegan;
             _dairyFree = response.dairyFree;
 
-
-           
-
-            /*
-            int i = response.getExtendedIngredients().size();
-            int j = 0;
-            while (i>j){
-                String ingrName = response.getExtendedIngredients().get(j).name;
-                String ingrAmt = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.amount);
-                String ingrUnit = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.unitLong);
-
-                sb.append(ingrName+": ").append(ingrAmt+" ").append(ingrUnit).append("\n");
-                j++;
+            if(isInDatabase(_id)){
+                _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+                _flag=true;
             }
 
-             */
              _amount = response.getExtendedIngredients().size();
             int counter=0;
 
@@ -189,7 +173,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
             if(_flag){
                 _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
-                Log.d("Jans super log","Here is pain");
                 deleteRow(_id);
                 _flag = false;
 
@@ -282,15 +265,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         recipeDao.insert(entity);
     }
     public void deleteRow(int id){
-
-        //TODO Delete entry by id
-        recipeDao.deleteById(id);
-        Log.d("delete", "deleteFromDatabase: " + id);
+        recipeDao.deleteByApiId(id);
 
     }
     public boolean isInDatabase(int id){
-        //TODO Check if meal is in database by id and return boolean
-
-        return false;
+        return recipeDao.getRecipeByApiId(id) != null;
     }
 }

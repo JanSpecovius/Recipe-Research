@@ -26,6 +26,9 @@ public interface RecipeDao {
     @Query("DELETE FROM RecipeEntity WHERE id =:id")
     void deleteById(int id);
 
+    @Query("DELETE FROM RecipeEntity WHERE apiID =:apiID")
+    void deleteByApiId(int apiID);
+
     @Query("DELETE FROM RecipeEntity")
     void deleteAll();
 
