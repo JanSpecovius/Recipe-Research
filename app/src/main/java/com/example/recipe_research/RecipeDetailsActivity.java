@@ -258,6 +258,8 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.protein = _protein;
         entity.badName = _badName;
         entity.badAmount = _badAmount;
+        entity.readyInMinutes = _readyInTime;
+        entity.servings = _servings;
 
 
         StringBuilder temp = new StringBuilder();
