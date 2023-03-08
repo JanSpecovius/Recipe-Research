@@ -49,4 +49,13 @@ public class RecipeDetailsResponse {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+
+    public ArrayList<ExtendedIngredient> getExtendedIngredients() {
+        return extendedIngredients;
+    }
+
+    public void setExtendedIngredients(ArrayList<ExtendedIngredient> extendedIngredients) {
+        this.extendedIngredients = extendedIngredients;
+    }
 }

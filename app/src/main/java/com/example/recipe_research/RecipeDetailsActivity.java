@@ -24,7 +24,7 @@ import java.util.List;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
-    TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition;
+    TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
     ImageView imageView_meal_name;
     RecyclerView recycler_meal_ingredients;
     RequestManager manager;
@@ -32,6 +32,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     IngredientsAdapter ingredientsAdapter;
     ImageView _share;
     ImageView _bookmark;
+
 
     String url;
 
@@ -59,7 +60,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         textView_meal_summary = findViewById(R.id.textView_meal_summary);
         textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
-        recycler_meal_ingredients = findViewById(R.id.recycler_meal_ingredients);
+        textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
+
+
+
         _share = findViewById(R.id.share);
         _bookmark = findViewById(R.id.bookmark);
     }
@@ -75,10 +79,43 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             url = response.spoonacularSourceUrl;
 
 
-            recycler_meal_ingredients.setHasFixedSize(true);
-            recycler_meal_ingredients.setLayoutManager(new LinearLayoutManager(RecipeDetailsActivity.this, LinearLayoutManager.HORIZONTAL, false));
-            ingredientsAdapter = new IngredientsAdapter(RecipeDetailsActivity.this, response.extendedIngredients);
-            recycler_meal_ingredients.setAdapter(ingredientsAdapter);
+
+
+
+
+            StringBuilder sb = new StringBuilder();
+
+            int i = response.getExtendedIngredients().size();
+            int j = 0;
+            while (i>j){
+                String ingrName = response.getExtendedIngredients().get(j).name;
+                String ingrAmt = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.amount);
+                String ingrUnit = String.valueOf(response.getExtendedIngredients().get(j).measures.metric.unitLong);
+
+                sb.append(ingrName+": ").append(ingrAmt+" ").append(ingrUnit).append("\n");
+                j++;
+            }
+
+            j=0;
+            sb.append("\n");
+            while (i>j){
+
+                String ingrAmt = String.valueOf(response.getExtendedIngredients().get(j).original);
+                sb.append(ingrAmt).append("\n");
+                j++;
+            }
+
+
+
+
+
+
+
+
+
+
+            // Set the string builder text to the text view
+            textView_meal_ingredients.setText(sb.toString());
 
         }
 

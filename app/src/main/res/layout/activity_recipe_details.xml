@@ -112,8 +112,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_meal_ingredients"
+            <TextView
+                android:id="@+id/textView_meal_ingredients"
+                android:text="Ingredients"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:padding="8dp"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
