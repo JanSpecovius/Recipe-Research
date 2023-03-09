@@ -50,7 +50,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         assign();
 
 
-
         setDataFromDatabase(id);
 
 
@@ -72,7 +71,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         bookmark = findViewById(R.id.imageView_db_bookmark);
 
 
-
         recipeDao = RecipeDatabase.getSingletonInstance(this).recipeDao();
 
         builder = new AlertDialog.Builder(this);
@@ -83,7 +81,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         share.setOnClickListener(this);
         bookmark.setOnClickListener(this);
-
 
 
     }

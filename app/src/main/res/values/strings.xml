@@ -16,8 +16,8 @@
     <string name="vegan_check">Vegan❌</string>
     <string name="lactose_check">Lactosefree❌</string>
     <string name="gluten_check">Glutenfree❌</string>
-    <string name="loading..">Loading... </string>
-    <string name="search_food">Search your food...</string>
+    <string name="loading..">Loading… </string>
+    <string name="search_food">Search your food…</string>
     <string name="recipe_name">Recipe Name</string>
     <string name="recipe_details">Recipe Details</string>
     <string name="recipe_source">Source</string>
