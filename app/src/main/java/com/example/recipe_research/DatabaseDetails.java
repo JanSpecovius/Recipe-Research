@@ -28,7 +28,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_details);
 
-
         RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
@@ -39,7 +38,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
 
         setDataFromDatabase(id);
-        textView_createTime.setText(getString(R.string.prep_time) + recipeDao.getDateById(id).toString());
+        textView_createTime.setText(getString(R.string.db_timestamp) + recipeDao.getDateById(id).toString());
 
         assignRecipeDetail();
         assignNutritonDetail();
@@ -47,10 +46,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
-
-
     }
-
 
     private void findViewById() {
         textView_meal_name = findViewById(R.id.textView_db_meal_name);
@@ -66,7 +62,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         _bookmark = findViewById(R.id.imageView_db_bookmark);
     }
 
-
     public void setDataFromDatabase(int id) {
         RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
         _title = recipeEntity.title;
@@ -80,11 +75,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         _protein = recipeEntity.protein;
         _badName = recipeEntity.badName;
         _badAmount = recipeEntity.badAmount;
-
         _ingredients = recipeEntity.ingredients;
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -102,44 +94,31 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
             _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
             _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             _builder.show();
-
-
         }
     }
-
 
     public void assignRecipeDetail() {
         textView_meal_name.setText(_title);
         textView_meal_source.setText(_sourceName);
         textView_meal_summary.setText(_summary);
-        Picasso.get().load(_image).into(imageView_meal_name);
-
-
         textView_meal_ingredients.setText(_ingredients);
-
+        Picasso.get().load(_image).into(imageView_meal_name);
     }
 
     public void assignNutritonDetail() {
-
-
-        StringBuilder sb = new StringBuilder();
-
         // Append the nutrition values to the string builder
-        sb.append("Calories: ").append(_calories).append("\n");
-        sb.append("Carbs: ").append(_carbs).append("\n");
-        sb.append("Fat: ").append(_fat).append("\n");
-        sb.append("Protein: ").append(_protein).append("\n");
-        sb.append(_badName + ": ").append(_badAmount).append("\n");
+        String sb = R.string.calories + _calories + "\n" +
+                R.string.carbs + _carbs + "\n" +
+                R.string.fat + _fat + "\n" +
+                R.string.protein + _protein + "\n" +
+                _badName + getString(R.string.dp) + _badAmount + "\n";
 
         // Set the string builder text to the text view
-        textView_meal_nutrition.setText(sb.toString());
-
+        textView_meal_nutrition.setText(sb);
     }
 
     public void deleteFromDatabase() {
         recipeDao.deleteById(id);
         finish();
     }
-
-
 }

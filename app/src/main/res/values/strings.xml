@@ -26,10 +26,14 @@
     <string name="recipe_summary">Summary</string>
     <string name="bookmark">Add to Database</string>
     <string name="meal_view">View of Sorted Meals</string>
-    <string name="prep_time">Preperation Time:</string>
+    <string name="db_timestamp">Database Timestamp: </string>
     <string name="refresh_button">Showing a Button to Refresh New Meals</string>
     <string name="bookmark_msg">Do you really want to delete this bookmark?</string>
     <string name="builder_title">Warning!!!</string>
+    <string name="del_all_entries">Delete all entries</string>
+    <string name="txt_view">Textview</string>
+    <string name="dp">: </string>
+    <string name="start">Search Recipes</string>
 
 
     <string-array name="tags">

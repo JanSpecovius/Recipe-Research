@@ -5,20 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DatabaseActivity"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/databaseCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/txt_view"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_database"
@@ -26,8 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="0.5"
-        />
+        android:layout_weight="0.5" />
 
 
     <Button
@@ -37,8 +34,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-
-        android:text="Delete all entries"
+        android:backgroundTint="@color/dark_cream_brown"
+        android:text="@string/del_all_entries"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
