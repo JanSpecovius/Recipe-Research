@@ -29,11 +29,9 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     RandomRecipeAdapter recipeAdapter;
     Button _delete;
     private AlertDialog.Builder _builder;
-
     private RecipeDatabase db;
     private RecipeDao recipeDao;
     private boolean flag;
-
     TextView databaseCount;
 
 
@@ -46,8 +44,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         _delete.setOnClickListener(this);
 
         assign();
-
-
     }
 
 

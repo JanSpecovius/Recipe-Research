@@ -17,9 +17,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
         _startButton = findViewById(R.id.startButton);
         _startButton.setOnClickListener(this);
-
-
-
     }
 
     @Override

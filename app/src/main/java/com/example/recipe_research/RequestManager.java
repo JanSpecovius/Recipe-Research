@@ -64,25 +64,6 @@ public class RequestManager {
         });
     }
 
-    /* public void getRecipeDetails(RecipeDetailsListener listener, int id) {
-         CallRecipeDetails callRecipeDetails = retrofit.create(CallRecipeDetails.class);
-         Call<RecipeDetailsResponse> call = callRecipeDetails.callRecipeDetails(id, context.getString(R.string.api_Key));
-         call.enqueue(new Callback<RecipeDetailsResponse>() {
-             @Override
-             public void onResponse(Call<RecipeDetailsResponse> call, Response<RecipeDetailsResponse> response) {
-                 if (!response.isSuccessful()) {
-                     listener.didError(response.message());
-                     return;
-                 }
-                 listener.didFetch(response.body(), response.message());
-             }
-
-             @Override
-             public void onFailure(Call<RecipeDetailsResponse> call, Throwable t) {
-                 listener.didError(t.getMessage());
-             }
-         });
-     }*/
     public void getRecipeDetails(RecipeDetailsListener listener, int id) {
         CallRecipeDetails callRecipeDetails = retrofit.create(CallRecipeDetails.class);
         Call<RecipeDetailsResponse> call = callRecipeDetails.callRecipeDetails(id, context.getString(R.string.api_Key));

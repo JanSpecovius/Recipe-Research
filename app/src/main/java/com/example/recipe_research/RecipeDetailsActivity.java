@@ -28,26 +28,16 @@ import java.util.Date;
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     int id;
     TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
-    ImageView imageView_meal_name;
-    RecyclerView recycler_meal_ingredients;
     RequestManager manager;
     LoadingDialog loadingDialog;
-    IngredientsAdapter ingredientsAdapter;
-    ImageView _share;
-    ImageView _bookmark;
+    ImageView _share, _bookmark, imageView_meal_name;
     private AlertDialog.Builder _builder;
 
-
-    int _id;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount;
-    int _amount, _readyInTime, _servings;
-
-    boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
+    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, _ingredients;
     String [] _ingrArray;
-
+    int _amount, _readyInTime, _servings, _id;
+    boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
     private RecipeDatabase db;
-    String _ingredients;
-
     private RecipeDao recipeDao;
 
     @Override
@@ -185,22 +175,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
                 _builder.show();
 
-
-
-
-
-
             }else {
                 _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
 
                 insertRow();
                 _flag = true;
             }
-
-
-
-
-
 
         }
     }

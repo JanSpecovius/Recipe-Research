@@ -36,17 +36,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     RecyclerView recyclerView;
     Spinner spinner;
     List<String> tags = new ArrayList<>();
-    //RandomRecipeResponseListener listener;
     SearchView searchView;
-    Boolean _glutenFree;
-    Boolean _vegetarian;
-    Boolean _vegan;
-    Boolean _lactoseFree;
-    String tagString;
-    String _query;
-    Button _settingsButton;
+    Boolean _glutenFree, _vegetarian,_lactoseFree,_vegan,flag;
+    String tagString,_query;
     Button _databaseButton;
-    Boolean flag;
     ImageView _refresh;
 
 
@@ -81,31 +74,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Old fix because otherwise run twice when pressing enter on pc
-               /* if(Boolean.TRUE.equals(flag)){
-                    flag = false;
-                }else{
-
-                    _query = query;
-                    runRequest();
-                   flag = true;
-
-                    return false;
-
-                }
-            */
-
                 runRequest();
                 return false;
-
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
-
 
         spinner = findViewById(R.id.spinner_tags);
         ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(
@@ -116,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
-
 
         manager = new RequestManager(this);
     }
@@ -192,11 +167,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             case R.id.veganItem:
                 if (_vegan) {
-                    //menuItem.setChecked(false);
                     _vegan = false;
                     runRequest();
                 } else {
-                    //menuItem.setChecked(true);
                     _vegan = true;
                     _vegetarian = false;
                     runRequest();
@@ -204,12 +177,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return true;
             case R.id.vegetarianItem:
                 if (_vegetarian) {
-                    //menuItem.setChecked(false);
                     _vegetarian = false;
                     runRequest();
 
                 } else {
-                    //menuItem.setChecked(true);
                     _vegetarian = true;
                     _vegan = false;
                     runRequest();
@@ -217,22 +188,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return true;
             case R.id.glutenFreeItem:
                 if (menuItem.isChecked()) {
-                    //menuItem.setChecked(false);
                     _glutenFree = false;
                     runRequest();
                 } else {
-                    //menuItem.setChecked(true);
                     _glutenFree = true;
                     runRequest();
                 }
                 return true;
             case R.id.lactoseFreeItem:
                 if (menuItem.isChecked()) {
-                    //menuItem.setChecked(false);
                     _lactoseFree = false;
                     runRequest();
                 } else {
-                    //menuItem.setChecked(true);
                     _lactoseFree = true;
                     runRequest();
                 }
@@ -244,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void runRequest() {
         tags.clear();
-
         loadingDialog.showLoading();
 
         String temp = "";
