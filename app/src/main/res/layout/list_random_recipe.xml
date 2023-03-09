@@ -78,7 +78,7 @@
                     android:id="@+id/textView_alergys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/vegan_check"
+                    android:text="@string/notVegan"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="0dp" />
@@ -87,7 +87,7 @@
                     android:id="@+id/textView_lactoseCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lactose_check"
+                    android:text="@string/dairyFree"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="0dp" />
@@ -96,7 +96,7 @@
                     android:id="@+id/textView_glutenCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gluten_check"
+                    android:text="@string/glutenFree"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="0dp" />

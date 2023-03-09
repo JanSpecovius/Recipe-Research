@@ -43,31 +43,34 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         holder.textViewTitle.setText(list.get(position).title);
         holder.textViewTitle.setSelected(true);
 
-        holder.textViewServings.setText(list.get(position).servings + " servings");
-        holder.textViewTime.setText(list.get(position).readyInMinutes + " minutes");
+        holder.textViewServings.setText(list.get(position).servings + context.getString(R.string.servings));
+        holder.textViewTime.setText(list.get(position).readyInMinutes + context.getString(R.string.minutes));
 
-        if (list.get(position).vegan || list.get(position).vegetarian) {
+        if(list.get(position).vegan || list.get(position).vegetarian) {
 
             if (list.get(position).vegan) {
-                holder.textViewAllergy.setText("Vegan ✅");
+                holder.textViewAllergy.setText(R.string.vegan);
             } else {
                 if (list.get(position).vegetarian) {
-                    holder.textViewAllergy.setText("Vegetarian ✅");
+                    holder.textViewAllergy.setText(R.string.vegetarian);
                 }
             }
         } else {
             holder.textViewAllergy.setText("Vegetarian ❌");
         }
+            else{
+                holder.textViewAllergy.setText(R.string.notVegan);
+            }
 
-        if (list.get(position).glutenFree) {
-            holder.textViewGluten.setText("Gluten free ✅");
-        } else {
-            holder.textViewGluten.setText("Gluten free ❌");
+        if(list.get(position).glutenFree){
+            holder.textViewGluten.setText(R.string.glutenFree);
+        }else{
+            holder.textViewGluten.setText(R.string.notGlutenFree);
         }
-        if (list.get(position).dairyFree) {
-            holder.textViewLactose.setText("Dairy free   ✅");
-        } else {
-            holder.textViewLactose.setText("Dairy free   ❌");
+        if(list.get(position).dairyFree){
+            holder.textViewLactose.setText(R.string.dairyFree);
+        }else{
+            holder.textViewLactose.setText(R.string.notDairyFee);
         }
 
 

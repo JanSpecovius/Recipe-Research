@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private final List<String> tags = new ArrayList<>();
     private Boolean glutenFree;
     private Boolean vegetarian;
-    private Boolean lactoseFree;
+    private Boolean dairyFree;
     private Boolean vegan;
     private String tagString;
     private String query;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         glutenFree = false;
         vegetarian = false;
         vegan = false;
-        lactoseFree = false;
+        dairyFree = false;
         query = "";
 
         searchView = findViewById(R.id.searchVieW_home);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (glutenFree) {
             popup.getMenu().findItem(R.id.glutenFreeItem).setChecked(true);
         }
-        if (lactoseFree) {
+        if (dairyFree) {
             popup.getMenu().findItem(R.id.lactoseFreeItem).setChecked(true);
         }
         popup.show();
@@ -188,10 +188,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return true;
             case R.id.lactoseFreeItem:
                 if (menuItem.isChecked()) {
-                    lactoseFree = false;
+                    dairyFree = false;
                     runRequest();
                 } else {
-                    lactoseFree = true;
+                    dairyFree = true;
                     runRequest();
                 }
                 return true;
