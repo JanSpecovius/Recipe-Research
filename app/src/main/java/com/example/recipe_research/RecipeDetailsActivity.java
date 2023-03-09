@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
-    private int id;
+
     private TextView textViewMealName;
     private TextView textViewMealSource;
     private TextView textViewMealSummary;
@@ -73,6 +73,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     private void assign() {
+        int id;
         textViewMealName = findViewById(R.id.textView_meal_name);
         textViewMealSource = findViewById(R.id.textView_meal_source);
         textViewMealSummary = findViewById(R.id.textView_meal_summary);
@@ -162,7 +163,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             badAmount = nutrition.getBad().get(4).amount;
 
 
-            assignNutritonDetail();
+            assignNutritionDetail();
 
         }
 
@@ -230,7 +231,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public void assignNutritonDetail() {
+    public void assignNutritionDetail() {
 
 
         // Append the nutrition values to the string builder

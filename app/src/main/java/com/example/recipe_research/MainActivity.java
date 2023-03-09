@@ -259,9 +259,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         tags.add(temp);
 
 
-        new Thread(() -> {
-            manager.getRandomRecipes(randomRecipeResponseListener, tags);
-        }).start();
+        new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags)).start();
 
 
     }

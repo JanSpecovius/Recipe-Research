@@ -16,10 +16,28 @@ import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
 public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
-    private TextView textViewMealName, textViewMealSource, textViewMealSummary, textViewMealNutrition, textViewMealIngredients, textViewCreateTime;
-    private ImageView share, imageViewMealName, bookmark;
+    private TextView textViewMealName;
+    private TextView textViewMealSource;
+    private TextView textViewMealSummary;
+    private TextView textViewMealNutrition;
+    private TextView textViewMealIngredients;
+
+    private ImageView share;
+    private ImageView imageViewMealName;
+    private ImageView bookmark;
     private AlertDialog.Builder builder;
-    private String title, sourceName, summary, image, url, calories, carbs, fat, protein, badName, badAmount, ingredients;
+    private String title;
+    private String sourceName;
+    private String summary;
+    private String image;
+    private String url;
+    private String calories;
+    private String carbs;
+    private String fat;
+    private String protein;
+    private String badName;
+    private String badAmount;
+    private String ingredients;
     private int id;
     private RecipeDao recipeDao;
 
@@ -42,6 +60,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     }
 
     private void assign() {
+        TextView textViewCreateTime;
         textViewMealName = findViewById(R.id.textView_db_meal_name);
         textViewMealSource = findViewById(R.id.textView_db_meal_source);
         textViewMealSummary = findViewById(R.id.textView_db_meal_summary);

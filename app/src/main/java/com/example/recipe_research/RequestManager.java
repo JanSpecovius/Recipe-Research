@@ -2,6 +2,8 @@ package com.example.recipe_research;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.example.recipe_research.Listeners.NutritionByIdListener;
 import com.example.recipe_research.Listeners.RandomRecipeResponseListener;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
@@ -25,8 +27,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class RequestManager {
-    private Context context;
-    private Retrofit retrofit;
+    private final Context context;
+    private final Retrofit retrofit;
 
     public RequestManager(Context context) {
         this.context = context;
@@ -49,7 +51,7 @@ public class RequestManager {
         Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_Key), "10", tags);
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
             @Override
-            public void onResponse(Call<RandomRecipeApiResponse> call, Response<RandomRecipeApiResponse> response) {
+            public void onResponse(@NonNull Call<RandomRecipeApiResponse> call, @NonNull Response<RandomRecipeApiResponse> response) {
                 if (!response.isSuccessful()) {
                     listener.didError(response.message());
                     return;
@@ -58,7 +60,7 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailure(Call<RandomRecipeApiResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<RandomRecipeApiResponse> call, @NonNull Throwable t) {
                 listener.didError(t.getMessage());
             }
         });
@@ -69,7 +71,7 @@ public class RequestManager {
         Call<RecipeDetailsResponse> call = callRecipeDetails.callRecipeDetails(id, context.getString(R.string.api_Key));
         call.enqueue(new Callback<RecipeDetailsResponse>() {
             @Override
-            public void onResponse(Call<RecipeDetailsResponse> call, Response<RecipeDetailsResponse> response) {
+            public void onResponse(@NonNull Call<RecipeDetailsResponse> call, @NonNull Response<RecipeDetailsResponse> response) {
                 if (!response.isSuccessful()) {
                     listener.didError(response.message());
                     return;
@@ -83,7 +85,7 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailure(Call<RecipeDetailsResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<RecipeDetailsResponse> call, @NonNull Throwable t) {
                 listener.didError(t.getMessage());
             }
         });
@@ -93,7 +95,7 @@ public class RequestManager {
         Call<NutritionByIdResponse> call = retrofit.create(NutritionService.class).getNutritionById(id, context.getString(R.string.api_Key));
         call.enqueue(new Callback<NutritionByIdResponse>() {
             @Override
-            public void onResponse(Call<NutritionByIdResponse> call, Response<NutritionByIdResponse> response) {
+            public void onResponse(@NonNull Call<NutritionByIdResponse> call, @NonNull Response<NutritionByIdResponse> response) {
 
                 if (response.isSuccessful() && response.body() != null) {
                     listener.onNutritionByIdReceived(response.body(), response.message());
@@ -103,7 +105,7 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailure(Call<NutritionByIdResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<NutritionByIdResponse> call, @NonNull Throwable t) {
                 listener.onNutritionByIdError(t.getMessage());
             }
         });

@@ -25,15 +25,11 @@ import java.util.List;
 
 
 public class DatabaseActivity extends AppCompatActivity implements View.OnClickListener {
-    private RecyclerView recyclerView;
-    private RandomRecipeAdapter recipeAdapter;
     private Button delete;
     private AlertDialog.Builder builder;
     private RecipeDatabase db;
     private RecipeDao recipeDao;
     private boolean flag;
-    private TextView databaseCount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +41,9 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
 
     public void assign(){
+        TextView databaseCount;
+        RandomRecipeAdapter recipeAdapter;
+        RecyclerView recyclerView;
         recyclerView = findViewById(R.id.recycler_database);
         databaseCount = findViewById(R.id.databaseCount);
         delete = findViewById(R.id.deleteAll);
@@ -60,15 +59,8 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
         databaseCount.setText("You have " + recipeDao.getCount() + " bookmarks");
     }
-    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
-        @Override
-        public void onRecipeClicked(String id) {
-
-                startActivity(new Intent(DatabaseActivity.this, DatabaseDetails.class)
-                        .putExtra("id", id));
-
-        }
-    };
+    private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetails.class)
+            .putExtra("id", id));
 
     private List<Recipe> fetchData(){
 
