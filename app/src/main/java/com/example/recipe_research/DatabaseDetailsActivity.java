@@ -77,7 +77,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         builder = new AlertDialog.Builder(this);
         id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
 
-        textViewCreateTime.setText(getString(R.string.db_timestamp) + recipeDao.getDateById(id).toString());
+        textViewCreateTime.setText(getString(R.string.db_timestamp) + " " + recipeDao.getDateById(id).toString());
         bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
 
         share.setOnClickListener(this);

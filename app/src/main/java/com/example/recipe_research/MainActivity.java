@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 temp = temp + ",gluten free";
             }
         }
-        if (lactoseFree) {
+        if (dairyFree) {
             if (temp.equals("")) {
                 temp = "dairy free";
             } else {
