@@ -46,20 +46,17 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         holder.textViewServings.setText(list.get(position).servings + context.getString(R.string.servings));
         holder.textViewTime.setText(list.get(position).readyInMinutes + context.getString(R.string.minutes));
 
-        if(list.get(position).vegan || list.get(position).vegetarian) {
+        if (list.get(position).vegan || list.get(position).vegetarian) {
 
             if (list.get(position).vegan) {
                 holder.textViewAllergy.setText(R.string.vegan);
-            } else {
-                if (list.get(position).vegetarian) {
-                    holder.textViewAllergy.setText(R.string.vegetarian);
-                }
+            } else if (list.get(position).vegetarian) {
+                holder.textViewAllergy.setText(R.string.vegetarian);
             }
-        } else {
-            holder.textViewAllergy.setText("Vegetarian ❌");
-        }
-            else{
-                holder.textViewAllergy.setText(R.string.notVegan);
+
+
+        }else {
+            holder.textViewAllergy.setText(R.string.notVegetarian);
             }
 
         if(list.get(position).glutenFree){
