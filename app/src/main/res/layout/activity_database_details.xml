@@ -24,7 +24,8 @@
             android:layout_marginEnd="10dp"
             android:clickable="true"
             android:contentDescription="@string/share_via"
-            android:src="@drawable/ic_share" />
+            android:src="@drawable/ic_share"
+            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 
         <ImageView
             android:id="@+id/imageView_db_bookmark"
@@ -34,7 +35,8 @@
             android:layout_marginEnd="10dp"
             android:clickable="true"
             android:contentDescription="@string/bookmark"
-            android:src="@drawable/ic_bookmark_border" />
+            android:src="@drawable/ic_bookmark_border"
+            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -67,18 +69,19 @@
 
             <TextView
                 android:id="@+id/textView_db_meal_source"
-                android:text="@string/recipe_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textStyle="italic"
-                android:textColor="@color/grey_font"
-                android:textSize="14sp"
+                android:padding="8dp"
                 android:shadowColor="@color/text_shadow"
                 android:shadowDx="-2"
                 android:shadowDy="-2"
                 android:shadowRadius="1"
-                android:padding="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:text="@string/recipe_source"
+                android:textColor="@color/grey_font"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                tools:ignore="TextContrastCheck" />
 
             <ImageView
                 android:id="@+id/imageView_db_meal_name"
@@ -154,7 +157,6 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/textView_db_meal_createTime"
-                android:text=" "
                 android:textSize="14sp"
                 android:textColor="@color/dark_cream_brown"
                 android:textStyle="normal"
@@ -162,7 +164,8 @@
                 android:padding="8dp"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
     </ScrollView>
