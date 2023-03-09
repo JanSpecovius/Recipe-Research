@@ -26,7 +26,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        setContentView(R.layout.activity_database_details);
 
 
         RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
@@ -53,17 +53,17 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
 
     private void findViewById() {
-        textView_meal_name = findViewById(R.id.textView_meal_name);
-        textView_meal_source = findViewById(R.id.textView_meal_source);
-        textView_meal_summary = findViewById(R.id.textView_meal_summary);
-        textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
-        imageView_meal_name = findViewById(R.id.imageView_meal_name);
-        textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
-        textView_createTime = findViewById(R.id.textView_meal_createTime);
+        textView_meal_name = findViewById(R.id.textView_db_meal_name);
+        textView_meal_source = findViewById(R.id.textView_db_meal_source);
+        textView_meal_summary = findViewById(R.id.textView_db_meal_summary);
+        textView_meal_nutrition = findViewById(R.id.textView_db_meal_nutrition);
+        imageView_meal_name = findViewById(R.id.imageView_db_meal_name);
+        textView_meal_ingredients = findViewById(R.id.textView_db_meal_ingredients);
+        textView_createTime = findViewById(R.id.textView_db_meal_createTime);
 
 
-        _share = findViewById(R.id.share);
-        _bookmark = findViewById(R.id.bookmark);
+        _share = findViewById(R.id.imageView_db_share);
+        _bookmark = findViewById(R.id.imageView_db_bookmark);
     }
 
 

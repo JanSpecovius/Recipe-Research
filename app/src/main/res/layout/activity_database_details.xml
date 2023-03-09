@@ -8,6 +8,8 @@
     android:background="@color/light_cream_brown"
     tools:context=".RecipeDetailsActivity">
 
+
+
     <androidx.appcompat.widget.Toolbar
         app:title="@string/recipe_details"
         app:titleTextColor="@color/dark_cream_brown"
@@ -15,7 +17,7 @@
         android:layout_height="?attr/actionBarSize">
 
         <ImageView
-            android:id="@+id/share"
+            android:id="@+id/imageView_db_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -25,7 +27,7 @@
             android:src="@drawable/ic_share" />
 
         <ImageView
-            android:id="@+id/bookmark"
+            android:id="@+id/imageView_db_bookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView_meal_name"
+                android:id="@+id/textView_db_meal_name"
                 android:text="@string/recipe_name"
                 android:textSize="20sp"
                 android:gravity="center"
@@ -64,7 +66,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/textView_meal_source"
+                android:id="@+id/textView_db_meal_source"
                 android:text="@string/recipe_source"
                 android:gravity="center"
                 android:textStyle="italic"
@@ -79,7 +81,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
-                android:id="@+id/imageView_meal_name"
+                android:id="@+id/imageView_db_meal_name"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_margin="8dp"
@@ -88,7 +90,7 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/textView_meal_summary"
+                android:id="@+id/textView_db_meal_summary"
                 android:text="@string/recipe_summary"
                 android:textSize="14sp"
                 android:textColor="@color/dark_cream_brown"
@@ -114,7 +116,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/textView_meal_nutrition"
+                android:id="@+id/textView_db_meal_nutrition"
                 android:text="@string/recipe_nutritions"
                 android:textSize="14sp"
                 android:textColor="@color/dark_cream_brown"
@@ -140,7 +142,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/textView_meal_ingredients"
+                android:id="@+id/textView_db_meal_ingredients"
                 android:text="@string/recipe_ingredients"
                 android:textSize="14sp"
                 android:textColor="@color/dark_cream_brown"
@@ -150,7 +152,17 @@
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
+            <TextView
+                android:id="@+id/textView_db_meal_createTime"
+                android:text=" "
+                android:textSize="14sp"
+                android:textColor="@color/dark_cream_brown"
+                android:textStyle="normal"
+                android:background="@drawable/shadow_layer"
+                android:padding="8dp"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>
