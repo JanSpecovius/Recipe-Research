@@ -34,8 +34,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private ImageView share;
     private ImageView bookmark;
     private ImageView imageViewMealName;
-
-
     private String title;
     private String sourceName;
     private String summary;

@@ -55,6 +55,8 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
                     holder.textViewAllergy.setText(R.string.vegetarian);
                 }
             }
+        } else {
+            holder.textViewAllergy.setText("Vegetarian ❌");
         }
             else{
                 holder.textViewAllergy.setText(R.string.notVegan);
@@ -70,7 +72,6 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         }else{
             holder.textViewLactose.setText(R.string.notDairyFee);
         }
-
 
 
         Picasso.get().load(list.get(position).image).into(holder.imageViewFood);
