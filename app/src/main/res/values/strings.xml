@@ -34,10 +34,12 @@
     <string name="txt_view">Textview</string>
     <string name="dp">: </string>
     <string name="start">Search Recipes</string>
-    <string name="you_have">You have </string>
-    <string name="bookmarks"> bookmarks</string>
-    <string name="nothing_selected">Nothing selected!</string>
-    <string name="servings"> servings</string>
+    <string name="speakableTextRefresh">Refresh Button</string>
+    <string name="speakableTextPersonPicture">Persons</string>
+    <string name="speakableTextTimePicture">Time</string>
+    <string name="spinnerInnerPlaceHolder">Dessert</string>
+    <string name="spinnerPlaceHolder">Menu</string>
+
 
 
     <string-array name="tags">

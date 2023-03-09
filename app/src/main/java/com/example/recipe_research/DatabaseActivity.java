@@ -60,7 +60,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
         databaseCount.setText(getString(R.string.you_have) + recipeDao.getCount() + getString(R.string.bookmarks));
     }
-
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetailsActivity.class)
             .putExtra("id", id));
 
