@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.recipe_research.Listeners.NutritionByIdListener;
 import com.example.recipe_research.Listeners.RecipeDetailsListener;
 import com.example.recipe_research.Models.NutritionByIdResponse;
@@ -59,9 +58,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         _share.setOnClickListener(this);
         _bookmark.setOnClickListener(this);
         loadingDialog.showLoading();
-
-
-
     }
 
 
@@ -98,13 +94,13 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _vegan = response.vegan;
             _dairyFree = response.dairyFree;
 
-            if(isInDatabase(_id)){  
+            if (isInDatabase(_id)) {
                 _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
-                _flag=true;
+                _flag = true;
             }
 
-             _amount = response.getExtendedIngredients().size();
-            int counter=0;
+            _amount = response.getExtendedIngredients().size();
+            int counter = 0;
 
             _ingrArray = new String[_amount];
 
@@ -121,7 +117,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         @Override
         public void didError(String message) {
-            Toast.makeText(RecipeDetailsActivity.this, "Detail:"+message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RecipeDetailsActivity.this, "Detail:" + message, Toast.LENGTH_SHORT).show();
             loadingDialog.disMiss();
             finish();
         }
@@ -163,7 +159,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         } else if (v == _bookmark) {
 
 
-            if(_flag){
+            if (_flag) {
 
 
                 _builder = new AlertDialog.Builder(this);
@@ -221,8 +217,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         sb.append(_badName + ": ").append(_badAmount).append("\n");
 
 
-
-
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
 
@@ -251,20 +245,21 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.servings = _servings;
 
 
-
         entity.ingredients = _ingredients;
 
         entity.date = new Date();
 
         recipeDao.insert(entity);
     }
-    public void deleteRow(int id){
+
+    public void deleteRow(int id) {
         recipeDao.deleteByApiId(id);
         _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
         _flag = false;
 
     }
-    public boolean isInDatabase(int id){
+
+    public boolean isInDatabase(int id) {
         return recipeDao.getRecipeByApiId(id) != null;
     }
 }

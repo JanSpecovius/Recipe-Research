@@ -1,12 +1,10 @@
 package com.example.recipe_research;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,13 +15,11 @@ import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
-
 public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
-    private TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients, textView_creatTime;
-    private ImageView _share,imageView_meal_name,_bookmark;
+    private TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients, textView_createTime;
+    private ImageView _share, imageView_meal_name, _bookmark;
     private AlertDialog.Builder _builder;
-    private String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount,_ingredients;
+    private String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, _ingredients;
     private int id;
     private RecipeDao recipeDao;
 
@@ -40,10 +36,10 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         findViewById();
 
-        id = Integer.parseInt(getIntent().getStringExtra("id"));
+        id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
 
         setDataFromDatabase(id);
-        textView_creatTime.setText(recipeDao.getDateById(id).toString());
+        textView_createTime.setText(getString(R.string.prep_time) + recipeDao.getDateById(id).toString());
 
         assignRecipeDetail();
         assignNutritonDetail();
@@ -63,8 +59,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
-        textView_creatTime = findViewById(R.id.textView_meal_creatTime);
-
+        textView_createTime = findViewById(R.id.textView_meal_createTime);
 
 
         _share = findViewById(R.id.share);
@@ -72,7 +67,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    public void setDataFromDatabase(int id){
+    public void setDataFromDatabase(int id) {
         RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
         _title = recipeEntity.title;
         _sourceName = recipeEntity.sourceName;
@@ -96,13 +91,13 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         if (v == _share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool meal I found! " + _url);
-            startActivity(Intent.createChooser(shareIntent, "Share via"));
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.meal_found_mail) + _url);
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 
-        } else if (v==_bookmark) {
+        } else if (v == _bookmark) {
 
-            _builder.setTitle("Warning!!!");
-            _builder.setMessage("Do you really want to delete this bookmark?");
+            _builder.setTitle(R.string.builder_title);
+            _builder.setMessage(getString(R.string.bookmark_msg));
             _builder.setCancelable(true);
             _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
             _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
@@ -123,7 +118,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         textView_meal_ingredients.setText(_ingredients);
 
     }
-    public void assignNutritonDetail(){
+
+    public void assignNutritonDetail() {
 
 
         StringBuilder sb = new StringBuilder();
@@ -133,17 +129,17 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         sb.append("Carbs: ").append(_carbs).append("\n");
         sb.append("Fat: ").append(_fat).append("\n");
         sb.append("Protein: ").append(_protein).append("\n");
-        sb.append(_badName+": ").append(_badAmount).append("\n");
+        sb.append(_badName + ": ").append(_badAmount).append("\n");
 
         // Set the string builder text to the text view
         textView_meal_nutrition.setText(sb.toString());
 
     }
-    public void deleteFromDatabase(){
+
+    public void deleteFromDatabase() {
         recipeDao.deleteById(id);
         finish();
     }
-
 
 
 }

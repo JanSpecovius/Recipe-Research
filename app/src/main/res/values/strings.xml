@@ -26,7 +26,11 @@
     <string name="recipe_summary">Summary</string>
     <string name="bookmark">Add to Database</string>
     <string name="meal_view">View of Sorted Meals</string>
-    <string name="creat_time">Creat Time:</string>
+    <string name="prep_time">Preperation Time:</string>
+    <string name="refresh_button">Showing a Button to Refresh New Meals</string>
+    <string name="bookmark_msg">Do you really want to delete this bookmark?</string>
+    <string name="builder_title">Warning!!!</string>
+
 
     <string-array name="tags">
         <item>main course</item>
