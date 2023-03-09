@@ -39,7 +39,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         assign();
     }
 
-
     @SuppressLint("SetTextI18n")
     public void assign() {
         TextView databaseCount;
@@ -58,10 +57,11 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         recyclerView.setLayoutManager(new GridLayoutManager(DatabaseActivity.this, 1));
         recyclerView.setAdapter(recipeAdapter);
 
-        databaseCount.setText(getString(R.string .you_have) + recipeDao.getCount() + getString(R.string.bookmarks));
+        databaseCount.setText(getString(R.string.you_have) + " " + recipeDao.getCount() + getString(R.string.bookmarks));
     }
+
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetailsActivity.class)
-            .putExtra("id", id));
+            .putExtra(getString(R.string.id), id));
 
     private List<Recipe> fetchData() {
 
@@ -76,7 +76,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             meal = toRecipe(recipeEntity[i]);
             recipe.add(meal);
         }
-
         return recipe;
     }
 
@@ -95,12 +94,11 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         return recipe;
     }
 
-
     @Override
     public void onClick(View v) {
         if (v == delete) {
-            builder.setTitle("Warning!!!");
-            builder.setMessage("Do you really want to delete all bookmarks?");
+            builder.setTitle(getString(R.string.builder_title));
+            builder.setMessage(getString(R.string.bookmark_msg_all));
             builder.setCancelable(true);
             builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> delete());
             builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
@@ -112,7 +110,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
         recipeDao.deleteAll();
-        Toast.makeText(this, "All bookmarks deleted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.all_bookmarks_del, Toast.LENGTH_SHORT).show();
         assign();
     }
 
@@ -123,10 +121,8 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         if (flag) {
             flag = false;
             this.recreate();
-
         } else {
             flag = true;
         }
-
     }
 }
