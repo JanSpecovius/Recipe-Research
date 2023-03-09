@@ -2,6 +2,7 @@ package com.example.recipe_research;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
     private TextView textViewMealSummary;
     private TextView textViewMealNutrition;
     private TextView textViewMealIngredients;
-
     private ImageView share;
     private ImageView imageViewMealName;
     private ImageView bookmark;
@@ -58,6 +58,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void assign() {
         TextView textViewCreateTime;
         textViewMealName = findViewById(R.id.textView_db_meal_name);
@@ -130,11 +131,11 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
 
     public void assignNutritonDetail() {
         // Append the nutrition values to the string builder
-        String sb = R.string.calories + calories + "\n" +
-                R.string.carbs + carbs + "\n" +
-                R.string.fat + fat + "\n" +
-                R.string.protein + protein + "\n" +
-                badName + getString(R.string.dp) + badAmount + "\n";
+        String sb = getString(R.string.calories) + " " + calories + "\n" +
+                getString(R.string.carbs) + " " + carbs + "\n" +
+                getString(R.string.fat) + " " + fat + "\n" +
+                getString(R.string.protein) + " " + protein + "\n" +
+                badName + getString(R.string.dp) + " " + badAmount + "\n";
 
         // Set the string builder text to the text view
         textViewMealNutrition.setText(sb);
