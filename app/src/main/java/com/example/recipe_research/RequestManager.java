@@ -25,8 +25,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class RequestManager {
-    Context context;
-    Retrofit retrofit;
+    private Context context;
+    private Retrofit retrofit;
 
     public RequestManager(Context context) {
         this.context = context;

@@ -30,17 +30,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
-    LoadingDialog loadingDialog;
-    RequestManager manager;
-    RandomRecipeAdapter randomRecipeAdapter;
-    RecyclerView recyclerView;
-    Spinner spinner;
-    List<String> tags = new ArrayList<>();
-    SearchView searchView;
-    Boolean _glutenFree, _vegetarian,_lactoseFree,_vegan,flag;
-    String tagString,_query;
-    Button _databaseButton;
-    ImageView _refresh;
+    private LoadingDialog loadingDialog;
+    private RequestManager manager;
+    private RandomRecipeAdapter randomRecipeAdapter;
+    private RecyclerView recyclerView;
+    private Spinner spinner;
+    private List<String> tags = new ArrayList<>();
+    private SearchView searchView;
+    private Boolean _glutenFree, _vegetarian,_lactoseFree,_vegan,flag;
+    private String tagString,_query;
+    private Button _databaseButton;
+    private ImageView _refresh;
 
 
     @Override

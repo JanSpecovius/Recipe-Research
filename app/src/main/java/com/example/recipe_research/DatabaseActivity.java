@@ -25,14 +25,14 @@ import java.util.List;
 
 
 public class DatabaseActivity extends AppCompatActivity implements View.OnClickListener {
-    RecyclerView recyclerView;
-    RandomRecipeAdapter recipeAdapter;
-    Button _delete;
+    private RecyclerView recyclerView;
+    private RandomRecipeAdapter recipeAdapter;
+    private Button _delete;
     private AlertDialog.Builder _builder;
     private RecipeDatabase db;
     private RecipeDao recipeDao;
     private boolean flag;
-    TextView databaseCount;
+    private TextView databaseCount;
 
 
     @Override

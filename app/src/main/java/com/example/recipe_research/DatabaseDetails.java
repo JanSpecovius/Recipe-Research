@@ -20,14 +20,11 @@ import com.squareup.picasso.Picasso;
 import java.util.Arrays;
 
 public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
-    TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients, textView_creatTime;
-    ImageView _share,imageView_meal_name,_bookmark;
+    private TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients, textView_creatTime;
+    private ImageView _share,imageView_meal_name,_bookmark;
     private AlertDialog.Builder _builder;
-    String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount,_ingredients;
-    int _readyInTime,_servings,id;
-    boolean _glutenfree,_vegetarian,_vegan,_dairyFree;
-
-
+    private String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount,_ingredients;
+    private int id;
     private RecipeDao recipeDao;
 
     @Override
@@ -88,14 +85,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         _protein = recipeEntity.protein;
         _badName = recipeEntity.badName;
         _badAmount = recipeEntity.badAmount;
-
-        _readyInTime = recipeEntity.readyInMinutes;
-        _servings = recipeEntity.servings;
-
-        _glutenfree = recipeEntity.glutenFree;
-        _vegetarian = recipeEntity.vegetarian;
-        _vegan = recipeEntity.vegan;
-        _dairyFree = recipeEntity.dairyFree;
 
         _ingredients = recipeEntity.ingredients;
 

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener  {
-    Button _startButton;
+    private Button _startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
