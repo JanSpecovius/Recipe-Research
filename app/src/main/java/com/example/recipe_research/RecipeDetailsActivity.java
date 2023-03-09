@@ -233,18 +233,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     public void assignNutritonDetail() {
 
 
-        StringBuilder sb = new StringBuilder();
-
         // Append the nutrition values to the string builder
-        sb.append(getString(R.string.calories)).append(calories).append("\n");
-        sb.append(getString(R.string.carbs)).append(carbs).append("\n");
-        sb.append(getString(R.string.fat)).append(fat).append("\n");
-        sb.append(getString(R.string.protein)).append(protein).append("\n");
-        sb.append(badName + ": ").append(badAmount).append("\n");
+        String sb = getString(R.string.calories) + calories + "\n" +
+                getString(R.string.carbs) + carbs + "\n" +
+                getString(R.string.fat) + fat + "\n" +
+                getString(R.string.protein) + protein + "\n" +
+                badName + ": " + badAmount + "\n";
 
 
         // Set the string builder text to the text view
-        textViewMealNutrition.setText(sb.toString());
+        textViewMealNutrition.setText(sb);
 
     }
 
