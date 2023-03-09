@@ -131,7 +131,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         @Override
         public void didError(String message) {
-            Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RecipeDetailsActivity.this, "Detail:"+message, Toast.LENGTH_SHORT).show();
+            loadingDialog.disMiss();
+            finish();
         }
     };
 
