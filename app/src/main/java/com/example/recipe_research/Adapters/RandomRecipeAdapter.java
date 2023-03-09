@@ -1,5 +1,6 @@
 package com.example.recipe_research.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,49 +37,45 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         return new RandomRecipeViewHolder(LayoutInflater.from(context).inflate(R.layout.list_random_recipe, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
-        holder.textView_title.setText(list.get(position).title);
-        holder.textView_title.setSelected(true);
+        holder.textViewTitle.setText(list.get(position).title);
+        holder.textViewTitle.setSelected(true);
 
-        holder.textView_servings.setText(list.get(position).servings + " Portionen");
-        holder.textView_time.setText(list.get(position).readyInMinutes + " Minuten");
+        holder.textViewServings.setText(list.get(position).servings + context.getString(R.string.servings));
+        holder.textViewTime.setText(list.get(position).readyInMinutes + context.getString(R.string.minutes));
 
-        if(list.get(position).vegan | list.get(position).vegetarian) {
+        if(list.get(position).vegan || list.get(position).vegetarian) {
 
             if (list.get(position).vegan) {
-                holder.textView_alergys.setText("Vegan         ✅");
+                holder.textViewAllergy.setText(R.string.vegan);
             } else {
                 if (list.get(position).vegetarian) {
-                    holder.textView_alergys.setText("Vegetarian ✅");
+                    holder.textViewAllergy.setText(R.string.vegetarian);
                 }
             }
         }
             else{
-                holder.textView_alergys.setText("Vegetarian ❌");
+                holder.textViewAllergy.setText(R.string.notVegan);
             }
 
         if(list.get(position).glutenFree){
-            holder.textView_gluten.setText("Gluten free ✅");
+            holder.textViewGluten.setText(R.string.glutenFree);
         }else{
-            holder.textView_gluten.setText("Gluten free ❌");
+            holder.textViewGluten.setText(R.string.notGlutenFree);
         }
         if(list.get(position).dairyFree){
-            holder.textView_lactose.setText("Dairy free   ✅");
+            holder.textViewLactose.setText(R.string.dairyFree);
         }else{
-            holder.textView_lactose.setText("Dairy free   ❌");
+            holder.textViewLactose.setText(R.string.notDairyFee);
         }
 
 
 
-        Picasso.get().load(list.get(position).image).into(holder.imageView_food);
+        Picasso.get().load(list.get(position).image).into(holder.imageViewFood);
 
-        holder.random_list_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onRecipeClicked(String.valueOf(list.get(holder.getAdapterPosition()).id));
-            }
-        });
+        holder.randomListContainer.setOnClickListener(view -> listener.onRecipeClicked(String.valueOf(list.get(holder.getAdapterPosition()).id)));
     }
 
     @Override
@@ -88,21 +85,26 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
 }
 
 class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
-    CardView random_list_container;
-    TextView textView_title, textView_servings, textView_time, textView_alergys,textView_lactose,textView_gluten;
-    ImageView imageView_food;
+    CardView randomListContainer;
+    TextView textViewTitle;
+    TextView textViewServings;
+    TextView textViewTime;
+    TextView textViewAllergy;
+    TextView textViewLactose;
+    TextView textViewGluten;
+    ImageView imageViewFood;
 
     public RandomRecipeViewHolder(@NonNull View itemView) {
         super(itemView);
-        random_list_container = itemView.findViewById(R.id.random_list_container);
-        textView_title = itemView.findViewById(R.id.textView_title);
-        textView_servings = itemView.findViewById(R.id.textView_servings);
+        randomListContainer = itemView.findViewById(R.id.random_list_container);
+        textViewTitle = itemView.findViewById(R.id.textView_title);
+        textViewServings = itemView.findViewById(R.id.textView_servings);
 
-        textView_time = itemView.findViewById(R.id.textView_time);
-        imageView_food = itemView.findViewById(R.id.imageView_food);
+        textViewTime = itemView.findViewById(R.id.textView_time);
+        imageViewFood = itemView.findViewById(R.id.imageView_food);
 
-        textView_alergys = itemView.findViewById(R.id.textView_alergys);
-        textView_lactose = itemView.findViewById(R.id.textView_lactoseCheck);
-        textView_gluten = itemView.findViewById(R.id.textView_glutenCheck);
+        textViewAllergy = itemView.findViewById(R.id.textView_alergys);
+        textViewLactose = itemView.findViewById(R.id.textView_lactoseCheck);
+        textViewGluten = itemView.findViewById(R.id.textView_glutenCheck);
     }
 }
