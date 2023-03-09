@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     };
 
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
-            .putExtra("id", id));
+            .putExtra(getString(R.string.id), id));
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -200,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
+    // Encapsulated method that handles requests for recipes by building search query based on user input and executing on a separate thread.
     public void runRequest() {
         tags.clear();
         loadingDialog.showLoading();
@@ -245,10 +246,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
         tags.add(temp);
-
         new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags)).start();
     }
-    
+
     @Override
     public void onClick(View v) {
         if (v == databaseButton) {
