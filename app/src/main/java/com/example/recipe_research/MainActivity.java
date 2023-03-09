@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     Button _settingsButton;
     Button _databaseButton;
     Boolean flag;
+    ImageView _refresh;
 
 
     @Override
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         _query = "";
 
         _databaseButton = findViewById(R.id.database);
-
-
+        _refresh = findViewById(R.id.refresh);
+        _refresh.setOnClickListener(this);
         _databaseButton.setOnClickListener(this);
 
 
@@ -298,6 +300,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (v == _databaseButton) {
             Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
             startActivity(i);
+        }else if(v == _refresh){
+            runRequest();
         }
     }
 }

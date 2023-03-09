@@ -26,6 +26,7 @@
     <string name="recipe_summary">Summary</string>
     <string name="bookmark">Add to Database</string>
     <string name="meal_view">View of Sorted Meals</string>
+    <string name="creat_time">Creat Time:</string>
 
     <string-array name="tags">
         <item>main course</item>

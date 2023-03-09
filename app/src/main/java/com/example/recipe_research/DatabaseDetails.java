@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
     int id;
-    TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
+    TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients, textView_creatTime;
     ImageView imageView_meal_name;
     RecyclerView recycler_meal_ingredients;
     RequestManager manager;
@@ -65,7 +65,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         id = Integer.parseInt(getIntent().getStringExtra("id"));
 
         setDataFromDatabase(id);
-        //TODO hier TextView zuweisen: Textview.setText(recipeDao.getDatebyId(id).toString());
+        textView_creatTime.setText(recipeDao.getDateById(id).toString());
 
         assignRecipeDetail();
         assignNutritonDetail();
@@ -85,6 +85,7 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
+        textView_creatTime = findViewById(R.id.textView_meal_creatTime);
 
 
 
