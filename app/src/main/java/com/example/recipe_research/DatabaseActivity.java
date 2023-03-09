@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    @SuppressLint("SetTextI18n")
     public void assign() {
         TextView databaseCount;
         RandomRecipeAdapter recipeAdapter;
@@ -56,9 +58,10 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         recyclerView.setLayoutManager(new GridLayoutManager(DatabaseActivity.this, 1));
         recyclerView.setAdapter(recipeAdapter);
 
-        databaseCount.setText("You have " + recipeDao.getCount() + " bookmarks");
+        databaseCount.setText(getString(R.string.you_have) + recipeDao.getCount() + getString(R.string.bookmarks));
     }
-    private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetails.class)
+
+    private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetailsActivity.class)
             .putExtra("id", id));
 
     private List<Recipe> fetchData() {

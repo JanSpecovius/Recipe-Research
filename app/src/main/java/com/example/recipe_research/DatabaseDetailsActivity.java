@@ -15,7 +15,7 @@ import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
-public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
+public class DatabaseDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewMealName;
     private TextView textViewMealSource;
     private TextView textViewMealSummary;

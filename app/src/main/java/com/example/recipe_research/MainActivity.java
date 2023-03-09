@@ -31,9 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
     private LoadingDialog loadingDialog;
     private RequestManager manager;
-
     private final List<String> tags = new ArrayList<>();
-
     private Boolean glutenFree;
     private Boolean vegetarian;
     private Boolean lactoseFree;
@@ -53,9 +51,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         } else {
             setContentView(R.layout.activity_main);
         }
-
         assign();
-
     }
 
     private void assign() {
@@ -76,14 +72,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         query = "";
 
         searchView = findViewById(R.id.searchVieW_home);
-
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 runRequest();
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -103,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void showFilter(View v) {
         PopupMenu popup = new PopupMenu(this, v, Gravity.END);
-
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.filter_menu);
 
@@ -123,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
-
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             loadingDialog.disMiss();
@@ -138,14 +131,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         public void didError(String message) {
             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             loadingDialog.disMiss();
-
         }
     };
 
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
             tagString = adapterView.getSelectedItem().toString();
 
             runRequest();
@@ -153,10 +144,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-            // TODO document why this method is empty
+            Toast.makeText(MainActivity.this, getString(R.string.nothing_selected), Toast.LENGTH_SHORT).show();
         }
     };
-
 
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
             .putExtra("id", id));
@@ -167,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (menuItem.getItemId()) {
 
             case R.id.veganItem:
-                if (vegan) {
+                if (Boolean.TRUE.equals(vegan)) {
                     vegan = false;
                     runRequest();
                 } else {
@@ -227,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
         if (glutenFree) {
-
             if (temp.equals("")) {
                 temp = "gluten free";
             } else {
@@ -235,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
         if (lactoseFree) {
-
             if (temp.equals("")) {
                 temp = "dairy free";
             } else {
@@ -258,19 +246,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
         tags.add(temp);
 
-
         new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags)).start();
-
-
     }
-
-
+    
     @Override
     public void onClick(View v) {
         if (v == databaseButton) {
             Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
             startActivity(i);
-        }else if(v == refresh){
+        } else if (v == refresh) {
             runRequest();
         }
     }
