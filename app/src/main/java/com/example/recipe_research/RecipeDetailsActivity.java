@@ -26,17 +26,41 @@ import java.util.Date;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private int id;
-    private TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
-    private RequestManager manager;
+    private TextView textViewMealName;
+    private TextView textViewMealSource;
+    private TextView textViewMealSummary;
+    private TextView textViewMealNutrition;
+    private TextView textViewMealIngredients;
     private LoadingDialog loadingDialog;
-    private ImageView share, bookmark, imageView_meal_name;
-    private AlertDialog.Builder builder;
+    private ImageView share;
+    private ImageView bookmark;
+    private ImageView imageViewMealName;
 
-    private String title, sourceName, summary, image, url, calories, carbs, fat, protein, badName, badAmount, ingredients;
+
+    private String title;
+    private String sourceName;
+    private String summary;
+    private String image;
+    private String url;
+    private String calories;
+    private String carbs;
+    private String fat;
+    private String protein;
+    private String badName;
+    private String badAmount;
+    private String ingredients;
     private String [] ingrArray;
-    private int amount, readyInTime, servings, spoonacular_id;
-    private boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
+    private int amount;
+    private int readyInTime;
+    private int servings;
+    private int spoonacularId;
+    private boolean glutenfree;
+    private boolean vegetarian;
+    private boolean vegan;
+    private boolean dairyFree;
+    private boolean flag;
     private RecipeDao recipeDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +73,24 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     private void assign() {
-        textView_meal_name = findViewById(R.id.textView_meal_name);
-        textView_meal_source = findViewById(R.id.textView_meal_source);
-        textView_meal_summary = findViewById(R.id.textView_meal_summary);
-        textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
-        imageView_meal_name = findViewById(R.id.imageView_meal_name);
-        textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
+        textViewMealName = findViewById(R.id.textView_meal_name);
+        textViewMealSource = findViewById(R.id.textView_meal_source);
+        textViewMealSummary = findViewById(R.id.textView_meal_summary);
+        textViewMealNutrition = findViewById(R.id.textView_meal_nutrition);
+        imageViewMealName = findViewById(R.id.imageView_meal_name);
+        textViewMealIngredients = findViewById(R.id.textView_meal_ingredients);
         share = findViewById(R.id.share);
         bookmark = findViewById(R.id.bookmark);
 
         share.setOnClickListener(this);
         bookmark.setOnClickListener(this);
 
-        _flag = false;
+        flag = false;
 
         recipeDao = RecipeDatabase.getSingletonInstance(this).recipeDao();
         id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
 
-        manager = new RequestManager(this);
+        RequestManager manager = new RequestManager(this);
         manager.getRecipeDetails(recipeDetailsListener, id);
         manager.getNutritionById(nutritionByIdListener, id);
 
@@ -85,19 +109,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             summary = response.summary;
             image = response.image;
             url = response.spoonacularSourceUrl;
-            spoonacular_id = response.id;
+            spoonacularId = response.id;
             readyInTime = response.readyInMinutes;
             servings = response.servings;
 
 
-            _glutenfree = response.glutenFree;
-            _vegetarian = response.vegetarian;
-            _vegan = response.vegan;
-            _dairyFree = response.dairyFree;
+            glutenfree = response.glutenFree;
+            vegetarian = response.vegetarian;
+            vegan = response.vegan;
+            dairyFree = response.dairyFree;
 
-            if (isInDatabase(spoonacular_id)) {
+            if (isInDatabase(spoonacularId)) {
                 bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
-                _flag = true;
+                flag = true;
             }
 
             amount = response.getExtendedIngredients().size();
@@ -151,6 +175,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
+        AlertDialog.Builder builder;
         if (v == share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
@@ -160,7 +185,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         } else if (v == bookmark) {
 
 
-            if (_flag) {
+            if (flag) {
 
 
                 builder = new AlertDialog.Builder(this);
@@ -168,7 +193,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 builder.setTitle("Warning!!!");
                 builder.setMessage("Do you really want to delete this bookmark?");
                 builder.setCancelable(true);
-                builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(spoonacular_id));
+                builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(spoonacularId));
                 builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
                 builder.show();
 
@@ -176,7 +201,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
 
                 insertRow();
-                _flag = true;
+                flag = true;
             }
 
         }
@@ -184,10 +209,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     public void assignRecipeDetail() {
-        textView_meal_name.setText(title);
-        textView_meal_source.setText(sourceName);
-        textView_meal_summary.setText(summary);
-        Picasso.get().load(image).into(imageView_meal_name);
+        textViewMealName.setText(title);
+        textViewMealSource.setText(sourceName);
+        textViewMealSummary.setText(summary);
+        Picasso.get().load(image).into(imageViewMealName);
 
         StringBuilder sb = new StringBuilder();
 
@@ -201,7 +226,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         ingredients = sb.toString();
         // Set the string builder text to the text view
-        textView_meal_ingredients.setText(ingredients);
+        textViewMealIngredients.setText(ingredients);
 
     }
 
@@ -219,19 +244,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
         // Set the string builder text to the text view
-        textView_meal_nutrition.setText(sb.toString());
+        textViewMealNutrition.setText(sb.toString());
 
     }
 
 
     public void insertRow() {
         RecipeEntity entity = new RecipeEntity();
-        entity.apiID = spoonacular_id;
+        entity.apiID = spoonacularId;
         entity.title = title;
-        entity.dairyFree = _dairyFree;
-        entity.glutenFree = _glutenfree;
-        entity.vegan = _vegan;
-        entity.vegetarian = _vegetarian;
+        entity.dairyFree = dairyFree;
+        entity.glutenFree = glutenfree;
+        entity.vegan = vegan;
+        entity.vegetarian = vegetarian;
         entity.image = image;
         entity.sourceName = sourceName;
         entity.summary = summary;
@@ -256,7 +281,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     public void deleteRow(int id) {
         recipeDao.deleteByApiId(id);
         bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
-        _flag = false;
+        flag = false;
 
     }
 

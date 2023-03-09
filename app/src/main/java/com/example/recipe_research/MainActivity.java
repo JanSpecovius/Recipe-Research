@@ -1,5 +1,6 @@
 package com.example.recipe_research;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -30,13 +31,15 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
     private LoadingDialog loadingDialog;
     private RequestManager manager;
-    private RandomRecipeAdapter randomRecipeAdapter;
-    private RecyclerView recyclerView;
-    private Spinner spinner;
-    private List<String> tags = new ArrayList<>();
-    private SearchView searchView;
-    private Boolean glutenFree, vegetarian, lactoseFree, vegan;
-    private String tagString, query;
+
+    private final List<String> tags = new ArrayList<>();
+
+    private Boolean glutenFree;
+    private Boolean vegetarian;
+    private Boolean lactoseFree;
+    private Boolean vegan;
+    private String tagString;
+    private String query;
     private Button databaseButton;
     private ImageView refresh;
 
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void assign() {
+        SearchView searchView;
+        Spinner spinner;
         databaseButton = findViewById(R.id.database);
         refresh = findViewById(R.id.refresh);
         refresh.setOnClickListener(this);
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         });
 
         spinner = findViewById(R.id.spinner_tags);
-        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.tags,
                 R.layout.spinner_text
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     public void showFilter(View v) {
-        PopupMenu popup = new PopupMenu(this, v, Gravity.RIGHT);
+        PopupMenu popup = new PopupMenu(this, v, Gravity.END);
 
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.filter_menu);
@@ -122,10 +127,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
             loadingDialog.disMiss();
-            recyclerView = findViewById(R.id.recycler_random);
+            RecyclerView recyclerView = findViewById(R.id.recycler_random);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
-            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
+            RandomRecipeAdapter randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes, recipeClickListener);
             recyclerView.setAdapter(randomRecipeAdapter);
         }
 
@@ -148,19 +153,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-
+            // TODO document why this method is empty
         }
     };
 
 
-    private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
-        @Override
-        public void onRecipeClicked(String id) {
-            startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
-                    .putExtra("id", id));
-        }
-    };
+    private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
+            .putExtra("id", id));
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
