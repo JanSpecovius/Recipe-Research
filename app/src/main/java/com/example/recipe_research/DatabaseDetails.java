@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.recipe_research.Adapters.IngredientsAdapter;
+
 import com.example.recipe_research.db.RecipeDao;
 import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
