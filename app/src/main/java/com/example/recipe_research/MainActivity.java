@@ -3,8 +3,6 @@ package com.example.recipe_research;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,10 +35,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private Spinner spinner;
     private List<String> tags = new ArrayList<>();
     private SearchView searchView;
-    private Boolean _glutenFree, _vegetarian,_lactoseFree,_vegan,flag;
-    private String tagString,_query;
-    private Button _databaseButton;
-    private ImageView _refresh;
+    private Boolean glutenFree, vegetarian, lactoseFree, vegan;
+    private String tagString, query;
+    private Button databaseButton;
+    private ImageView refresh;
 
 
     @Override
@@ -58,20 +56,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void assign() {
-        _databaseButton = findViewById(R.id.database);
-        _refresh = findViewById(R.id.refresh);
-        _refresh.setOnClickListener(this);
-        _databaseButton.setOnClickListener(this);
+        databaseButton = findViewById(R.id.database);
+        refresh = findViewById(R.id.refresh);
+        refresh.setOnClickListener(this);
+        databaseButton.setOnClickListener(this);
 
         loadingDialog = new LoadingDialog(MainActivity.this);
         manager = new RequestManager(this);
 
-        flag = false;
-        _glutenFree = false;
-        _vegetarian = false;
-        _vegan = false;
-        _lactoseFree = false;
-        _query = "";
+        glutenFree = false;
+        vegetarian = false;
+        vegan = false;
+        lactoseFree = false;
+        query = "";
 
         searchView = findViewById(R.id.searchVieW_home);
 
@@ -105,16 +102,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.filter_menu);
 
-        if (_vegan) {
+        if (vegan) {
             popup.getMenu().findItem(R.id.veganItem).setChecked(true);
         }
-        if (_vegetarian) {
+        if (vegetarian) {
             popup.getMenu().findItem(R.id.vegetarianItem).setChecked(true);
         }
-        if (_glutenFree) {
+        if (glutenFree) {
             popup.getMenu().findItem(R.id.glutenFreeItem).setChecked(true);
         }
-        if (_lactoseFree) {
+        if (lactoseFree) {
             popup.getMenu().findItem(R.id.lactoseFreeItem).setChecked(true);
         }
         popup.show();
@@ -169,41 +166,41 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (menuItem.getItemId()) {
 
             case R.id.veganItem:
-                if (_vegan) {
-                    _vegan = false;
+                if (vegan) {
+                    vegan = false;
                     runRequest();
                 } else {
-                    _vegan = true;
-                    _vegetarian = false;
+                    vegan = true;
+                    vegetarian = false;
                     runRequest();
                 }
                 return true;
             case R.id.vegetarianItem:
-                if (_vegetarian) {
-                    _vegetarian = false;
+                if (vegetarian) {
+                    vegetarian = false;
                     runRequest();
 
                 } else {
-                    _vegetarian = true;
-                    _vegan = false;
+                    vegetarian = true;
+                    vegan = false;
                     runRequest();
                 }
                 return true;
             case R.id.glutenFreeItem:
                 if (menuItem.isChecked()) {
-                    _glutenFree = false;
+                    glutenFree = false;
                     runRequest();
                 } else {
-                    _glutenFree = true;
+                    glutenFree = true;
                     runRequest();
                 }
                 return true;
             case R.id.lactoseFreeItem:
                 if (menuItem.isChecked()) {
-                    _lactoseFree = false;
+                    lactoseFree = false;
                     runRequest();
                 } else {
-                    _lactoseFree = true;
+                    lactoseFree = true;
                     runRequest();
                 }
                 return true;
@@ -218,17 +215,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         String temp = "";
 
-        if (_vegetarian) {
+        if (vegetarian) {
             temp = "vegetarian";
         }
-        if (_vegan) {
+        if (vegan) {
             if (temp.equals("")) {
                 temp = "vegan";
             } else {
                 temp = temp + ",vegan";
             }
         }
-        if (_glutenFree) {
+        if (glutenFree) {
 
             if (temp.equals("")) {
                 temp = "gluten free";
@@ -236,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 temp = temp + ",gluten free";
             }
         }
-        if (_lactoseFree) {
+        if (lactoseFree) {
 
             if (temp.equals("")) {
                 temp = "dairy free";
@@ -251,11 +248,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 temp = temp + "," + tagString;
             }
         }
-        if (!_query.equals("")) {
+        if (!query.equals("")) {
             if (temp.equals("")) {
-                temp = _query;
+                temp = query;
             } else {
-                temp = temp + "," + _query;
+                temp = temp + "," + query;
             }
         }
         tags.add(temp);
@@ -271,10 +268,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public void onClick(View v) {
-        if (v == _databaseButton) {
+        if (v == databaseButton) {
             Intent i = new Intent(MainActivity.this, DatabaseActivity.class);
             startActivity(i);
-        }else if(v == _refresh){
+        }else if(v == refresh){
             runRequest();
         }
     }

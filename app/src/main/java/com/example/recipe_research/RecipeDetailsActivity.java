@@ -29,12 +29,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private TextView textView_meal_name, textView_meal_source, textView_meal_summary, textView_meal_nutrition, textView_meal_ingredients;
     private RequestManager manager;
     private LoadingDialog loadingDialog;
-    private ImageView _share, _bookmark, imageView_meal_name;
-    private AlertDialog.Builder _builder;
+    private ImageView share, bookmark, imageView_meal_name;
+    private AlertDialog.Builder builder;
 
-    private String _title, _sourceName, _summary, _image, _url, _calories, _carbs, _fat, _protein, _badName, _badAmount, _ingredients;
-    private String [] _ingrArray;
-    private int _amount, _readyInTime, _servings, _id;
+    private String title, sourceName, summary, image, url, calories, carbs, fat, protein, badName, badAmount, ingredients;
+    private String [] ingrArray;
+    private int amount, readyInTime, servings, spoonacular_id;
     private boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
     private RecipeDao recipeDao;
 
@@ -55,11 +55,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
-        _share = findViewById(R.id.share);
-        _bookmark = findViewById(R.id.bookmark);
+        share = findViewById(R.id.share);
+        bookmark = findViewById(R.id.bookmark);
 
-        _share.setOnClickListener(this);
-        _bookmark.setOnClickListener(this);
+        share.setOnClickListener(this);
+        bookmark.setOnClickListener(this);
 
         _flag = false;
 
@@ -80,14 +80,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         public void didFetch(RecipeDetailsResponse response, String message) {
             loadingDialog.disMiss();
 
-            _title = response.title;
-            _sourceName = response.sourceName;
-            _summary = response.summary;
-            _image = response.image;
-            _url = response.spoonacularSourceUrl;
-            _id = response.id;
-            _readyInTime = response.readyInMinutes;
-            _servings = response.servings;
+            title = response.title;
+            sourceName = response.sourceName;
+            summary = response.summary;
+            image = response.image;
+            url = response.spoonacularSourceUrl;
+            spoonacular_id = response.id;
+            readyInTime = response.readyInMinutes;
+            servings = response.servings;
 
 
             _glutenfree = response.glutenFree;
@@ -95,19 +95,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             _vegan = response.vegan;
             _dairyFree = response.dairyFree;
 
-            if (isInDatabase(_id)) {
-                _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+            if (isInDatabase(spoonacular_id)) {
+                bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
                 _flag = true;
             }
 
-            _amount = response.getExtendedIngredients().size();
+            amount = response.getExtendedIngredients().size();
             int counter = 0;
 
-            _ingrArray = new String[_amount];
+            ingrArray = new String[amount];
 
-            while (_amount > counter) {
+            while (amount > counter) {
 
-                _ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
+                ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
             }
 
@@ -130,12 +130,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
             //Get the nutrition values from the response object
-            _calories = nutrition.getCalories();
-            _carbs = nutrition.getCarbs();
-            _fat = nutrition.getFat();
-            _protein = nutrition.getProtein();
-            _badName = nutrition.getBad().get(4).title;
-            _badAmount = nutrition.getBad().get(4).amount;
+            calories = nutrition.getCalories();
+            carbs = nutrition.getCarbs();
+            fat = nutrition.getFat();
+            protein = nutrition.getProtein();
+            badName = nutrition.getBad().get(4).title;
+            badAmount = nutrition.getBad().get(4).amount;
 
 
             assignNutritonDetail();
@@ -151,29 +151,29 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if (v == _share) {
+        if (v == share) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.meal_found_mail) + _url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.meal_found_mail) + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 
-        } else if (v == _bookmark) {
+        } else if (v == bookmark) {
 
 
             if (_flag) {
 
 
-                _builder = new AlertDialog.Builder(this);
+                builder = new AlertDialog.Builder(this);
 
-                _builder.setTitle("Warning!!!");
-                _builder.setMessage("Do you really want to delete this bookmark?");
-                _builder.setCancelable(true);
-                _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(_id));
-                _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
-                _builder.show();
+                builder.setTitle("Warning!!!");
+                builder.setMessage("Do you really want to delete this bookmark?");
+                builder.setCancelable(true);
+                builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(spoonacular_id));
+                builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
+                builder.show();
 
             }else {
-                _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+                bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
 
                 insertRow();
                 _flag = true;
@@ -184,24 +184,24 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     public void assignRecipeDetail() {
-        textView_meal_name.setText(_title);
-        textView_meal_source.setText(_sourceName);
-        textView_meal_summary.setText(_summary);
-        Picasso.get().load(_image).into(imageView_meal_name);
+        textView_meal_name.setText(title);
+        textView_meal_source.setText(sourceName);
+        textView_meal_summary.setText(summary);
+        Picasso.get().load(image).into(imageView_meal_name);
 
         StringBuilder sb = new StringBuilder();
 
         int counter = 0;
 
-        while (_amount > counter) {
+        while (amount > counter) {
 
-            sb.append(_ingrArray[counter]).append("\n");
+            sb.append(ingrArray[counter]).append("\n");
             counter++;
         }
 
-        _ingredients = sb.toString();
+        ingredients = sb.toString();
         // Set the string builder text to the text view
-        textView_meal_ingredients.setText(_ingredients);
+        textView_meal_ingredients.setText(ingredients);
 
     }
 
@@ -211,11 +211,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         StringBuilder sb = new StringBuilder();
 
         // Append the nutrition values to the string builder
-        sb.append(getString(R.string.calories)).append(_calories).append("\n");
-        sb.append(getString(R.string.carbs)).append(_carbs).append("\n");
-        sb.append(getString(R.string.fat)).append(_fat).append("\n");
-        sb.append(getString(R.string.protein)).append(_protein).append("\n");
-        sb.append(_badName + ": ").append(_badAmount).append("\n");
+        sb.append(getString(R.string.calories)).append(calories).append("\n");
+        sb.append(getString(R.string.carbs)).append(carbs).append("\n");
+        sb.append(getString(R.string.fat)).append(fat).append("\n");
+        sb.append(getString(R.string.protein)).append(protein).append("\n");
+        sb.append(badName + ": ").append(badAmount).append("\n");
 
 
         // Set the string builder text to the text view
@@ -226,27 +226,27 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     public void insertRow() {
         RecipeEntity entity = new RecipeEntity();
-        entity.apiID = _id;
-        entity.title = _title;
+        entity.apiID = spoonacular_id;
+        entity.title = title;
         entity.dairyFree = _dairyFree;
         entity.glutenFree = _glutenfree;
         entity.vegan = _vegan;
         entity.vegetarian = _vegetarian;
-        entity.image = _image;
-        entity.sourceName = _sourceName;
-        entity.summary = _summary;
-        entity.url = _url;
-        entity.calories = _calories;
-        entity.carbs = _carbs;
-        entity.fat = _fat;
-        entity.protein = _protein;
-        entity.badName = _badName;
-        entity.badAmount = _badAmount;
-        entity.readyInMinutes = _readyInTime;
-        entity.servings = _servings;
+        entity.image = image;
+        entity.sourceName = sourceName;
+        entity.summary = summary;
+        entity.url = url;
+        entity.calories = calories;
+        entity.carbs = carbs;
+        entity.fat = fat;
+        entity.protein = protein;
+        entity.badName = badName;
+        entity.badAmount = badAmount;
+        entity.readyInMinutes = readyInTime;
+        entity.servings = servings;
 
 
-        entity.ingredients = _ingredients;
+        entity.ingredients = ingredients;
 
         entity.date = new Date();
 
@@ -255,7 +255,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     public void deleteRow(int id) {
         recipeDao.deleteByApiId(id);
-        _bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
+        bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
         _flag = false;
 
     }
