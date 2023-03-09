@@ -27,8 +27,8 @@ import java.util.List;
 public class DatabaseActivity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private RandomRecipeAdapter recipeAdapter;
-    private Button _delete;
-    private AlertDialog.Builder _builder;
+    private Button delete;
+    private AlertDialog.Builder builder;
     private RecipeDatabase db;
     private RecipeDao recipeDao;
     private boolean flag;
@@ -39,10 +39,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
-        _builder = new AlertDialog.Builder(this);
-        _delete = findViewById(R.id.deleteAll);
-        _delete.setOnClickListener(this);
-
         assign();
     }
 
@@ -51,10 +47,17 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     public void assign(){
         recyclerView = findViewById(R.id.recycler_database);
         databaseCount = findViewById(R.id.databaseCount);
+        delete = findViewById(R.id.deleteAll);
+
+        delete.setOnClickListener(this);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(DatabaseActivity.this, 1));
+
+        builder = new AlertDialog.Builder(this);
         recipeAdapter = new RandomRecipeAdapter(DatabaseActivity.this, fetchData(), recipeClickListener);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(DatabaseActivity.this, 1));
         recyclerView.setAdapter(recipeAdapter);
+
         databaseCount.setText("You have " + recipeDao.getCount() + " bookmarks");
     }
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
@@ -102,13 +105,13 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v==_delete){
-            _builder.setTitle("Warning!!!");
-            _builder.setMessage("Do you really want to delete all bookmarks?");
-            _builder.setCancelable(true);
-            _builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> delete());
-            _builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
-            _builder.show();
+        if(v== delete){
+            builder.setTitle("Warning!!!");
+            builder.setMessage("Do you really want to delete all bookmarks?");
+            builder.setCancelable(true);
+            builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> delete());
+            builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
+            builder.show();
         }
     }
     public void delete(){

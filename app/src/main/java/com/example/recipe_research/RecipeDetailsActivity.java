@@ -36,7 +36,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private String [] _ingrArray;
     private int _amount, _readyInTime, _servings, _id;
     private boolean _glutenfree,_vegetarian,_vegan,_dairyFree,_flag;
-    private RecipeDatabase db;
     private RecipeDao recipeDao;
 
     @Override
@@ -44,34 +43,36 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
-        db = RecipeDatabase.getSingletonInstance(this);
-        recipeDao = db.recipeDao();
+        assign();
 
-        _flag = false;
-        findViewById();
-
-        id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
-        manager = new RequestManager(this);
-        manager.getRecipeDetails(recipeDetailsListener, id);
-        manager.getNutritionById(nutritionByIdListener, id);
-        loadingDialog = new LoadingDialog(this);
-        _share.setOnClickListener(this);
-        _bookmark.setOnClickListener(this);
-        loadingDialog.showLoading();
     }
 
 
-    private void findViewById() {
+    private void assign() {
         textView_meal_name = findViewById(R.id.textView_meal_name);
         textView_meal_source = findViewById(R.id.textView_meal_source);
         textView_meal_summary = findViewById(R.id.textView_meal_summary);
         textView_meal_nutrition = findViewById(R.id.textView_meal_nutrition);
         imageView_meal_name = findViewById(R.id.imageView_meal_name);
         textView_meal_ingredients = findViewById(R.id.textView_meal_ingredients);
-
-
         _share = findViewById(R.id.share);
         _bookmark = findViewById(R.id.bookmark);
+
+        _share.setOnClickListener(this);
+        _bookmark.setOnClickListener(this);
+
+        _flag = false;
+
+        recipeDao = RecipeDatabase.getSingletonInstance(this).recipeDao();
+        id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
+
+        manager = new RequestManager(this);
+        manager.getRecipeDetails(recipeDetailsListener, id);
+        manager.getNutritionById(nutritionByIdListener, id);
+
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.showLoading();
+
     }
 
     private final RecipeDetailsListener recipeDetailsListener = new RecipeDetailsListener() {

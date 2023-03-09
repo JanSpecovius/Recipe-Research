@@ -28,27 +28,20 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_details);
 
-        RecipeDatabase db = RecipeDatabase.getSingletonInstance(this);
-        recipeDao = db.recipeDao();
 
-        _builder = new AlertDialog.Builder(this);
+        assign();
 
-        findViewById();
 
-        id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
 
         setDataFromDatabase(id);
-        textView_createTime.setText(getString(R.string.db_timestamp) + recipeDao.getDateById(id).toString());
+
 
         assignRecipeDetail();
         assignNutritonDetail();
 
-        _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
-        _share.setOnClickListener(this);
-        _bookmark.setOnClickListener(this);
     }
 
-    private void findViewById() {
+    private void assign() {
         textView_meal_name = findViewById(R.id.textView_db_meal_name);
         textView_meal_source = findViewById(R.id.textView_db_meal_source);
         textView_meal_summary = findViewById(R.id.textView_db_meal_summary);
@@ -56,10 +49,24 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         imageView_meal_name = findViewById(R.id.imageView_db_meal_name);
         textView_meal_ingredients = findViewById(R.id.textView_db_meal_ingredients);
         textView_createTime = findViewById(R.id.textView_db_meal_createTime);
-
-
         _share = findViewById(R.id.imageView_db_share);
         _bookmark = findViewById(R.id.imageView_db_bookmark);
+
+
+
+        recipeDao = RecipeDatabase.getSingletonInstance(this).recipeDao();
+
+        _builder = new AlertDialog.Builder(this);
+        id = Integer.parseInt(getIntent().getStringExtra(getString(R.string.id)));
+
+        textView_createTime.setText(getString(R.string.db_timestamp) + recipeDao.getDateById(id).toString());
+        _bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
+
+        _share.setOnClickListener(this);
+        _bookmark.setOnClickListener(this);
+
+
+
     }
 
     public void setDataFromDatabase(int id) {

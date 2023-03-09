@@ -52,21 +52,26 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         } else {
             setContentView(R.layout.activity_main);
         }
-        flag = false;
 
-        loadingDialog = new LoadingDialog(MainActivity.this);
+        assign();
 
-        _glutenFree = false;
-        _vegetarian = false;
-        _vegan = false;
-        _lactoseFree = false;
-        _query = "";
+    }
 
+    private void assign() {
         _databaseButton = findViewById(R.id.database);
         _refresh = findViewById(R.id.refresh);
         _refresh.setOnClickListener(this);
         _databaseButton.setOnClickListener(this);
 
+        loadingDialog = new LoadingDialog(MainActivity.this);
+        manager = new RequestManager(this);
+
+        flag = false;
+        _glutenFree = false;
+        _vegetarian = false;
+        _vegan = false;
+        _lactoseFree = false;
+        _query = "";
 
         searchView = findViewById(R.id.searchVieW_home);
 
@@ -92,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         arrayAdapter.setDropDownViewResource(R.layout.spinner_inner_text);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
-
-        manager = new RequestManager(this);
     }
 
     public void showFilter(View v) {
