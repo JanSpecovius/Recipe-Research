@@ -65,6 +65,8 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         id = Integer.parseInt(getIntent().getStringExtra("id"));
 
         setDataFromDatabase(id);
+        //TODO hier TextView zuweisen: Textview.setText(recipeDao.getDatebyId(id).toString());
+
         assignRecipeDetail();
         assignNutritonDetail();
 

@@ -5,8 +5,13 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.Date;
+
 @Dao
 public interface RecipeDao {
+
+    @Insert
+    void insert(RecipeEntity recipeEntity);
 
     @Query("SELECT COUNT(*) FROM RecipeEntity")
     int getCount();
@@ -20,8 +25,8 @@ public interface RecipeDao {
     @Query("SELECT * FROM RecipeEntity")
     RecipeEntity[] getAllRecipes();
 
-    @Insert
-    void insert(RecipeEntity recipeEntity);
+    @Query("SELECT date FROM RecipeEntity WHERE id =:id")
+    Date getDateById(int id);
 
     @Query("DELETE FROM RecipeEntity WHERE id =:id")
     void deleteById(int id);

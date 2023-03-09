@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recipe_research.Adapters.RandomRecipeAdapter;
@@ -33,6 +34,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private RecipeDao recipeDao;
     private boolean flag;
 
+    TextView databaseCount;
 
 
     @Override
@@ -52,10 +54,12 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     public void assign(){
         recyclerView = findViewById(R.id.recycler_database);
+        databaseCount = findViewById(R.id.databaseCount);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(DatabaseActivity.this, 1));
         recipeAdapter = new RandomRecipeAdapter(DatabaseActivity.this, fetchData(), recipeClickListener);
         recyclerView.setAdapter(recipeAdapter);
+        databaseCount.setText("You have " + recipeDao.getCount() + " bookmarks");
     }
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
