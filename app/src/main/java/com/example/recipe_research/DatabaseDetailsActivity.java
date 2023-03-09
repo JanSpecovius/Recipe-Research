@@ -15,7 +15,7 @@ import com.example.recipe_research.db.RecipeDatabase;
 import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
-public class DatabaseDetails extends AppCompatActivity implements View.OnClickListener {
+public class DatabaseDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewMealName, textViewMealSource, textViewMealSummary, textViewMealNutrition, textViewMealIngredients, textViewCreateTime;
     private ImageView share, imageViewMealName, bookmark;
     private AlertDialog.Builder builder;
@@ -30,7 +30,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
 
         assign();
-
 
 
         setDataFromDatabase(id);
@@ -53,7 +52,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
         bookmark = findViewById(R.id.imageView_db_bookmark);
 
 
-
         recipeDao = RecipeDatabase.getSingletonInstance(this).recipeDao();
 
         builder = new AlertDialog.Builder(this);
@@ -64,7 +62,6 @@ public class DatabaseDetails extends AppCompatActivity implements View.OnClickLi
 
         share.setOnClickListener(this);
         bookmark.setOnClickListener(this);
-
 
 
     }

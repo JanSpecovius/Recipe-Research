@@ -25,15 +25,11 @@ import java.util.List;
 
 
 public class DatabaseActivity extends AppCompatActivity implements View.OnClickListener {
-    private RecyclerView recyclerView;
-    private RandomRecipeAdapter recipeAdapter;
     private Button delete;
     private AlertDialog.Builder builder;
     private RecipeDatabase db;
     private RecipeDao recipeDao;
     private boolean flag;
-    private TextView databaseCount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +39,11 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-    public void assign(){
-        recyclerView = findViewById(R.id.recycler_database);
+    public void assign() {
+        TextView databaseCount;
+        RandomRecipeAdapter recipeAdapter;
+        RecyclerView recyclerView;
+        recyclerView = findViewById(R.id.recyclerDatabase);
         databaseCount = findViewById(R.id.databaseCount);
         delete = findViewById(R.id.deleteAll);
 
@@ -60,17 +58,18 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
         databaseCount.setText("You have " + recipeDao.getCount() + " bookmarks");
     }
+
     private final RecipeClickListener recipeClickListener = new RecipeClickListener() {
         @Override
         public void onRecipeClicked(String id) {
 
-                startActivity(new Intent(DatabaseActivity.this, DatabaseDetails.class)
-                        .putExtra("id", id));
+            startActivity(new Intent(DatabaseActivity.this, DatabaseDetailsActivity.class)
+                    .putExtra("id", id));
 
         }
     };
 
-    private List<Recipe> fetchData(){
+    private List<Recipe> fetchData() {
 
         List<Recipe> recipe = new ArrayList<>();
         // Create an object of MealsFromDatabase class
@@ -78,7 +77,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
 
-        for(int i = 0; i < recipeDao.getCount(); i++){
+        for (int i = 0; i < recipeDao.getCount(); i++) {
             RecipeEntity[] recipeEntity = recipeDao.getAllRecipes();
             meal = toRecipe(recipeEntity[i]);
             recipe.add(meal);
@@ -87,7 +86,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         return recipe;
     }
 
-    public Recipe toRecipe(RecipeEntity re){
+    public Recipe toRecipe(RecipeEntity re) {
         Recipe recipe = new Recipe();
         recipe.title = re.title;
         recipe.image = re.image;
@@ -105,7 +104,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v== delete){
+        if (v == delete) {
             builder.setTitle("Warning!!!");
             builder.setMessage("Do you really want to delete all bookmarks?");
             builder.setCancelable(true);
@@ -114,7 +113,8 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             builder.show();
         }
     }
-    public void delete(){
+
+    public void delete() {
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
         recipeDao.deleteAll();

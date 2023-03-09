@@ -25,7 +25,6 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
-    private int id;
     private TextView textViewMealName;
     private TextView textViewMealSource;
     private TextView textViewMealSummary;
@@ -49,7 +48,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private String badName;
     private String badAmount;
     private String ingredients;
-    private String [] ingrArray;
+    private String[] ingrArray;
     private int amount;
     private int readyInTime;
     private int servings;
@@ -73,6 +72,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
 
     private void assign() {
+        int id;
         textViewMealName = findViewById(R.id.textView_meal_name);
         textViewMealSource = findViewById(R.id.textView_meal_source);
         textViewMealSummary = findViewById(R.id.textView_meal_summary);
@@ -142,7 +142,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         @Override
         public void didError(String message) {
-            Toast.makeText(RecipeDetailsActivity.this, "Detail:" + message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
             loadingDialog.disMiss();
             finish();
         }
@@ -162,7 +162,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             badAmount = nutrition.getBad().get(4).amount;
 
 
-            assignNutritonDetail();
+            assignNutritionDetail();
 
         }
 
@@ -190,14 +190,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
                 builder = new AlertDialog.Builder(this);
 
-                builder.setTitle("Warning!!!");
-                builder.setMessage("Do you really want to delete this bookmark?");
+                builder.setTitle(getString(R.string.builder_title));
+                builder.setMessage(getString(R.string.bookmark_msg));
                 builder.setCancelable(true);
                 builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(spoonacularId));
                 builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
                 builder.show();
 
-            }else {
+            } else {
                 bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
 
                 insertRow();
@@ -230,15 +230,15 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public void assignNutritonDetail() {
+    public void assignNutritionDetail() {
 
 
         // Append the nutrition values to the string builder
-        String sb = getString(R.string.calories) + calories + "\n" +
-                getString(R.string.carbs) + carbs + "\n" +
-                getString(R.string.fat) + fat + "\n" +
-                getString(R.string.protein) + protein + "\n" +
-                badName + ": " + badAmount + "\n";
+        String sb = getString(R.string.calories) + " " + calories + "\n" +
+                getString(R.string.carbs) + " " + carbs + "\n" +
+                getString(R.string.fat) + " " + fat + "\n" +
+                getString(R.string.protein) + " " + protein + "\n" +
+                badName + ": " + badAmount;
 
 
         // Set the string builder text to the text view
