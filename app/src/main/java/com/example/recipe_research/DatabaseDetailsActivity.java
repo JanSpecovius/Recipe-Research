@@ -41,6 +41,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
     private int id;
     private RecipeDao recipeDao;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
 
     }
 
+    //  Assigning variables
     @SuppressLint("SetTextI18n")
     private void assign() {
         TextView textViewCreateTime;
@@ -86,6 +88,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
 
     }
 
+    //  Assigning recipe details
     public void setDataFromDatabase(int id) {
         RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
         title = recipeEntity.title;
@@ -102,6 +105,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         ingredients = recipeEntity.ingredients;
     }
 
+    //  Share and bookmark button
     @Override
     public void onClick(View v) {
         if (v == share) {
@@ -121,6 +125,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         }
     }
 
+    //  Assigning recipe details
     public void assignRecipeDetail() {
         textViewMealName.setText(title);
         textViewMealSource.setText(sourceName);
@@ -129,6 +134,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         Picasso.get().load(image).into(imageViewMealName);
     }
 
+    //  Assigning nutrition details
     public void assignNutritonDetail() {
         // Append the nutrition values to the string builder
         String sb = getString(R.string.calories) + " " + calories + "\n" +
@@ -141,6 +147,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         textViewMealNutrition.setText(sb);
     }
 
+    //  Delete from database
     public void deleteFromDatabase() {
         recipeDao.deleteById(id);
         finish();
