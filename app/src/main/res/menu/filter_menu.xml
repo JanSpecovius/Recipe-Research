@@ -5,22 +5,22 @@
 
         <item
             android:id="@+id/glutenFreeItem"
-            android:title="Gluten Frei"
+            android:title="@string/gluten_free_filter"
             />
         <item
             android:id="@+id/lactoseFreeItem"
-            android:title="Lactose Frei"
+            android:title="@string/dairy_free_filter"
             />
 
     </group>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/vegetarianItem"
-            android:title="Vegetarisch"
+            android:title="@string/vegetarian_filter"
             />
         <item
             android:id="@+id/veganItem"
-            android:title="Vegan"
+            android:title="@string/vegan_filter"
             />
     </group>
 

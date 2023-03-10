@@ -51,6 +51,10 @@
     <string name="servings">Servings</string>
     <string name="minutes">Minutes</string>
     <string name="notVegetarian">Vegetarian ❌</string>
+    <string name="vegetarian_filter">Vegetarian</string>
+    <string name="vegan_filter">Vegan</string>
+    <string name="dairy_free_filter">Dairy Free</string>
+    <string name="gluten_free_filter">Gluten Free</string>
 
 
     <string-array name="tags">
