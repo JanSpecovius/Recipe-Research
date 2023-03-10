@@ -34,7 +34,7 @@ public class RequestManager {
         this.context = context;
 
 
-        //Logging Interceprtor
+        //Logging Interceptor
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();

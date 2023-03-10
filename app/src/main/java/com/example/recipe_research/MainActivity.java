@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (menuItem.getItemId()) {
 
             case R.id.veganItem:
-                if (Boolean.TRUE.equals(vegan)) {
+                if (vegan) {
                     vegan = false;
                     runRequest();
                 } else {
@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
         tags.add(temp);
+
         new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags)).start();
     }
 
