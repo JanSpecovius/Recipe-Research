@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,7 +131,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         @Override
         public void didError(String message) {
-            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,"No connection to RandomRecipes" , Toast.LENGTH_SHORT).show();
+            Log.w("Warning","Caused by no internet connection: "+message);
             loadingDialog.disMiss();
         }
     };

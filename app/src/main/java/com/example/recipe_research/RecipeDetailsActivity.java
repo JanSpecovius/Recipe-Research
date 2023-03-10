@@ -8,6 +8,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -140,7 +141,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         @Override
         public void didError(String message) {
-            Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(RecipeDetailsActivity.this,"No connection to detail of recipe" , Toast.LENGTH_SHORT).show();
+            Log.w("Warning","Caused by no internet connection: "+message);
+
+
             loadingDialog.disMiss();
             finish();
         }
@@ -166,8 +171,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         @Override
         public void onNutritionByIdError(String message) {
-            Toast.makeText(RecipeDetailsActivity.this, message, Toast.LENGTH_SHORT).show();
-
+            Log.w("Warning","Caused by no internet connection: "+message);
         }
     };
 
