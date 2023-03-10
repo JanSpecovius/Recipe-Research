@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private String query;
     private Button databaseButton;
     private ImageView refresh;
+    private SearchView searchView;
 
 
     @Override
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void assign() {
-        SearchView searchView;
         Spinner spinner;
         databaseButton = findViewById(R.id.database);
         refresh = findViewById(R.id.refresh);
@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
             tagString = adapterView.getSelectedItem().toString();
 
+            clearSearchView();
             runRequest();
         }
 
@@ -160,39 +161,47 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.veganItem:
                 if (vegan) {
                     vegan = false;
+                    clearSearchView();
                     runRequest();
                 } else {
                     vegan = true;
                     vegetarian = false;
+                    clearSearchView();
                     runRequest();
                 }
                 return true;
             case R.id.vegetarianItem:
                 if (vegetarian) {
                     vegetarian = false;
+                    clearSearchView();
                     runRequest();
 
                 } else {
                     vegetarian = true;
                     vegan = false;
+                    clearSearchView();
                     runRequest();
                 }
                 return true;
             case R.id.glutenFreeItem:
                 if (menuItem.isChecked()) {
                     glutenFree = false;
+                    clearSearchView();
                     runRequest();
                 } else {
                     glutenFree = true;
+                    clearSearchView();
                     runRequest();
                 }
                 return true;
             case R.id.lactoseFreeItem:
                 if (menuItem.isChecked()) {
                     dairyFree = false;
+                    clearSearchView();
                     runRequest();
                 } else {
                     dairyFree = true;
+                    clearSearchView();
                     runRequest();
                 }
                 return true;
@@ -248,7 +257,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
         tags.add(temp);
 
-        new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags)).start();
+        Thread thread = new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags));
+        thread.start();
     }
 
     @Override
@@ -259,6 +269,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         } else if (v == refresh) {
             runRequest();
         }
+    }
+    private void clearSearchView() {
+        searchView.setQuery("", false);
+        searchView.clearFocus();
+        query = "";
     }
 }
 
