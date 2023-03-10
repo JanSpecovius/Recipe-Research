@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         searchView = findViewById(R.id.searchVieW_home);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String queryResult) {
+                query = queryResult;
                 runRequest();
                 return false;
             }
