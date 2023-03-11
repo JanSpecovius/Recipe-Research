@@ -14,6 +14,7 @@ class LoadingDialog {
         this.activity = activity;
     }
 
+    // Creates a new ContentView for the alert_dialog layout, sets the view to the builder, sets the dialog to be cancelable and shows the dialog to the user
     @SuppressLint("InflateParams")
     void showLoading() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -25,6 +26,7 @@ class LoadingDialog {
         dialog.show();
     }
 
+    // Dismisses the dialog from the user view when called
     void disMiss() {
         dialog.dismiss();
     }

@@ -60,6 +60,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private RecipeDao recipeDao;
 
 
+    // Creates a new ContentView for the activity_history activity and runs assign()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,9 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     }
 
-
+    /*  Assigns the variables to the corresponding views and values
+    /   Runs getRecipeDetails() and getNutritionById()
+    */
     private void assign() {
         int id;
         textViewMealName = findViewById(R.id.textView_meal_name);
@@ -98,6 +101,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    // fetches the recipe details from the API and assigns the values to the variables and views
     private final RecipeDetailsListener recipeDetailsListener = new RecipeDetailsListener() {
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
@@ -138,7 +142,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             assignRecipeDetail();
         }
 
-
+        // If the API call fails, the user is notified and the activity is closed
         @Override
         public void didError(String message) {
 
@@ -151,6 +155,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         }
     };
 
+    // Checks if the recipe is already in the database
     private final NutritionByIdListener nutritionByIdListener = new NutritionByIdListener() {
         @Override
         public void onNutritionByIdReceived(NutritionByIdResponse nutrition, String message) {
@@ -169,12 +174,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         }
 
+        // If the API call fails, the user is notified and the activity is closed
         @Override
         public void onNutritionByIdError(String message) {
             Log.w("Warning","Caused by no internet connection: "+message);
         }
     };
 
+    // click listener for the share and bookmark buttons which puts the recipe in the database if it is not already there and shares the recipe if the share button is clicked
     @Override
     public void onClick(View v) {
         AlertDialog.Builder builder;

@@ -32,7 +32,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private RecipeDao recipeDao;
     private boolean flag;
 
-
+    // Creates a new ContentView for the activity_history activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +40,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         assign();
     }
 
-    //  Assigning variables
+    // refreshes the activity to show the latest data provided by the database
     @SuppressLint("SetTextI18n")
     public void assign() {
         TextView databaseCount;
@@ -62,14 +62,16 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         databaseCount.setText(getString(R.string.you_have) + " " + recipeDao.getCount() + getString(R.string.bookmarks));
     }
 
+    // Assigns OnClick Listener
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetailsActivity.class)
             .putExtra(getString(R.string.id), id));
 
-    //  Fetch data from database
+
+    // Deletes all bookmarks
     private List<Recipe> fetchData() {
 
         List<Recipe> recipe = new ArrayList<>();
-        // Create an object of MealsFromDatabase class
+
         Recipe meal;
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
@@ -82,7 +84,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         return recipe;
     }
 
-    //  Convert RecipeEntity to Recipe
+    // Converts the RecipeEntity to a public Recipe
     public Recipe toRecipe(RecipeEntity re) {
 
         Recipe recipe = new Recipe();
@@ -99,7 +101,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         return recipe;
     }
 
-    //  Delete all bookmarks
+    // Starts Builder to delete all bookmarks
     @Override
     public void onClick(View v) {
         if (v == delete) {
@@ -112,7 +114,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    //  Delete all bookmarks
+    //Deletes all bookmarks
     public void delete() {
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
@@ -121,7 +123,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         assign();
     }
 
-    //  Refresh activity
+    // Refreshes the activity
     @Override
     protected void onResume() {
         super.onResume();

@@ -41,7 +41,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
     private int id;
     private RecipeDao recipeDao;
 
-
+    // Creates a new ContentView for the activity_history activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +59,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
 
     }
 
-    //  Assigning variables
+    // Assigning views, listeners and database
     @SuppressLint("SetTextI18n")
     private void assign() {
         TextView textViewCreateTime;
@@ -88,7 +88,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
 
     }
 
-    //  Assigning recipe details
+    // Assigning recipe details
     public void setDataFromDatabase(int id) {
         RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
         title = recipeEntity.title;
@@ -105,7 +105,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         ingredients = recipeEntity.ingredients;
     }
 
-    //  Share and bookmark button
+    // On click listener for share and bookmark buttons
     @Override
     public void onClick(View v) {
         if (v == share) {

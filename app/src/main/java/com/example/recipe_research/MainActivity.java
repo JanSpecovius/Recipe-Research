@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private SearchView searchView;
 
 
+    //  Creates a new ContentView for the activity_history activity and changes the ContentView based on the orientation of the device
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         assign();
     }
 
+    //  Assigns the variables to the corresponding views and sets the onClickListeners and the onQueryTextListeners and the variables to the corresponding values
     private void assign() {
         Spinner spinner;
         databaseButton = findViewById(R.id.database);
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         spinner.setOnItemSelectedListener(spinnerSelectedListener);
     }
 
+    // set popup menu items to checked if they are true
     public void showFilter(View v) {
         PopupMenu popup = new PopupMenu(this, v, Gravity.END);
         popup.setOnMenuItemClickListener(this);
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popup.show();
     }
 
+    // fetches the recipes from the API and displays them in the RecyclerView or displays a Toast if there is no internet connection or if the search query is empty
     private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
         @Override
         public void didFetch(RandomRecipeApiResponse response, String message) {
@@ -137,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     };
 
+    // Spinner listener which sets the tagString to the selected item and runs the request method
     private final AdapterView.OnItemSelectedListener spinnerSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -152,9 +157,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     };
 
+    // recipeClickListener which starts the RecipeDetailsActivity and passes the id of the recipe to the activity
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
             .putExtra(getString(R.string.id), id));
 
+    // onClickListener which starts the runRequest method if a menu item is clicked and sets the corresponding variables to true or false
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {

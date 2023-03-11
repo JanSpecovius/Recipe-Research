@@ -24,19 +24,21 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     List<Recipe> list;
     RecipeClickListener listener;
 
+    // Constructor for the RandomRecipeAdapter class
     public RandomRecipeAdapter(Context context, List<Recipe> list, RecipeClickListener listener) {
         this.context = context;
         this.list = list;
         this.listener = listener;
     }
 
-
+    // Creates a new RandomRecipeViewHolder for the list_random_recipe layout
     @NonNull
     @Override
     public RandomRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new RandomRecipeViewHolder(LayoutInflater.from(context).inflate(R.layout.list_random_recipe, parent, false));
     }
 
+    // Sets the data for the RandomRecipeViewHolder to display
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
@@ -76,12 +78,14 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         holder.randomListContainer.setOnClickListener(view -> listener.onRecipeClicked(String.valueOf(list.get(holder.getAdapterPosition()).id)));
     }
 
+    // Returns the size of the list
     @Override
     public int getItemCount() {
         return list.size();
     }
 }
 
+    //recipe holder class
 class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
     CardView randomListContainer;
     TextView textViewTitle;
@@ -92,6 +96,7 @@ class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
     TextView textViewGluten;
     ImageView imageViewFood;
 
+    // Constructor for the RandomRecipeViewHolder class
     public RandomRecipeViewHolder(@NonNull View itemView) {
         super(itemView);
         randomListContainer = itemView.findViewById(R.id.random_list_container);

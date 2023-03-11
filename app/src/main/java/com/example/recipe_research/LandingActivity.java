@@ -10,6 +10,7 @@ import android.widget.Button;
 public class LandingActivity extends AppCompatActivity implements View.OnClickListener  {
     private Button startButton;
 
+    // Creates a new ContentView for the activity_history activity and sets the onClickListener for the startButton
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,8 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         startButton.setOnClickListener(this);
     }
 
+
+    // onClickListener for the startButton that starts the MainActivity
     @Override
     public void onClick(View v) {
 
