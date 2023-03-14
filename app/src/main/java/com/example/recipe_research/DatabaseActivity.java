@@ -31,13 +31,38 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private RecipeDatabase db;
     private RecipeDao recipeDao;
     private boolean flag;
+    private boolean veganFlag;
+    private boolean vegetarianFlag;
+    private boolean glutenFreeFlag;
+    private boolean dairyFreeFlag;
 
-    // Creates a new ContentView for the activity_history activity
+    private Button vegan;
+    private Button vegetarian;
+    private Button glutenFree;
+    private Button dairyFree;
+
+    // Creates a new ContentView for the activity_history activity and gets the saved instance state for the Buttons, if they where clicked before
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
         assign();
+
+        if (savedInstanceState != null) {
+            veganFlag = !savedInstanceState.getBoolean("VeganFlag");
+            vegan.performClick();
+
+            vegetarianFlag = !savedInstanceState.getBoolean("VegetarianFlag");
+            vegetarian.performClick();
+
+            glutenFreeFlag = !savedInstanceState.getBoolean("GlutenFreeFlag");
+            glutenFree.performClick();
+
+            dairyFreeFlag = !savedInstanceState.getBoolean("DairyFreeFlag");
+            dairyFree.performClick();
+        }
+
+
     }
 
     // refreshes the activity to show the latest data provided by the database
@@ -48,8 +73,16 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.recyclerDatabase);
         databaseCount = findViewById(R.id.databaseCount);
+        vegan = findViewById(R.id.veganFilter);
+        vegetarian = findViewById(R.id.vegetarianFilter);
+        glutenFree = findViewById(R.id.glutenFilter);
+        dairyFree = findViewById(R.id.dairyFilter);
         delete = findViewById(R.id.deleteAll);
 
+        vegan.setOnClickListener(this);
+        vegetarian.setOnClickListener(this);
+        glutenFree.setOnClickListener(this);
+        dairyFree.setOnClickListener(this);
         delete.setOnClickListener(this);
         recyclerView.setHasFixedSize(true);
 
@@ -111,6 +144,51 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> delete());
             builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             builder.show();
+        } else if (v == vegan) {
+            if(veganFlag) {
+                vegan.setBackgroundColor(getResources().getColor(R.color.black));
+                veganFlag = false;
+                assign();
+            } else {
+                vegan.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                veganFlag = true;
+                assign();
+            }
+
+
+        } else if (v == vegetarian) {
+            if (vegetarianFlag) {
+                vegetarian.setBackgroundColor(getResources().getColor(R.color.black));
+                vegetarianFlag = false;
+                assign();
+            } else {
+                vegetarian.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                vegetarianFlag = true;
+                assign();
+            }
+
+        } else if (v == glutenFree) {
+            if (glutenFreeFlag) {
+                glutenFree.setBackgroundColor(getResources().getColor(R.color.black));
+                glutenFreeFlag = false;
+                assign();
+            } else {
+                glutenFree.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                glutenFreeFlag = true;
+                assign();
+            }
+
+        } else if (v == dairyFree) {
+            if (dairyFreeFlag) {
+                dairyFree.setBackgroundColor(getResources().getColor(R.color.black));
+                dairyFreeFlag = false;
+                assign();
+            } else {
+                dairyFree.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                dairyFreeFlag = true;
+                assign();
+            }
+
         }
     }
 
@@ -134,5 +212,15 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         } else {
             flag = true;
         }
+    }
+
+    // Saves the state of the Buttons so they can be restored after the activity was destroyed
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("VeganFlag", veganFlag);
+        outState.putBoolean("VegetarianFlag", vegetarianFlag);
+        outState.putBoolean("GlutenFreeFlag", glutenFreeFlag);
+        outState.putBoolean("DairyFreeFlag", dairyFreeFlag);
     }
 }

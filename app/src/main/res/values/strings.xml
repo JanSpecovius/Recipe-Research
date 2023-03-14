@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Recipe-Research</string>
-    <string name="api_Key">b2b35c96874646959d02dbb919291686</string>
+    <string name="api_Key">7b67fbe620a34e3caed32b77c06a88c8</string>
     <string name="yesButton">Yes</string>
     <string name="noButton">No</string>
     <string name="calories"><b>Calories: </b></string>

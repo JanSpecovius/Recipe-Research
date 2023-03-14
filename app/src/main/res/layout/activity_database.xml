@@ -19,6 +19,54 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dairyFree"
+            android:textSize="10dp"
+            android:id="@+id/dairyFilter"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/glutenFree"
+            android:textSize="10dp"
+            android:id="@+id/glutenFilter"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vegan"
+            android:textSize="10dp"
+            android:id="@+id/veganFilter"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vegetarian"
+            android:textSize="10dp"
+            android:id="@+id/vegetarianFilter"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            />
+
+
+    </LinearLayout>
+
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDatabase"
         android:layout_width="match_parent"
