@@ -46,7 +46,9 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
-        assign();
+
+        //assigns the Filter Buttons before the other Buttons, so that the saved instance state can be used
+        assignFilterButtons();
 
         if (savedInstanceState != null) {
             veganFlag = !savedInstanceState.getBoolean("VeganFlag");
@@ -62,10 +64,22 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             dairyFree.performClick();
         }
 
+        assign();
+    }
+    //assigns the View to the Buttons and sets the OnClick Listener
+    public void assignFilterButtons() {
+        vegan = findViewById(R.id.veganFilter);
+        vegetarian = findViewById(R.id.vegetarianFilter);
+        glutenFree = findViewById(R.id.glutenFilter);
+        dairyFree = findViewById(R.id.dairyFilter);
 
+        vegan.setOnClickListener(this);
+        vegetarian.setOnClickListener(this);
+        glutenFree.setOnClickListener(this);
+        dairyFree.setOnClickListener(this);
     }
 
-    // refreshes the activity to show the latest data provided by the database
+    //assigns the missing View elements, sets the OnClick Listener, the Adapter for the RecyclerView and the TextView
     @SuppressLint("SetTextI18n")
     public void assign() {
         TextView databaseCount;
@@ -73,16 +87,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         RecyclerView recyclerView;
         recyclerView = findViewById(R.id.recyclerDatabase);
         databaseCount = findViewById(R.id.databaseCount);
-        vegan = findViewById(R.id.veganFilter);
-        vegetarian = findViewById(R.id.vegetarianFilter);
-        glutenFree = findViewById(R.id.glutenFilter);
-        dairyFree = findViewById(R.id.dairyFilter);
         delete = findViewById(R.id.deleteAll);
-
-        vegan.setOnClickListener(this);
-        vegetarian.setOnClickListener(this);
-        glutenFree.setOnClickListener(this);
-        dairyFree.setOnClickListener(this);
         delete.setOnClickListener(this);
         recyclerView.setHasFixedSize(true);
 

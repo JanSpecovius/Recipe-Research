@@ -28,7 +28,7 @@
     <string name="bookmark_msg">Do you really want to delete this bookmark?</string>
     <string name="bookmark_msg_all">Do you really want to delete all bookmarks?</string>
     <string name="builder_title">Warning!!!</string>
-    <string name="del_all_entries">Delete all entries</string>
+    <string name="del_all_entries">Delete all database entries</string>
     <string name="txt_view">Textview</string>
     <string name="dp">: </string>
     <string name="start">Search Recipes</string>
