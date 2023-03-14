@@ -9,10 +9,11 @@
 
 
     <LinearLayout
+        android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -20,30 +21,31 @@
 
 
             <RelativeLayout
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <Button
-                    android:text="@string/recipe_filter"
-                    android:backgroundTint="@color/dark_cream_brown"
+                    android:id="@+id/recipeFilter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:gravity="center"
                     android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/dark_cream_brown"
+                    android:gravity="center"
                     android:onClick="showFilter"
+                    android:text="@string/recipe_filter"
                     tools:ignore="RelativeOverlap" />
 
                 <Spinner
                     android:id="@+id/spinner_tags"
-                    android:gravity="center"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/dark_cream_brown"
-                    android:popupBackground="@color/light_cream_brown"
-                    android:entries="@array/tags"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:entries="@array/tags"
+                    android:gravity="center"
+                    android:popupBackground="@color/light_cream_brown"
+                    android:textColor="@color/dark_cream_brown" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -51,36 +53,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <androidx.cardview.widget.CardView
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/light_cream_brown"
-                android:layout_margin="8dp"
+                android:id="@+id/cardView"
                 android:layout_width="0dp"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_margin="8dp"
                 android:layout_weight="0.5"
-                >
+                app:cardBackgroundColor="@color/light_cream_brown"
+                app:cardElevation="8dp">
 
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchVieW_home"
-                    app:queryHint="@string/search_food"
-                    app:iconifiedByDefault="false"
-                    app:searchIcon="@drawable/ic_search"
+                    android:id="@+id/searchView_home"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="@string/search_food"
+                    app:searchIcon="@drawable/ic_search" />
             </androidx.cardview.widget.CardView>
+
             <ImageView
+                android:id="@+id/refresh"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_refresh"
-                android:clickable="true"
-                android:id="@+id/refresh"
                 android:layout_marginTop="12dp"
-                android:contentDescription="@string/speakableTextRefresh" />
+                android:clickable="true"
+                android:contentDescription="@string/speakableTextRefresh"
+                android:src="@drawable/ic_refresh" />
 
         </LinearLayout>
-
 
 
         <androidx.recyclerview.widget.RecyclerView

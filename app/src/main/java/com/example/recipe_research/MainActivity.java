@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         dairyFree = false;
         query = "";
 
-        searchView = findViewById(R.id.searchVieW_home);
+        searchView = findViewById(R.id.searchView_home);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryResult) {
@@ -206,13 +206,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.lactoseFreeItem:
                 if (menuItem.isChecked()) {
                     dairyFree = false;
-                    clearSearchView();
-                    runRequest();
                 } else {
                     dairyFree = true;
-                    clearSearchView();
-                    runRequest();
                 }
+                clearSearchView();
+                runRequest();
                 return true;
             default:
                 return false;
