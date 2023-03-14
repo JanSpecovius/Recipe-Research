@@ -107,7 +107,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     // Deletes all bookmarks
     private List<Recipe> fetchData() {
-
+//TODO: @Daniel: Hier anpassen, sodass die veganFlag, vegetarianFlag, glutenFreeFlag und dairyFreeFlag berücksichtigt werden
         List<Recipe> recipe = new ArrayList<>();
 
         Recipe meal;
