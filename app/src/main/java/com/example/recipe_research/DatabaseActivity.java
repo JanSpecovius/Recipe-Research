@@ -47,37 +47,18 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
 
-        //assigns the Filter Buttons before the other Buttons, so that the saved instance state can be used
-        assignFilterButtons();
-
+        //sets the flag to the saved instance state
         if (savedInstanceState != null) {
-            veganFlag = !savedInstanceState.getBoolean("VeganFlag");
-            vegan.performClick();
-
-            vegetarianFlag = !savedInstanceState.getBoolean("VegetarianFlag");
-            vegetarian.performClick();
-
-            glutenFreeFlag = !savedInstanceState.getBoolean("GlutenFreeFlag");
-            glutenFree.performClick();
-
-            dairyFreeFlag = !savedInstanceState.getBoolean("DairyFreeFlag");
-            dairyFree.performClick();
+            veganFlag = savedInstanceState.getBoolean("VeganFlag");
+            vegetarianFlag = savedInstanceState.getBoolean("VegetarianFlag");
+            glutenFreeFlag = savedInstanceState.getBoolean("GlutenFreeFlag");
+            dairyFreeFlag = savedInstanceState.getBoolean("DairyFreeFlag");
         }
 
         assign();
     }
     //assigns the View to the Buttons and sets the OnClick Listener
-    public void assignFilterButtons() {
-        vegan = findViewById(R.id.veganFilter);
-        vegetarian = findViewById(R.id.vegetarianFilter);
-        glutenFree = findViewById(R.id.glutenFilter);
-        dairyFree = findViewById(R.id.dairyFilter);
 
-        vegan.setOnClickListener(this);
-        vegetarian.setOnClickListener(this);
-        glutenFree.setOnClickListener(this);
-        dairyFree.setOnClickListener(this);
-    }
 
     //assigns the missing View elements, sets the OnClick Listener, the Adapter for the RecyclerView and the TextView
     @SuppressLint("SetTextI18n")
@@ -88,8 +69,19 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         recyclerView = findViewById(R.id.recyclerDatabase);
         databaseCount = findViewById(R.id.databaseCount);
         delete = findViewById(R.id.deleteAll);
+        vegan = findViewById(R.id.veganFilter);
+        vegetarian = findViewById(R.id.vegetarianFilter);
+        glutenFree = findViewById(R.id.glutenFilter);
+        dairyFree = findViewById(R.id.dairyFilter);
+
         delete.setOnClickListener(this);
+        vegan.setOnClickListener(this);
+        vegetarian.setOnClickListener(this);
+        glutenFree.setOnClickListener(this);
+        dairyFree.setOnClickListener(this);
+
         recyclerView.setHasFixedSize(true);
+
 
         builder = new AlertDialog.Builder(this);
         recipeAdapter = new RandomRecipeAdapter(DatabaseActivity.this, fetchData(), recipeClickListener);
@@ -151,11 +143,12 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             builder.show();
         } else if (v == vegan) {
             if(veganFlag) {
-                vegan.setBackgroundColor(getResources().getColor(R.color.black));
                 veganFlag = false;
                 assign();
             } else {
-                vegan.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                dairyFreeFlag = false;
+                glutenFreeFlag = false;
+                vegetarianFlag = false;
                 veganFlag = true;
                 assign();
             }
@@ -163,34 +156,38 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
         } else if (v == vegetarian) {
             if (vegetarianFlag) {
-                vegetarian.setBackgroundColor(getResources().getColor(R.color.black));
                 vegetarianFlag = false;
                 assign();
             } else {
-                vegetarian.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                dairyFreeFlag = false;
+                glutenFreeFlag = false;
                 vegetarianFlag = true;
+                veganFlag = false;
                 assign();
             }
 
         } else if (v == glutenFree) {
             if (glutenFreeFlag) {
-                glutenFree.setBackgroundColor(getResources().getColor(R.color.black));
+
                 glutenFreeFlag = false;
                 assign();
             } else {
-                glutenFree.setBackgroundColor(getResources().getColor(R.color.grey_font));
+                dairyFreeFlag = false;
                 glutenFreeFlag = true;
+                vegetarianFlag = false;
+                veganFlag = false;
                 assign();
             }
 
         } else if (v == dairyFree) {
             if (dairyFreeFlag) {
-                dairyFree.setBackgroundColor(getResources().getColor(R.color.black));
                 dairyFreeFlag = false;
                 assign();
             } else {
-                dairyFree.setBackgroundColor(getResources().getColor(R.color.grey_font));
                 dairyFreeFlag = true;
+                glutenFreeFlag = false;
+                vegetarianFlag = false;
+                veganFlag = false;
                 assign();
             }
 
