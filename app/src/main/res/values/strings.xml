@@ -53,6 +53,7 @@
     <string name="gluten_free_filter">Gluten Free</string>
     <string name="cross">❌</string>
     <string name="check">✅</string>
+    <string name="clearFilter">Clear Filter</string>
 
 
     <string-array name="tags">

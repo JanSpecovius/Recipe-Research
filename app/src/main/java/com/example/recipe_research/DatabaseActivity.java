@@ -40,6 +40,7 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private Button vegetarian;
     private Button glutenFree;
     private Button dairyFree;
+    private Button clearFilter;
 
     // Creates a new ContentView for the activity_history activity and gets the saved instance state for the Buttons, if they where clicked before
     @Override
@@ -73,12 +74,14 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         vegetarian = findViewById(R.id.vegetarianFilter);
         glutenFree = findViewById(R.id.glutenFilter);
         dairyFree = findViewById(R.id.dairyFilter);
+        clearFilter = findViewById(R.id.clearFilter);
 
         delete.setOnClickListener(this);
         vegan.setOnClickListener(this);
         vegetarian.setOnClickListener(this);
         glutenFree.setOnClickListener(this);
         dairyFree.setOnClickListener(this);
+        clearFilter.setOnClickListener(this);
 
         recyclerView.setHasFixedSize(true);
 
@@ -190,6 +193,13 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
                 veganFlag = false;
                 assign();
             }
+
+        } else if (v == clearFilter) {
+            dairyFreeFlag = false;
+            glutenFreeFlag = false;
+            vegetarianFlag = false;
+            veganFlag = false;
+            assign();
 
         }
     }
