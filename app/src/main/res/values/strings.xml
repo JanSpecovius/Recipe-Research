@@ -54,6 +54,9 @@
     <string name="cross">❌</string>
     <string name="check">✅</string>
     <string name="clearFilter">Clear Filter</string>
+    <string name="filteredBy">Filtered by: </string>
+    <string name="filterCleared">Filter cleared</string>
+
 
 
     <string-array name="tags">

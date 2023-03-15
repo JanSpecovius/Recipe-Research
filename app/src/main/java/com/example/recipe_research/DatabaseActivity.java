@@ -145,60 +145,47 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             builder.show();
         } else if (v == vegan) {
-            if(veganFlag) {
-                veganFlag = false;
-                assign();
-            } else {
-                dairyFreeFlag = false;
-                glutenFreeFlag = false;
-                vegetarianFlag = false;
-                veganFlag = true;
-                assign();
-            }
-
+            dairyFreeFlag = false;
+            glutenFreeFlag = false;
+            vegetarianFlag = false;
+            veganFlag = true;
+            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.vegan_filter), Toast.LENGTH_SHORT).show();
+            assign();
 
         } else if (v == vegetarian) {
-            if (vegetarianFlag) {
-                vegetarianFlag = false;
-                assign();
-            } else {
-                dairyFreeFlag = false;
-                glutenFreeFlag = false;
-                vegetarianFlag = true;
-                veganFlag = false;
-                assign();
-            }
+
+            dairyFreeFlag = false;
+            glutenFreeFlag = false;
+            vegetarianFlag = true;
+            veganFlag = false;
+            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.vegetarian_filter), Toast.LENGTH_SHORT).show();
+            assign();
 
         } else if (v == glutenFree) {
-            if (glutenFreeFlag) {
 
-                glutenFreeFlag = false;
-                assign();
-            } else {
-                dairyFreeFlag = false;
-                glutenFreeFlag = true;
-                vegetarianFlag = false;
-                veganFlag = false;
-                assign();
-            }
+            dairyFreeFlag = false;
+            glutenFreeFlag = true;
+            vegetarianFlag = false;
+            veganFlag = false;
+            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.gluten_free_filter), Toast.LENGTH_SHORT).show();
+            assign();
 
         } else if (v == dairyFree) {
-            if (dairyFreeFlag) {
-                dairyFreeFlag = false;
-                assign();
-            } else {
-                dairyFreeFlag = true;
-                glutenFreeFlag = false;
-                vegetarianFlag = false;
-                veganFlag = false;
-                assign();
-            }
+
+            dairyFreeFlag = true;
+            glutenFreeFlag = false;
+            vegetarianFlag = false;
+            veganFlag = false;
+            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.dairy_free_filter), Toast.LENGTH_SHORT).show();
+            assign();
+
 
         } else if (v == clearFilter) {
             dairyFreeFlag = false;
             glutenFreeFlag = false;
             vegetarianFlag = false;
             veganFlag = false;
+            Toast.makeText(this, R.string.filterCleared, Toast.LENGTH_SHORT).show();
             assign();
 
         }
