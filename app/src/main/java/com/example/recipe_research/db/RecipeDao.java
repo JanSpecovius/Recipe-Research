@@ -24,6 +24,28 @@ public interface RecipeDao {
     @Query("SELECT * FROM RecipeEntity")
     RecipeEntity[] getAllRecipes();
 
+    @Query("SELECT * FROM RecipeEntity WHERE `gluten free` = 1")
+    RecipeEntity[] getGlutenfreeRecipes();
+    @Query("SELECT COUNT(*) FROM RecipeEntity WHERE `gluten free` = 1")
+    int getGlutenfreeCount();
+
+    @Query("SELECT * FROM RecipeEntity WHERE `dairy free` = 1")
+    RecipeEntity[] getDairyfreeRecipes();
+    @Query("SELECT COUNT(*) FROM RecipeEntity WHERE `dairy free` = 1")
+    int getDairyfreeCount();
+
+    @Query("SELECT * FROM RecipeEntity WHERE vegetarian = 1")
+    RecipeEntity[] getVegetarianRecipes();
+
+    @Query("SELECT COUNT(*) FROM RecipeEntity WHERE vegetarian = 1")
+    int getVegetarianCount();
+
+    @Query("SELECT * FROM RecipeEntity WHERE vegan = 1")
+    RecipeEntity[] getVeganRecipes();
+
+    @Query("SELECT COUNT(*) FROM RecipeEntity WHERE vegan = 1")
+    int getVeganCount();
+
     @Query("SELECT date FROM RecipeEntity WHERE id =:id")
     Date getDateById(int id);
 

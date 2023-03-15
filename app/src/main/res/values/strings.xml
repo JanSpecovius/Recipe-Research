@@ -33,7 +33,7 @@
     <string name="dp">: </string>
     <string name="start">Search Recipes</string>
     <string name="you_have">You have  </string>
-    <string name="bookmarks"> bookmarks"</string>
+    <string name="bookmarks"> total bookmarks"</string>
     <string name="nothing_selected">Nothing Selected!</string>
     <string name="speakableTextRefresh">Refresh Button</string>
     <string name="speakableTextPersonPicture">Persons</string>

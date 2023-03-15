@@ -102,17 +102,41 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     // Deletes all bookmarks
     private List<Recipe> fetchData() {
-//TODO: @Daniel: Hier anpassen, sodass die veganFlag, vegetarianFlag, glutenFreeFlag und dairyFreeFlag berücksichtigt werden
         List<Recipe> recipe = new ArrayList<>();
 
         Recipe meal;
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
-
-        for (int i = 0; i < recipeDao.getCount(); i++) {
-            RecipeEntity[] recipeEntity = recipeDao.getAllRecipes();
-            meal = toRecipe(recipeEntity[i]);
-            recipe.add(meal);
+        if(glutenFreeFlag){
+            for (int i = 0; i < recipeDao.getGlutenfreeCount(); i++) {
+                RecipeEntity[] recipeEntity = recipeDao.getGlutenfreeRecipes();
+                meal = toRecipe(recipeEntity[i]);
+                recipe.add(meal);
+            }
+        } else if (veganFlag) {
+            for (int i = 0; i < recipeDao.getVeganCount(); i++) {
+                RecipeEntity[] recipeEntity = recipeDao.getVeganRecipes();
+                meal = toRecipe(recipeEntity[i]);
+                recipe.add(meal);
+            }
+        } else if (vegetarianFlag) {
+            for (int i = 0; i < recipeDao.getVegetarianCount(); i++) {
+                RecipeEntity[] recipeEntity = recipeDao.getVegetarianRecipes();
+                meal = toRecipe(recipeEntity[i]);
+                recipe.add(meal);
+            }
+        } else if (dairyFreeFlag) {
+            for (int i = 0; i < recipeDao.getDairyfreeCount(); i++) {
+                RecipeEntity[] recipeEntity = recipeDao.getDairyfreeRecipes();
+                meal = toRecipe(recipeEntity[i]);
+                recipe.add(meal);
+            }
+        } else {
+            for (int i = 0; i < recipeDao.getCount(); i++) {
+                RecipeEntity[] recipeEntity = recipeDao.getAllRecipes();
+                meal = toRecipe(recipeEntity[i]);
+                recipe.add(meal);
+            }
         }
         return recipe;
     }
