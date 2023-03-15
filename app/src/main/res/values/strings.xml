@@ -49,8 +49,8 @@
     <string name="minutes">Minutes</string>
     <string name="vegetarian_filter">Vegetarian</string>
     <string name="vegan_filter">Vegan</string>
-    <string name="dairy_free_filter">Dairy Free</string>
-    <string name="gluten_free_filter">Gluten Free</string>
+    <string name="dairy_free_filter">Dairy free</string>
+    <string name="gluten_free_filter">Gluten free</string>
     <string name="cross">❌</string>
     <string name="check">✅</string>
     <string name="clearFilter">Clear Filter</string>
