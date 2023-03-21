@@ -17,4 +17,8 @@
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="light_grey">#D1D1D1</color>
+
+    <style name="MyPopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/light_cream_brown</item>
+    </style>
 </resources>

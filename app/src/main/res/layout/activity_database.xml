@@ -25,52 +25,80 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dairyFree"
-            android:textSize="10dp"
             android:id="@+id/dairyFilter"
-            android:layout_margin="1dp"
-            android:layout_weight="0.5"
-            />
-        <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/glutenFree"
-            android:textSize="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/dark_cream_brown"
+            android:text="@string/dairyFree"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:iconTint="@color/white"
+            app:rippleColor="#C6FFFFFF" />
+
+        <Button
             android:id="@+id/glutenFilter"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="0.5"
-            />
+            android:backgroundTint="@color/dark_cream_brown"
+            android:text="@string/glutenFree"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:iconTint="@color/white"
+            app:rippleColor="#C6FFFFFF" />
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vegan"
-            android:textSize="10dp"
             android:id="@+id/veganFilter"
-            android:layout_margin="1dp"
-            android:layout_weight="0.5"
-            />
-        <Button
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vegetarian"
-            android:textSize="10dp"
-            android:id="@+id/vegetarianFilter"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="0.5"
-            />
+            android:backgroundTint="@color/dark_cream_brown"
+            android:text="@string/vegan"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:iconTint="@color/white"
+            app:rippleColor="#C6FFFFFF" />
+
+        <Button
+            android:id="@+id/vegetarianFilter"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="0.5"
+            android:backgroundTint="@color/dark_cream_brown"
+            android:text="@string/vegetarian"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:iconTint="@color/white"
+            app:rippleColor="#C6FFFFFF" />
 
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/clearFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/dark_cream_brown"
         android:text="@string/clearFilter"
-        android:textSize="10dp"
-        android:id="@+id/clearFilter"
-        />
+        android:textSize="11sp"
+        app:rippleColor="#C6FFFFFF" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -91,10 +119,12 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/dark_cream_brown"
         android:text="@string/del_all_entries"
+        android:textSize="11sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
+        app:rippleColor="#C6FFFFFF"
         tools:ignore="VisualLintButtonSize" />
 
 

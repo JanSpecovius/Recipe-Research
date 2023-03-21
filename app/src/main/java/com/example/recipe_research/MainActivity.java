@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     // set popup menu items to checked if they are true
     public void showFilter(View v) {
-        PopupMenu popup = new PopupMenu(this, v, Gravity.END);
+        PopupMenu popup = new PopupMenu(this, v, Gravity.END, 0, R.style.MyPopupMenu);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.filter_menu);
 
