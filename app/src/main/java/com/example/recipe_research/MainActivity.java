@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         @Override
         public void didError(String message) {
-            Toast.makeText(MainActivity.this,"No connection to RandomRecipes" , Toast.LENGTH_SHORT).show();
-            Log.w("Warning","Caused by no internet connection: "+message);
+            Toast.makeText(MainActivity.this, "No connection to RandomRecipes", Toast.LENGTH_SHORT).show();
+            Log.w("Warning", "Caused by no internet connection: " + message);
             loadingDialog.disMiss();
         }
     };
@@ -162,13 +162,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             .putExtra(getString(R.string.id), id));
 
     // onClickListener which starts the runRequest method if a menu item is clicked and sets the corresponding variables to true or false
-    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
 
             case R.id.veganItem:
-                if (vegan) {
+                if (Boolean.TRUE.equals(vegan)) {
                     vegan = false;
                     clearSearchView();
                     runRequest();
@@ -277,6 +276,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             runRequest();
         }
     }
+
     private void clearSearchView() {
         searchView.setQuery("", false);
         searchView.clearFocus();
