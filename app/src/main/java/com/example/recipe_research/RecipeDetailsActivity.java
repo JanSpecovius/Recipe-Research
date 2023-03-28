@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -24,6 +25,8 @@ import com.example.recipe_research.db.RecipeEntity;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+
+import retrofit2.http.Url;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewMealName;
@@ -84,6 +87,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         share = findViewById(R.id.share);
         bookmark = findViewById(R.id.bookmark);
 
+        textViewMealSource.setOnClickListener(this);
         share.setOnClickListener(this);
         bookmark.setOnClickListener(this);
 
@@ -181,8 +185,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         }
     };
 
-    // click listener for the share and bookmark buttons which puts the recipe in the database if it is not already there and shares the recipe if the share button is clicked
+    /*click listener for the share and bookmark buttons which puts the recipe in the database
+    if it is not already there and shares the recipe if the share button is clicked also opens
+    the Source in browser
+    */
     @Override
+
     public void onClick(View v) {
         AlertDialog.Builder builder;
         if (v == share) {
@@ -212,7 +220,10 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 insertRow();
                 flag = true;
             }
-
+        } else if (v == textViewMealSource) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url) );
+            startActivity(intent);
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,6 +83,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         textViewCreateTime.setText(getString(R.string.db_timestamp) + " " + recipeDao.getDateById(id).toString());
         bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
 
+        textViewMealSource.setOnClickListener(this);
         share.setOnClickListener(this);
         bookmark.setOnClickListener(this);
 
@@ -105,7 +107,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         ingredients = recipeEntity.ingredients;
     }
 
-    // On click listener for share and bookmark buttons
+    // On click listener for share and bookmark buttons and also for the source text view to open the recipe in browser
     @Override
     public void onClick(View v) {
         if (v == share) {
@@ -122,6 +124,10 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
             builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
             builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             builder.show();
+        }else if (v == textViewMealSource) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url) );
+            startActivity(intent);
         }
     }
 

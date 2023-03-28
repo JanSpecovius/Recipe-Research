@@ -79,6 +79,7 @@
                 android:textColor="@color/grey_font"
                 android:textSize="14sp"
                 android:textStyle="italic"
+                android:clickable="true"
                 tools:ignore="TextContrastCheck" />
 
             <ImageView
