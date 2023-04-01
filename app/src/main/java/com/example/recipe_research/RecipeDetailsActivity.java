@@ -26,7 +26,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
-import retrofit2.http.Url;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewMealName;
