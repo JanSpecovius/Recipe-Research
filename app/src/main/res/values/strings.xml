@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Recipe-Research</string>
-    <string name="api_Key">7b67fbe620a34e3caed32b77c06a88c8</string>
+    <string name="api_Key">7607f71329b3478f88e264e8b78448df</string>
     <string name="yesButton">Yes</string>
     <string name="noButton">No</string>
     <string name="calories"><b>Calories: </b></string>
@@ -56,7 +56,6 @@
     <string name="clearFilter">Clear Filter</string>
     <string name="filteredBy">Filtered by: </string>
     <string name="filterCleared">Filter cleared</string>
-
 
 
     <string-array name="tags">
