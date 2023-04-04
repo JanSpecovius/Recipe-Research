@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String queryResult) {
-                query = queryResult;
+                // toLowerCase() is used, because the API can only handle lower case letters
+                query = queryResult.toLowerCase();
                 runRequest();
                 return false;
             }
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         @Override
         public void didError(String message) {
-            Toast.makeText(MainActivity.this, "No connection to RandomRecipes", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "No connection to API", Toast.LENGTH_SHORT).show();
             Log.w("Warning", "Caused by no internet connection: " + message);
             loadingDialog.disMiss();
         }
