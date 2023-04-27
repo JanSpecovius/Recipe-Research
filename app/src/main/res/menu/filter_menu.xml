@@ -4,15 +4,14 @@
     <group
         android:checkableBehavior="all"
         android:orientation="vertical">
-
         <item
             android:id="@+id/glutenFreeItem"
             android:title="@string/gluten_free_filter" />
         <item
             android:id="@+id/lactoseFreeItem"
             android:title="@string/dairy_free_filter" />
-
     </group>
+    
     <group
         android:checkableBehavior="single"
         android:orientation="vertical">
@@ -23,6 +22,4 @@
             android:id="@+id/veganItem"
             android:title="@string/vegan_filter" />
     </group>
-
-
 </menu>

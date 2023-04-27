@@ -8,7 +8,6 @@
     tools:context=".DatabaseActivity"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/databaseCount"
         android:layout_width="wrap_content"
@@ -85,8 +84,6 @@
             android:textSize="11sp"
             app:iconTint="@color/white"
             app:rippleColor="#C6FFFFFF" />
-
-
     </LinearLayout>
 
     <Button
@@ -100,7 +97,6 @@
         android:textSize="11sp"
         app:rippleColor="#C6FFFFFF" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDatabase"
         android:layout_width="match_parent"
@@ -108,7 +104,6 @@
         android:layout_margin="4dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="0.5" />
-
 
     <Button
         android:id="@+id/deleteAll"
@@ -123,9 +118,6 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:rippleColor="#C6FFFFFF"
         tools:ignore="VisualLintButtonSize" />
-
-
 </androidx.appcompat.widget.LinearLayoutCompat>

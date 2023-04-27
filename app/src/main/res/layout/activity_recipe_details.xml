@@ -35,10 +35,7 @@
             android:contentDescription="@string/bookmark"
             android:src="@drawable/ic_bookmark_border"
             tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
-
-
     </androidx.appcompat.widget.Toolbar>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -154,8 +151,6 @@
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

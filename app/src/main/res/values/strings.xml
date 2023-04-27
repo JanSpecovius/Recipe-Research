@@ -57,7 +57,6 @@
     <string name="filteredBy">Filtered by: </string>
     <string name="filterCleared">Filter cleared</string>
 
-
     <string-array name="tags">
         <item>main course</item>
         <item>side dish</item>
@@ -74,6 +73,4 @@
         <item>snack</item>
         <item>drink</item>
     </string-array>
-
-
 </resources>

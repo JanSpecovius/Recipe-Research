@@ -64,7 +64,6 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="8dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -100,7 +99,6 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="0dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +124,6 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="8dp" />
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
