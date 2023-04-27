@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Dao
 public interface RecipeDao {
-
     @Insert
     void insert(RecipeEntity recipeEntity);
 
@@ -26,11 +25,13 @@ public interface RecipeDao {
 
     @Query("SELECT * FROM RecipeEntity WHERE `gluten free` = 1")
     RecipeEntity[] getGlutenfreeRecipes();
+
     @Query("SELECT COUNT(*) FROM RecipeEntity WHERE `gluten free` = 1")
     int getGlutenfreeCount();
 
     @Query("SELECT * FROM RecipeEntity WHERE `dairy free` = 1")
     RecipeEntity[] getDairyfreeRecipes();
+
     @Query("SELECT COUNT(*) FROM RecipeEntity WHERE `dairy free` = 1")
     int getDairyfreeCount();
 
@@ -57,5 +58,4 @@ public interface RecipeDao {
 
     @Query("DELETE FROM RecipeEntity")
     void deleteAll();
-
 }

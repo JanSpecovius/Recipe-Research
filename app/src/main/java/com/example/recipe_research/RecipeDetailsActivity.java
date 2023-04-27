@@ -109,7 +109,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
             loadingDialog.disMiss();
-
             title = response.title;
             sourceName = response.sourceName;
             summary = response.summary;
@@ -118,8 +117,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             spoonacularId = response.id;
             readyInTime = response.readyInMinutes;
             servings = response.servings;
-
-
             glutenfree = response.glutenFree;
             vegetarian = response.vegetarian;
             vegan = response.vegan;
@@ -129,29 +126,23 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
                 flag = true;
             }
-
             amount = response.getExtendedIngredients().size();
-            int counter = 0;
 
+            int counter = 0;
             ingrArray = new String[amount];
 
             while (amount > counter) {
-
                 ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
             }
-
-
             assignRecipeDetail();
         }
 
         // If the API call fails, the user is notified and the activity is closed
         @Override
         public void didError(String message) {
-
-            Toast.makeText(RecipeDetailsActivity.this,"No connection to detail of recipe" , Toast.LENGTH_SHORT).show();
-            Log.w("Warning","Caused by no internet connection: "+message);
-
+            Toast.makeText(RecipeDetailsActivity.this, "No connection to detail of recipe", Toast.LENGTH_SHORT).show();
+            Log.w("Warning", "Caused by no internet connection: " + message);
 
             loadingDialog.disMiss();
             finish();
@@ -180,7 +171,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         // If the API call fails, the user is notified and the activity is closed
         @Override
         public void onNutritionByIdError(String message) {
-            Log.w("Warning","Caused by no internet connection: "+message);
+            Log.w("Warning", "Caused by no internet connection: " + message);
         }
     };
 
@@ -221,7 +212,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             }
         } else if (v == textViewMealSource) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url) );
+            intent.setData(Uri.parse(url));
             startActivity(intent);
         }
     }

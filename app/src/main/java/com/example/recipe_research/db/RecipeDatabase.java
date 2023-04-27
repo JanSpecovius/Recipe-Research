@@ -13,10 +13,11 @@ import android.util.Log;
 public abstract class RecipeDatabase extends RoomDatabase {
     private static final String DB_FILE_NAME = "recipe.db";
     private static RecipeDatabase SINGLETON_INSTANCE = null;
+
     public abstract RecipeDao recipeDao();
+
     public static RecipeDatabase getSingletonInstance(android.content.Context context) {
         if (SINGLETON_INSTANCE == null) {
-
             SINGLETON_INSTANCE =
                     Room.databaseBuilder(context.getApplicationContext(), RecipeDatabase.class, DB_FILE_NAME)
                             .allowMainThreadQueries()
@@ -25,6 +26,4 @@ public abstract class RecipeDatabase extends RoomDatabase {
         }
         return SINGLETON_INSTANCE;
     }
-
-
 }

@@ -24,7 +24,6 @@ import com.example.recipe_research.db.RecipeEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DatabaseActivity extends AppCompatActivity implements View.OnClickListener {
     private Button delete;
     private AlertDialog.Builder builder;
@@ -35,14 +34,13 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private boolean vegetarianFlag;
     private boolean glutenFreeFlag;
     private boolean dairyFreeFlag;
-
     private Button vegan;
     private Button vegetarian;
     private Button glutenFree;
     private Button dairyFree;
     private Button clearFilter;
 
-    // Creates a new ContentView for the activity_history activity and gets the saved instance state for the Buttons, if they where clicked before
+    // Creates a new ContentView for the Layout.activity_database and gets the saved instance state for the Buttons, if they where clicked before
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +53,8 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             glutenFreeFlag = savedInstanceState.getBoolean("GlutenFreeFlag");
             dairyFreeFlag = savedInstanceState.getBoolean("DairyFreeFlag");
         }
-
         assign();
     }
-    //assigns the View to the Buttons and sets the OnClick Listener
-
 
     //assigns the missing View elements, sets the OnClick Listener, the Adapter for the RecyclerView and the TextView
     @SuppressLint("SetTextI18n")
@@ -85,7 +80,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
         recyclerView.setHasFixedSize(true);
 
-
         builder = new AlertDialog.Builder(this);
         recipeAdapter = new RandomRecipeAdapter(DatabaseActivity.this, fetchData(), recipeClickListener);
 
@@ -99,15 +93,14 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
     private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(DatabaseActivity.this, DatabaseDetailsActivity.class)
             .putExtra(getString(R.string.id), id));
 
-
-    // Deletes all bookmarks
+    // Checks which flag is true and adds matching recipes to the list
     private List<Recipe> fetchData() {
         List<Recipe> recipe = new ArrayList<>();
 
         Recipe meal;
         db = RecipeDatabase.getSingletonInstance(this);
         recipeDao = db.recipeDao();
-        if(glutenFreeFlag){
+        if (glutenFreeFlag) {
             for (int i = 0; i < recipeDao.getGlutenfreeCount(); i++) {
                 RecipeEntity[] recipeEntity = recipeDao.getGlutenfreeRecipes();
                 meal = toRecipe(recipeEntity[i]);
@@ -143,7 +136,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
 
     // Converts the RecipeEntity to a public Recipe
     public Recipe toRecipe(RecipeEntity re) {
-
         Recipe recipe = new Recipe();
         recipe.title = re.title;
         recipe.image = re.image;
@@ -158,9 +150,10 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
         return recipe;
     }
 
-    // Starts Builder to delete all bookmarks
+    //  Button action handling and sets the flags
     @Override
     public void onClick(View v) {
+
         if (v == delete) {
             builder.setTitle(getString(R.string.builder_title));
             builder.setMessage(getString(R.string.bookmark_msg_all));
@@ -173,37 +166,29 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             glutenFreeFlag = false;
             vegetarianFlag = false;
             veganFlag = true;
-            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.vegan_filter), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.filteredBy) + " " + getString(R.string.vegan_filter), Toast.LENGTH_SHORT).show();
             assign();
-
         } else if (v == vegetarian) {
-
             dairyFreeFlag = false;
             glutenFreeFlag = false;
             vegetarianFlag = true;
             veganFlag = false;
-            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.vegetarian_filter), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.filteredBy) + " " + getString(R.string.vegetarian_filter), Toast.LENGTH_SHORT).show();
             assign();
-
         } else if (v == glutenFree) {
-
             dairyFreeFlag = false;
             glutenFreeFlag = true;
             vegetarianFlag = false;
             veganFlag = false;
-            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.gluten_free_filter), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.filteredBy) + " " + getString(R.string.gluten_free_filter), Toast.LENGTH_SHORT).show();
             assign();
-
         } else if (v == dairyFree) {
-
             dairyFreeFlag = true;
             glutenFreeFlag = false;
             vegetarianFlag = false;
             veganFlag = false;
-            Toast.makeText(this, getString(R.string.filteredBy)+" "+getString(R.string.dairy_free_filter), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.filteredBy) + " " + getString(R.string.dairy_free_filter), Toast.LENGTH_SHORT).show();
             assign();
-
-
         } else if (v == clearFilter) {
             dairyFreeFlag = false;
             glutenFreeFlag = false;
@@ -211,7 +196,6 @@ public class DatabaseActivity extends AppCompatActivity implements View.OnClickL
             veganFlag = false;
             Toast.makeText(this, R.string.filterCleared, Toast.LENGTH_SHORT).show();
             assign();
-
         }
     }
 
