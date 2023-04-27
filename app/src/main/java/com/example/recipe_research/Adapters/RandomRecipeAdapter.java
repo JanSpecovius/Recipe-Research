@@ -56,7 +56,6 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
         } else {
             holder.textViewAllergy.setText(context.getString(R.string.vegetarian) + "   " + context.getString(R.string.cross));
         }
-
         if (list.get(position).glutenFree) {
             holder.textViewGluten.setText(context.getString(R.string.glutenFree) + "   " + context.getString(R.string.check));
         } else {

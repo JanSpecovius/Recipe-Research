@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Dao
 public interface RecipeDao {
-
     @Insert
     void insert(RecipeEntity recipeEntity);
 
@@ -59,5 +58,4 @@ public interface RecipeDao {
 
     @Query("DELETE FROM RecipeEntity")
     void deleteAll();
-
 }

@@ -105,7 +105,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         @Override
         public void didFetch(RecipeDetailsResponse response, String message) {
             loadingDialog.disMiss();
-
             title = response.title;
             sourceName = response.sourceName;
             summary = response.summary;
@@ -123,13 +122,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
                 flag = true;
             }
-
             amount = response.getExtendedIngredients().size();
             int counter = 0;
             ingrArray = new String[amount];
 
             while (amount > counter) {
-
                 ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
             }

@@ -47,17 +47,10 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_details);
-
-
         assign();
-
-
         setDataFromDatabase(id);
-
-
         assignRecipeDetail();
         assignNutritonDetail();
-
     }
 
     // Assigning views, listeners and database
@@ -74,7 +67,6 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         share = findViewById(R.id.imageView_db_share);
         bookmark = findViewById(R.id.imageView_db_bookmark);
 
-
         recipeDao = RecipeDatabase.getSingletonInstance(this).recipeDao();
 
         builder = new AlertDialog.Builder(this);
@@ -86,11 +78,9 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         textViewMealSource.setOnClickListener(this);
         share.setOnClickListener(this);
         bookmark.setOnClickListener(this);
-
-
     }
 
-    // Assigning recipe details
+    // Set data from database
     public void setDataFromDatabase(int id) {
         RecipeEntity recipeEntity = recipeDao.getRecipeById(id);
         title = recipeEntity.title;
@@ -107,7 +97,7 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
         ingredients = recipeEntity.ingredients;
     }
 
-    // On click listener for share and bookmark buttons and also for the source text view to open the recipe in browser
+    // On click listener for share and bookmark buttons and also for the source text_view to open the recipe in browser
     @Override
     public void onClick(View v) {
         if (v == share) {
@@ -115,18 +105,16 @@ public class DatabaseDetailsActivity extends AppCompatActivity implements View.O
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.meal_found_mail) + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
-
         } else if (v == bookmark) {
-
             builder.setTitle(R.string.builder_title);
             builder.setMessage(getString(R.string.bookmark_msg));
             builder.setCancelable(true);
             builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteFromDatabase());
             builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
             builder.show();
-        }else if (v == textViewMealSource) {
+        } else if (v == textViewMealSource) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url) );
+            intent.setData(Uri.parse(url));
             startActivity(intent);
         }
     }

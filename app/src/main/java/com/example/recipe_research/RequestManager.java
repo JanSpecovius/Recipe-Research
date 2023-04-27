@@ -101,7 +101,8 @@ public class RequestManager {
 
     //Interface for getting nutrition information from API
     public void getNutritionById(NutritionByIdListener listener, int id) {
-        Call<NutritionByIdResponse> call = retrofit.create(NutritionService.class).getNutritionById(id, context.getString(R.string.api_Key));
+        Call<NutritionByIdResponse> call = retrofit.create(NutritionService.class)
+                .getNutritionById(id, context.getString(R.string.api_Key));
         call.enqueue(new Callback<NutritionByIdResponse>() {
 
             //if response is successful, return the response body and message

@@ -118,8 +118,6 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:rippleColor="#C6FFFFFF"
         tools:ignore="VisualLintButtonSize" />
-
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -5,6 +5,4 @@
     android:padding="8dp"
     android:text="@string/spinnerPlaceHolder"
     android:textSize="18sp"
-    android:textColor="@color/dark_cream_brown">
-
-</CheckedTextView>
+    android:textColor="@color/dark_cream_brown"></CheckedTextView>
