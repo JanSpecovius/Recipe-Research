@@ -44,37 +44,31 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     public void onBindViewHolder(@NonNull RandomRecipeViewHolder holder, int position) {
         holder.textViewTitle.setText(list.get(position).title);
         holder.textViewTitle.setSelected(true);
-
-        holder.textViewServings.setText(list.get(position).servings +" " + context.getString(R.string.servings));
+        holder.textViewServings.setText(list.get(position).servings + " " + context.getString(R.string.servings));
         holder.textViewTime.setText(list.get(position).readyInMinutes + " " + context.getString(R.string.minutes));
 
         if (list.get(position).vegan || list.get(position).vegetarian) {
-
             if (list.get(position).vegan) {
-                holder.textViewAllergy.setText(context.getString(R.string.vegan) +"           "+ context.getString(R.string.check));
+                holder.textViewAllergy.setText(context.getString(R.string.vegan) + "           " + context.getString(R.string.check));
             } else if (list.get(position).vegetarian) {
-                holder.textViewAllergy.setText(context.getString(R.string.vegetarian) +"   "+ context.getString(R.string.check));
+                holder.textViewAllergy.setText(context.getString(R.string.vegetarian) + "   " + context.getString(R.string.check));
             }
-
-
-        }else {
-            holder.textViewAllergy.setText(context.getString(R.string.vegetarian) +"   "+ context.getString(R.string.cross));
-            }
-
-        if(list.get(position).glutenFree){
-            holder.textViewGluten.setText(context.getString(R.string.glutenFree) +"   "+ context.getString(R.string.check));
-        }else{
-            holder.textViewGluten.setText(context.getString(R.string.glutenFree) +"   "+ context.getString(R.string.cross));
-        }
-        if(list.get(position).dairyFree){
-            holder.textViewLactose.setText(context.getString(R.string.dairyFree) +"     "+ context.getString(R.string.check));
-        }else{
-            holder.textViewLactose.setText(context.getString(R.string.dairyFree) +"     "+ context.getString(R.string.cross));
+        } else {
+            holder.textViewAllergy.setText(context.getString(R.string.vegetarian) + "   " + context.getString(R.string.cross));
         }
 
+        if (list.get(position).glutenFree) {
+            holder.textViewGluten.setText(context.getString(R.string.glutenFree) + "   " + context.getString(R.string.check));
+        } else {
+            holder.textViewGluten.setText(context.getString(R.string.glutenFree) + "   " + context.getString(R.string.cross));
+        }
+        if (list.get(position).dairyFree) {
+            holder.textViewLactose.setText(context.getString(R.string.dairyFree) + "     " + context.getString(R.string.check));
+        } else {
+            holder.textViewLactose.setText(context.getString(R.string.dairyFree) + "     " + context.getString(R.string.cross));
+        }
 
         Picasso.get().load(list.get(position).image).into(holder.imageViewFood);
-
         holder.randomListContainer.setOnClickListener(view -> listener.onRecipeClicked(String.valueOf(list.get(holder.getAdapterPosition()).id)));
     }
 
@@ -85,7 +79,7 @@ public class RandomRecipeAdapter extends RecyclerView.Adapter<RandomRecipeViewHo
     }
 }
 
-    //recipe holder class
+//recipe holder class
 class RandomRecipeViewHolder extends RecyclerView.ViewHolder {
     CardView randomListContainer;
     TextView textViewTitle;

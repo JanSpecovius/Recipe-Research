@@ -30,17 +30,15 @@ public class RequestManager {
     private final Context context;
     private final Retrofit retrofit;
 
-
     //request manager constructor for retrofit and logging interceptor
     public RequestManager(Context context) {
         this.context = context;
-
 
         //Logging Interceptor
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
-
+        
         //written in constructor because of logging Interceptor
         this.retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com/")
@@ -53,6 +51,7 @@ public class RequestManager {
         CallRandomRecipes callRandomRecipes = retrofit.create(CallRandomRecipes.class);
         Call<RandomRecipeApiResponse> call = callRandomRecipes.callRandomRecipe(context.getString(R.string.api_Key), "10", tags);
         call.enqueue(new Callback<RandomRecipeApiResponse>() {
+
             //if response is successful, return the response body and message
             @Override
             public void onResponse(@NonNull Call<RandomRecipeApiResponse> call, @NonNull Response<RandomRecipeApiResponse> response) {

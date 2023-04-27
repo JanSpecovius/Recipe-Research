@@ -7,7 +7,6 @@
     android:background="@color/light_cream_brown"
     tools:context="com.example.recipe_research.MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,7 +16,6 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="40dp">
-
 
             <RelativeLayout
                 android:gravity="center_vertical"
@@ -43,7 +41,6 @@
                     android:entries="@array/tags"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
-
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
@@ -80,7 +77,6 @@
 
         </LinearLayout>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_random"
             android:layout_width="match_parent"
@@ -104,6 +100,4 @@
             android:backgroundTint="@color/dark_cream_brown"
             android:text="@string/database" />
     </LinearLayout>
-
-
 </LinearLayout>

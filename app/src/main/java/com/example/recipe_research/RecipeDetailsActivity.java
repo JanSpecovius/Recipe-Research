@@ -61,19 +61,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private boolean flag;
     private RecipeDao recipeDao;
 
-
-    // Creates a new ContentView for the activity_history activity and runs assign()
+    // Creates a new ContentView for the layout.activity_recipe_details and runs assign()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-
         assign();
-
     }
 
     /*  Assigns the variables to the corresponding views and values
-    /   Runs getRecipeDetails() and getNutritionById()
+        Runs manager.getRecipeDetails() and manager.getNutritionById()
     */
     private void assign() {
         int id;
@@ -101,7 +98,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
         loadingDialog = new LoadingDialog(this);
         loadingDialog.showLoading();
-
     }
 
     // fetches the recipe details from the API and assigns the values to the variables and views
@@ -118,8 +114,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             spoonacularId = response.id;
             readyInTime = response.readyInMinutes;
             servings = response.servings;
-
-
             glutenfree = response.glutenFree;
             vegetarian = response.vegetarian;
             vegan = response.vegan;
@@ -132,7 +126,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
 
             amount = response.getExtendedIngredients().size();
             int counter = 0;
-
             ingrArray = new String[amount];
 
             while (amount > counter) {
@@ -140,18 +133,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
                 ingrArray[counter] = String.valueOf(response.getExtendedIngredients().get(counter).original);
                 counter++;
             }
-
-
             assignRecipeDetail();
         }
 
         // If the API call fails, the user is notified and the activity is closed
         @Override
         public void didError(String message) {
-
-            Toast.makeText(RecipeDetailsActivity.this,"No connection to detail of recipe" , Toast.LENGTH_SHORT).show();
-            Log.w("Warning","Caused by no internet connection: "+message);
-
+            Toast.makeText(RecipeDetailsActivity.this, "No connection to detail of recipe", Toast.LENGTH_SHORT).show();
+            Log.w("Warning", "Caused by no internet connection: " + message);
 
             loadingDialog.disMiss();
             finish();
@@ -162,8 +151,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
     private final NutritionByIdListener nutritionByIdListener = new NutritionByIdListener() {
         @Override
         public void onNutritionByIdReceived(NutritionByIdResponse nutrition, String message) {
-
-
             //Get the nutrition values from the response object
             calories = nutrition.getCalories();
             carbs = nutrition.getCarbs();
@@ -172,24 +159,22 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             badName = nutrition.getBad().get(4).title;
             badAmount = nutrition.getBad().get(4).amount;
 
-
             assignNutritionDetail();
-
         }
 
         // If the API call fails, the user is notified and the activity is closed
         @Override
         public void onNutritionByIdError(String message) {
-            Log.w("Warning","Caused by no internet connection: "+message);
+            Log.w("Warning", "Caused by no internet connection: " + message);
         }
     };
 
-    /*click listener for the share and bookmark buttons which puts the recipe in the database
-    if it is not already there and shares the recipe if the share button is clicked also opens
-    the Source in browser
+    /*  Click listener for the share and bookmark buttons which puts the recipe in the database
+        if it is not already there
+        Shares the recipe if the share button is clicked
+        Opens the Source in browser
     */
     @Override
-
     public void onClick(View v) {
         AlertDialog.Builder builder;
         if (v == share) {
@@ -197,35 +182,26 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.meal_found_mail) + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
-
         } else if (v == bookmark) {
-
-
             if (flag) {
-
-
                 builder = new AlertDialog.Builder(this);
-
                 builder.setTitle(getString(R.string.builder_title));
                 builder.setMessage(getString(R.string.bookmark_msg));
                 builder.setCancelable(true);
                 builder.setPositiveButton(getString(R.string.yesButton), (dialogInterface, i) -> deleteRow(spoonacularId));
                 builder.setNegativeButton(getString(R.string.noButton), (dialogInterface, i) -> dialogInterface.cancel());
                 builder.show();
-
             } else {
                 bookmark.setBackgroundResource(R.drawable.ic_baseline_bookmark);
-
                 insertRow();
                 flag = true;
             }
         } else if (v == textViewMealSource) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url) );
+            intent.setData(Uri.parse(url));
             startActivity(intent);
         }
     }
-
 
     public void assignRecipeDetail() {
         textViewMealName.setText(title);
@@ -236,7 +212,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         StringBuilder sb = new StringBuilder();
 
         int counter = 0;
-
         while (amount > counter) {
 
             sb.append(ingrArray[counter]).append("\n");
@@ -246,25 +221,19 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         ingredients = sb.toString();
         // Set the string builder text to the text view
         textViewMealIngredients.setText(ingredients);
-
     }
 
     public void assignNutritionDetail() {
-
-
         // Append the nutrition values to the string builder
         String sb = getString(R.string.calories) + " " + calories + "\n" +
                 getString(R.string.carbs) + " " + carbs + "\n" +
                 getString(R.string.fat) + " " + fat + "\n" +
                 getString(R.string.protein) + " " + protein + "\n" +
                 badName + ": " + badAmount;
-
-
         // Set the string builder text to the text view
         textViewMealNutrition.setText(sb);
 
     }
-
 
     public void insertRow() {
         RecipeEntity entity = new RecipeEntity();
@@ -286,10 +255,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         entity.badAmount = badAmount;
         entity.readyInMinutes = readyInTime;
         entity.servings = servings;
-
-
         entity.ingredients = ingredients;
-
         entity.date = new Date();
 
         recipeDao.insert(entity);
@@ -299,7 +265,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements View.OnC
         recipeDao.deleteByApiId(id);
         bookmark.setBackgroundResource(R.drawable.ic_bookmark_border);
         flag = false;
-
     }
 
     public boolean isInDatabase(int id) {

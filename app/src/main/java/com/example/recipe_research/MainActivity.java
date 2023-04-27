@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private ImageView refresh;
     private SearchView searchView;
 
-
-    //  Creates a new ContentView for the activity_history activity and changes the ContentView based on the orientation of the device
+    //  Creates a new ContentView for the layout.activity_history and changes the ContentView based on the orientation of the device
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return false;
             }
         });
-
         spinner = findViewById(R.id.spinner_tags);
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -159,7 +157,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     };
 
     // recipeClickListener which starts the RecipeDetailsActivity and passes the id of the recipe to the activity
-    private final RecipeClickListener recipeClickListener = id -> startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
+    private final RecipeClickListener recipeClickListener = id
+            -> startActivity(new Intent(MainActivity.this, RecipeDetailsActivity.class)
             .putExtra(getString(R.string.id), id));
 
     // onClickListener which starts the runRequest method if a menu item is clicked and sets the corresponding variables to true or false
@@ -221,7 +220,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public void runRequest() {
         tags.clear();
         loadingDialog.showLoading();
-
         String temp = "";
 
         if (vegetarian) {
@@ -263,7 +261,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         }
         tags.add(temp);
-
         Thread thread = new Thread(() -> manager.getRandomRecipes(randomRecipeResponseListener, tags));
         thread.start();
     }
@@ -284,4 +281,3 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         query = "";
     }
 }
-

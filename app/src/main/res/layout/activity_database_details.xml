@@ -8,7 +8,6 @@
     android:background="@color/light_cream_brown"
     tools:context=".RecipeDetailsActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         app:title="@string/recipe_details"
         app:titleTextColor="@color/dark_cream_brown"
@@ -36,10 +35,7 @@
             android:contentDescription="@string/bookmark"
             android:src="@drawable/ic_bookmark_border"
             tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
-
-
     </androidx.appcompat.widget.Toolbar>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -164,9 +160,7 @@
                 android:padding="8dp"
                 android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
